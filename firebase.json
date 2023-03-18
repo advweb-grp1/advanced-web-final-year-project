@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "./cardiomyopathy/dist",
+    "public": "/dist",
     "ignore": [
       "firebase.json",
       "**/.*",
