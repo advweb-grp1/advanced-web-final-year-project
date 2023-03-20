@@ -1,6 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+
+const sharedEnvVar = import.meta.env.VITE_TEST_VAR;
+console.log(sharedEnvVar);
 </script>
 
 <template>
