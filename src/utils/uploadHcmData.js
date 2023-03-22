@@ -61,7 +61,9 @@ const uploadDataToFirestore = async (data) => {
       await uploadDataToFirestore(data);
     } else {
       console.error('hcm_data.csv not found');
-      process.exit(1);
     }
+  }else{
+    console.log('hcm data has been uploaded');
   }
+  process.exit(1);
 })();
