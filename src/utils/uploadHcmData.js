@@ -37,7 +37,10 @@ const parseCsv = async () => {
 
 const uploadDataToFirestore = async (data) => {
   const batch = [];
-  data.forEach((item) => batch.push(addDoc(collection(firebaseStore(), 'hcm'), item)));
+  data.forEach((item) => {
+    const newItem = { ...item, created_by_user_id: '' };
+    batch.push(addDoc(collection(firebaseStore(), 'hcm'), newItem));
+  });
 
   try {
     await Promise.all(batch);
