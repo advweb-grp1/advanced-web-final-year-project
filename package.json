@@ -10,11 +10,15 @@
     "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "uploadHcmData": "node --trace-warnings ./src/utils/uploadHcmData.js"
   },
   "dependencies": {
+    "@firebase/firestore": "^3.9.0",
     "bootstrap": "^5.2.3",
     "ci": "^2.2.0",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^16.0.3",
     "firebase": "^9.18.0",
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
