@@ -1,11 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import BootstrapView from '../views/BootstrapView.vue'
-import ResetView from '../views/ResetView.vue'
-import LoginView from '../views/LoginView.vue'
-import DashboardView from '../views/DashboardView.vue'
-import QueryView from '../views/QueryView.vue'
-import RegisterView from '../views/RegisterView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import BootstrapView from '../views/BootstrapView.vue';
+import ResetView from '../views/ResetView.vue';
+import LoginView from '../views/LoginView.vue';
+import DashboardView from '../views/DashboardView.vue';
+import QueryView from '../views/QueryView.vue';
+import RegisterView from '../views/RegisterView.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -30,29 +30,29 @@ const router = createRouter({
     {
       path: '/reset',
       name: 'reset',
-      component: ResetView,
+      component: ResetView
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView,
+      component: LoginView
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: DashboardView,
+      component: DashboardView
     },
     {
       path: '/query',
       name: 'query',
-      component: QueryView,
+      component: QueryView
     },
     {
       path: '/register',
       name: 'register',
-      component: RegisterView,
+      component: RegisterView
     }
   ]
-})
+});
 
-export default router
+export default router;
