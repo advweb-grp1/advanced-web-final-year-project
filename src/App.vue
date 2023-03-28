@@ -21,7 +21,7 @@
 
 <style>
 nav {
-  background-color: #f6940b;
+  background-color: #bcbab8;
   color: white;
   padding: 10px;
 }
