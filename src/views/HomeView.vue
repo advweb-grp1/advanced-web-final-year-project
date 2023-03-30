@@ -1,14 +1,16 @@
 <!-- <script setup>
-  import TheWelcome from '../components/TheWelcome.vue';
-</script>-->
+  import Navbar from './components/HelloWorld.vue'
+</script> -->
 
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <div class="container">
     <div class="topnav">
-      <RouterLink to="/home"><i class="fa fa-fw fa-home"></i>Home</RouterLink>
+      <!-- <RouterLink to="/home"><i class="fa fa-fw fa-home"/>Home</RouterLink> -->
+      <RouterLink to="/home">Home</RouterLink>
       <RouterLink to="/about">About</RouterLink>
-      <RouterLink to="/login"><i class="fa fa-fw fa-user"></i>Login</RouterLink>
+      <!-- <RouterLink to="/login"><i class="fa fa-fw fa-user"/>Login</RouterLink> -->
+      <RouterLink to="/login">Login</RouterLink>
       <RouterLink to="/register">Register</RouterLink>
     </div>
     <header>
@@ -46,6 +48,7 @@
       </ul>
     </section>
   </div>
+
 </template>
 
 <style>
@@ -53,6 +56,8 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  top: -3%;
+  left: 50%;
 }
 
 h1, h2 {
