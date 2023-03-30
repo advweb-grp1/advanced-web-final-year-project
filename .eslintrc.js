@@ -1,5 +1,6 @@
 module.exports = {
   root: true,
+  ignorePatterns: ['src/components/icons/*'],
   env: {
     node: true
   },
