@@ -19,21 +19,6 @@
       <div id="navbarNav" class="collapse navbar-collapse">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link class="nav-link" to="/">
-              Home
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/bootstrap">
-              Bootstrap
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/reset">
-              Reset
-            </router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link" to="/login">
               Login
             </router-link>
