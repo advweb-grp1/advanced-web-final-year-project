@@ -1,7 +1,8 @@
-import { fileURLToPath } from 'node:url'
-import { mergeConfig } from 'vite'
-import { configDefaults, defineConfig } from 'vitest/config'
-import viteConfig from './cardiomyopathy/vite.config'
+import { fileURLToPath } from 'node:url';
+import { mergeConfig,defineConfig } from 'vite';
+import viteConfig from './vite.config';
+// eslint-disable-next-line import/no-unresolved
+import { configDefaults } from 'vitest/config';
 
 export default mergeConfig(
   viteConfig,
@@ -12,4 +13,4 @@ export default mergeConfig(
       root: fileURLToPath(new URL('./', import.meta.url))
     }
   })
-)
+);

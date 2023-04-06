@@ -7,6 +7,10 @@ module.exports = {
     extraFileExtensions: ['.vue'],
     ecmaVersion: 2020
   },
+  plugins: [
+    'vue',
+    'cypress'
+  ],
   rules: {
     'comma-dangle': [
       'error',
@@ -59,7 +63,12 @@ module.exports = {
   ],
   overrides: [
     {
-      files: ['*.vue'],
+      files: ['*.vue',
+        'cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}'
+      ],
+      'extends': [
+        'plugin:cypress/recommended'
+      ],
       rules: {
         indent: 'off'
       }
