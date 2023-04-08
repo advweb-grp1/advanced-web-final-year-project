@@ -140,3 +140,20 @@ export default function useAddData() {
   return { data, addData };
 }
 */
+import { sendPasswordResetEmail } from "firebase/auth";
+import { firebaseAuth } from "../firebase/database";
+
+export const sendResetLink = (email) => {
+  const auth = firebaseAuth;
+  return sendPasswordResetEmail(auth, email.value)
+    .then(() => {
+      console.log("Password reset email sent!");
+      return true;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error(errorCode, errorMessage);
+      return false;
+  });
+}
