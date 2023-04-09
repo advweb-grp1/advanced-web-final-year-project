@@ -51,5 +51,53 @@
 </template>
 
 <script setup>
+  import { ref } from 'vue';
+  import { signInWithEmailAndPassword,firebaseAuth } from '../firebase/database.js';
+  import { useRouter } from 'vue-router';
 
+  const title = 'Login';
+  const emailLabel = 'Email address';
+  const passwordLabel = 'Password';
+  const loginButton = 'Login';
+  const email = ref('');
+  const password = ref('');
+  const errorMessage = ref('');
+  const flashMessage = ref('');
+  const maxAttempts = 5;
+  let attempts = 0;
+  let disabled = false;
+  const router = useRouter();
+
+  async function login() {
+    if (disabled) {
+      errorMessage.value = 'Login disabled for 5 minutes after unsuccessful attempts.';
+      return;
+    }
+
+    signInWithEmailAndPassword( firebaseAuth, email.value, password.value)
+      .then(
+        () => {
+          router.push('/');
+        },
+        (error) => {
+          errorMessage.value = error.message;
+          attempts++;
+          checkAttempts();
+        }
+      );
+
+
+  }
+
+  function checkAttempts() {
+    if (attempts >= maxAttempts) {
+      disabled = true;
+      errorMessage.value = '';
+      flashMessage.value = 'Login disabled for 5 minutes after unsuccessful attempts.';
+      setTimeout(() => {
+        disabled = false;
+        flashMessage.value = '';
+      }, 300000); // 5 minutes in milliseconds
+    }
+  }
 </script>
