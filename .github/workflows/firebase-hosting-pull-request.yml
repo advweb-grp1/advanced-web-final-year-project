@@ -10,6 +10,13 @@ on:
       - 'core*'
       - 'feature*'
       - 'main'
+env:
+  VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+  VITE_AUTH_DOMAIN: ${{ secrets.VITE_AUTH_DOMAIN }}
+  VITE_PROJECT_ID: ${{ secrets.VITE_PROJECT_ID }}
+  VITE_STORAGE_BUCKET: ${{ secrets.VITE_STORAGE_BUCKET }}
+  VITE_MESSAGE_SENDER_ID: ${{ secrets.VITE_MESSAGE_SENDER_ID }}
+  VITE_APP_ID: ${{ secrets.VITE_APP_ID }}
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -17,16 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run build, tests, and lint
-        env:
-          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
-          VITE_AUTH_DOMAIN: ${{ secrets.VITE_AUTH_DOMAIN }}
-          VITE_PROJECT_ID: ${{ secrets.VITE_PROJECT_ID }}
-          VITE_STORAGE_BUCKET: ${{ secrets.VITE_STORAGE_BUCKET }}
-          VITE_MESSAGE_SENDER_ID: ${{ secrets.VITE_MESSAGE_SENDER_ID }}
-          VITE_APP_ID: ${{ secrets.VITE_APP_ID }}
         run: npm ci && npm run build && npm run test:unit && npm run test:e2e && npm run lint
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ADV_WEB_GRP1 }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ADV_WEB_GRP1_3FA8F }}'
           projectId: adv-web-grp1
