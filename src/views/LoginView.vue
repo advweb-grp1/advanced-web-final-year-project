@@ -53,8 +53,7 @@
 <script setup>
 
   import { ref } from 'vue';
-  //import { firebaseAuth } from '../firebase/database.js';
-  import { getAuth,signInWithEmailAndPassword } from 'firebase/auth';
+  import { firebaseAuth, signInWithEmailAndPassword } from '@/firebase/database.js';
   import { useRouter } from 'vue-router';
 
   const title = 'Login';
@@ -69,7 +68,6 @@
   let attempts = 0;
   let disabled = false;
   const router = useRouter();
-  const auth = getAuth();
 
   async function login() {
     if (disabled) {
@@ -77,7 +75,7 @@
       return;
     }
 
-    signInWithEmailAndPassword( auth, email.value, password.value)
+    signInWithEmailAndPassword( firebaseAuth, email.value, password.value)
       .then(
         () => {
           router.push('/');
