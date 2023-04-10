@@ -16,7 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm ci && npm run build && npm run test:unit && npm run test:e2e && npm run lint
+      - name: Run build, tests, and lint
+        env:
+          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+          VITE_AUTH_DOMAIN: ${{ secrets.VITE_AUTH_DOMAIN }}
+          VITE_PROJECT_ID: ${{ secrets.VITE_PROJECT_ID }}
+          VITE_STORAGE_BUCKET: ${{ secrets.VITE_STORAGE_BUCKET }}
+          VITE_MESSAGE_SENDER_ID: ${{ secrets.VITE_MESSAGE_SENDER_ID }}
+          VITE_APP_ID: ${{ secrets.VITE_APP_ID }}
+        run: npm ci && npm run build && npm run test:unit && npm run test:e2e && npm run lint
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
