@@ -51,6 +51,7 @@
 </template>
 
 <script setup>
+/*
   import { ref } from 'vue';
   import { signInWithEmailAndPassword,firebaseAuth } from '../firebase/database.js';
   import { useRouter } from 'vue-router';
@@ -99,5 +100,5 @@
         flashMessage.value = '';
       }, 300000); // 5 minutes in milliseconds
     }
-  }
+  }*/
 </script>
