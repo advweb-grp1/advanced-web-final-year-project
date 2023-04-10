@@ -31,11 +31,6 @@
         placeholder="Password"
         aria-describedby="passwordMessage"
       >
-      <small
-        id="passwordMessage"
-        class="form-text text-muted"
-      >Password must contain 6 or more characters</small>
-      <br>
     </div>
 
     <div class="form-group">
@@ -97,13 +92,18 @@
         Register
       </button>
     </div>
+    <div v-if="regError" class="alert alert-danger" role="alert">
+      {{ regError }}
+    </div>
   </form>
 </template>
 
 <script setup>
-  import { firebaseAuth, createUserWithEmailAndPassword } from '../firebase/database';
+  import { firebaseAuth, createUserWithEmailAndPassword, firebaseStore, collection,
+           addDoc } from '../firebase/database';
   import { useRouter } from 'vue-router';
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
+
 
   const name = ref('');
   const address = ref('');
@@ -112,11 +112,19 @@
   const email = ref('');
   const password = ref('');
   const router = useRouter();
+  const regError = ref('');
+
+  watch(phoneNumber, () =>{
+    if(/^[+][0-9]/.test(phoneNumber.value) ){
+      regError.value = null;
+    }else{
+      regError.value = 'Phone number is invalid';
+    }
+  });
 
 
 
-
-  function registerUser(){
+  async function registerUser(){
     const newUser ={
       email: email.value,
       password: password.value,
@@ -125,14 +133,20 @@
       phoneNumber: phoneNumber.value,
       affiliation: affiliation.value
     };
-    createUserWithEmailAndPassword(firebaseAuth, newUser.email, newUser.password)
-      .then(() => {
-        router.replace('/login');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if(!regError.value){
+      let addUser = collection(firebaseStore,'users');
+      createUserWithEmailAndPassword(firebaseAuth, newUser.email, newUser.password)
+        .then(() => {
+          addDoc(addUser,newUser);
+        })
+        .catch((error) => {
+          console.log(error);
+          regError.value = error;
+        });
+      router.push('/login');
+    }
   }
+
 
 
 </script>
