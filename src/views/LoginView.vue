@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-
+/*
   import { ref } from 'vue';
   import { firebaseAuth } from '../firebase/database.js';
   import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -102,4 +102,5 @@
       }, 300000); // 5 minutes in milliseconds
     }
   }
+  */
 </script>
