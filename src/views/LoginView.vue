@@ -51,10 +51,10 @@
 </template>
 
 <script setup>
-/*
+
   import { ref } from 'vue';
-  import { firebaseAuth } from '../firebase/database.js';
-  import { signInWithEmailAndPassword } from 'firebase/auth';
+  //import { firebaseAuth } from '../firebase/database.js';
+  import { getAuth,signInWithEmailAndPassword } from 'firebase/auth';
   import { useRouter } from 'vue-router';
 
   const title = 'Login';
@@ -69,6 +69,7 @@
   let attempts = 0;
   let disabled = false;
   const router = useRouter();
+  const auth = getAuth();
 
   async function login() {
     if (disabled) {
@@ -76,7 +77,7 @@
       return;
     }
 
-    signInWithEmailAndPassword( firebaseAuth, email.value, password.value)
+    signInWithEmailAndPassword( auth, email.value, password.value)
       .then(
         () => {
           router.push('/');
@@ -102,5 +103,5 @@
       }, 300000); // 5 minutes in milliseconds
     }
   }
-  */
+
 </script>
