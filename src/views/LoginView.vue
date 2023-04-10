@@ -53,7 +53,8 @@
 <script setup>
 
   import { ref } from 'vue';
-  import { firebaseSignIn,firebaseAuth } from '../firebase/database.js';
+  import { firebaseAuth } from '../firebase/database.js';
+  import { signInWithEmailAndPassword } from 'firebase/auth';
   import { useRouter } from 'vue-router';
 
   const title = 'Login';
@@ -75,7 +76,7 @@
       return;
     }
 
-    firebaseSignIn( firebaseAuth, email.value, password.value)
+    signInWithEmailAndPassword( firebaseAuth, email.value, password.value)
       .then(
         () => {
           router.push('/');
