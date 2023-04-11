@@ -167,7 +167,7 @@
       affiliation: affiliation.value
     };
     if(!regError.value){
-      let addUser = collection(firebaseStore,'users');
+      let addUser = collection(firebaseStore,'user');
       createUserWithEmailAndPassword(firebaseAuth, newUser.email, newUser.password)
         .then(() => {
           console.log('User created in Firebase Authentication');
