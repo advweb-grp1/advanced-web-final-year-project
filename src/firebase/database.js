@@ -3,12 +3,12 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import{ getFirestore,serverTimestamp, addDoc, collection } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCfaBygdHM184yGknVSDvbtoellDDt6M3w',
-  authDomain: 'cardiomyopathy-bbdd6.firebaseapp.com',
-  projectId: 'cardiomyopathy-bbdd6',
-  storageBucket: 'cardiomyopathy-bbdd6.appspot.com',
-  messagingSenderId: '695977639201',
-  appId: '1:695977639201:web:99f143fa5b863ed61f9260'
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGE_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
