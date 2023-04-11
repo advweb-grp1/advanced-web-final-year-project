@@ -37,7 +37,7 @@
                 {{ loginButton }}
               </button>
             </form>
-            <div v-if="errorMessage" class="mt-3">
+            <div v-if="errorMessage" class="alert alert-danger mt-3">
               {{ errorMessage }}
             </div>
             <div v-if="flashMessage" class="alert alert-warning mt-3">
@@ -67,6 +67,7 @@
   const errorMessage = ref('');
   const flashMessage = ref('');
   const maxAttempts = 5;
+  const timeoutMiliseconds = 180000;
   let attempts = 0;
   let disabled = false;
   const router = useRouter();
@@ -96,11 +97,12 @@
     if (attempts >= maxAttempts) {
       disabled = true;
       errorMessage.value = '';
-      flashMessage.value = 'Login disabled for 5 minutes after unsuccessful attempts.';
+      flashMessage.value = 'Login disabled for 3 minutes after unsuccessful attempts.';
       setTimeout(() => {
         disabled = false;
         flashMessage.value = '';
-      }, 300000); // 5 minutes in milliseconds
+        attempts = 0;
+      }, timeoutMiliseconds); // 3 minutes in milliseconds
     }
   }
 
