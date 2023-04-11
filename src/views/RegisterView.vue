@@ -1,12 +1,13 @@
 <template>
   <h1>Register</h1>
   <br>
-  <form>
+  <form @submit.prevent="registerUser">
     <div class="form-group">
       <label>Email Address:</label>
       <input
         v-model="email"
         type="email"
+        name="email"
         class="form-control"
         aria-describedby="emailMessage"
         required
@@ -16,6 +17,9 @@
         id="emailMessage"
         class="form-text text-muted"
       >Enter a valid email which has not already been registered</small>
+      <div class="invalid-feedback">
+        Please fill out this field.
+      </div>
       <br>
     </div>
 
@@ -25,12 +29,16 @@
       <input
         v-model="password"
         type="password"
+        name="password"
         class="form-control"
         show-password
         required
         placeholder="Password"
         aria-describedby="passwordMessage"
       >
+      <div class="invalid-feedback">
+        Please fill out this field.
+      </div>
     </div>
 
     <div class="form-group">
@@ -39,10 +47,14 @@
       <input
         v-model="name"
         type="text"
+        name="name"
         class="form-control"
         required
         placeholder="Name"
       >
+      <div class="invalid-feedback">
+        Please fill out this field.
+      </div>
     </div>
     <br>
 
@@ -51,10 +63,14 @@
       <input
         v-model="address"
         type="text"
+        name="address"
         class="form-control"
         required
         placeholder="Address"
       >
+      <div class="invalid-feedback">
+        Please fill out this field.
+      </div>
       <br>
     </div>
 
@@ -63,10 +79,14 @@
       <input
         v-model="phoneNumber"
         type="text"
+        name="phoneNumber"
         class="form-control"
         required
         placeholder="Phone Number"
       >
+      <div class="invalid-feedback">
+        Please fill out this field.
+      </div>
       <br>
     </div>
 
@@ -75,16 +95,21 @@
       <input
         v-model="affiliation"
         type="text"
+        name="affiliation"
         class="form-control"
         required
         placeholder="Institutional Affiliation"
       >
+      <div class="invalid-feedback">
+        Please fill out this field.
+      </div>
     </div>
 
     <div class="form-group">
       <br>
       <button
         type="success"
+        name="submit"
         class="btn btn-primary"
         style="margin: auto"
         @click="registerUser"
@@ -92,7 +117,12 @@
         Register
       </button>
     </div>
-    <div v-if="regError" class="alert alert-danger" role="alert">
+    <div
+      v-if="regError"
+      class="alert alert-danger"
+      role="alert"
+      name="regError"
+    >
       {{ regError }}
     </div>
   </form>
@@ -113,7 +143,12 @@
   const password = ref('');
   const router = useRouter();
   const regError = ref('');
-
+  defineProps({
+    type: {
+      type: String,
+      default: null
+    }
+  });
   watch(phoneNumber, () =>{
     if(/^[+][0-9]/.test(phoneNumber.value) ){
       regError.value = null;
@@ -122,9 +157,7 @@
     }
   });
 
-
-
-  async function registerUser(){
+  function registerUser(){
     const newUser ={
       email: email.value,
       password: password.value,
@@ -137,15 +170,22 @@
       let addUser = collection(firebaseStore,'users');
       createUserWithEmailAndPassword(firebaseAuth, newUser.email, newUser.password)
         .then(() => {
-          addDoc(addUser,newUser);
+          console.log('User created in Firebase Authentication');
+          return addDoc(addUser,newUser);
+        })
+        .then(() =>{
+          console.log('User data added to Firestore');
+          router.push('/login');
         })
         .catch((error) => {
           console.log(error);
           regError.value = error;
         });
-      router.push('/login');
+
+
     }
   }
+
 
 
 
