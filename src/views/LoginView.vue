@@ -83,8 +83,8 @@
         () => {
           router.push('/');
         },
-        (error) => {
-          errorMessage.value = error.message;
+        () => {
+          errorMessage.value = 'Invalid login credentials';
           attempts++;
           checkAttempts();
         }
