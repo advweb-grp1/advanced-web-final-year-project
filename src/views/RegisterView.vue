@@ -25,32 +25,30 @@
 
     <div class="form-group">
       <br>
-      <label>Password:</label>
+      <label>First Name:</label>
       <input
-        v-model="password"
-        type="password"
-        name="password"
+        v-model="firstName"
+        type="text"
+        name="firstName"
         class="form-control"
-        show-password
         required
-        placeholder="Password"
-        aria-describedby="passwordMessage"
+        placeholder="First Name"
       >
       <div class="invalid-feedback">
         Please fill out this field.
       </div>
     </div>
+    <br>
 
     <div class="form-group">
-      <br>
-      <label>Full Name:</label>
+      <label>Surname:</label>
       <input
-        v-model="name"
+        v-model="surname"
         type="text"
-        name="name"
+        name="surname"
         class="form-control"
         required
-        placeholder="Name"
+        placeholder="Surname"
       >
       <div class="invalid-feedback">
         Please fill out this field.
@@ -106,6 +104,42 @@
     </div>
 
     <div class="form-group">
+      <label>Password:</label>
+      <input
+        v-model="password"
+        type="password"
+        name="password"
+        class="form-control"
+        show-password
+        required
+        placeholder="Password"
+        aria-describedby="passwordMessage"
+      >
+      <div class="invalid-feedback">
+        Please fill out this field.
+      </div>
+      <br>
+    </div>
+
+    <div class="form-group">
+      <label>Confirm Password:</label>
+      <input
+        v-model="confirmPassword"
+        type="password"
+        name="confirmPassword"
+        class="form-control"
+        show-password
+        required
+        placeholder="Confirm Password"
+        aria-describedby="passwordMessage"
+      >
+      <div class="invalid-feedback">
+        Please fill out this field.
+      </div>
+      <br>
+    </div>
+
+    <div class="form-group">
       <br>
       <button
         type="success"
@@ -135,12 +169,14 @@
   import { ref, watch } from 'vue';
 
 
-  const name = ref('');
+  const firstName = ref('');
+  const surname = ref('');
   const address = ref('');
   const phoneNumber = ref('');
   const affiliation = ref('');
   const email = ref('');
   const password = ref('');
+  const confirmPassword = ref('');
   const router = useRouter();
   const regError = ref('');
   defineProps({
@@ -149,6 +185,7 @@
       default: null
     }
   });
+
   watch(phoneNumber, () =>{
     if(/^[+][0-9]/.test(phoneNumber.value) ){
       regError.value = null;
@@ -157,36 +194,46 @@
     }
   });
 
+  watch(confirmPassword, (newPassword) =>{
+    if(newPassword !== password.value){
+      regError.value = 'Passwords do not match';
+    }else{
+      regError.value = null;
+    }
+  });
+
   function registerUser(){
     const newUser ={
       email: email.value,
-      password: password.value,
-      name: name.value,
+      firstName: firstName.value,
+      surname: surname.value,
       address: address.value,
       phoneNumber: phoneNumber.value,
-      affiliation: affiliation.value
+      affiliation: affiliation.value,
+      password: password.value,
+      confirmPassword: confirmPassword.value
     };
     if(!regError.value){
-      let addUser = collection(firebaseStore,'user');
-      createUserWithEmailAndPassword(firebaseAuth, newUser.email, newUser.password)
-        .then(() => {
-          console.log('User created in Firebase Authentication');
-          return addDoc(addUser,newUser);
-        })
-        .then(() =>{
-          console.log('User data added to Firestore');
-          router.push('/login');
-        })
-        .catch((error) => {
-          console.log(error);
-          regError.value = error;
-        });
+      if(!firstName.value || !surname.value || !address.value || !phoneNumber.value
+        || !affiliation.value || !email.value || !password.value || !confirmPassword.value){
+        regError.value='Please fill all fields';
+      }else{
+        let addUser = collection(firebaseStore,'user');
+        createUserWithEmailAndPassword(firebaseAuth, newUser.email, newUser.password)
+          .then(() => {
+            console.log('User created in Firebase Authentication');
+            addDoc(addUser,newUser);
+          })
+          .then(() =>{
+            console.log('User data added to Firestore');
+            router.push('/login');
+          })
+          .catch((error) => {
+            console.log(error);
+            regError.value = error;
+          });
 
-
+      }
     }
   }
-
-
-
-
 </script>
