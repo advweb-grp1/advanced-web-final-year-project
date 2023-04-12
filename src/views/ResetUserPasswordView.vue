@@ -1,17 +1,28 @@
 <template>
-  <h2>Reset Your Password</h2>
-  <label for="email">Email Address/Username</label>
-  <input
-    id="email"
-    v-model="email"
-    type="email"
-    placeholder="Personal Email Address"
-  >
-  <br>
-  <button @click="sendEmail">
-    Send Email
-  </button>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 ">
+        <h2 class="text-center">
+          Reset Your Password
+        </h2>
+        <div class="form-group">
+          <label for="email">Email Address/Username</label>
+          <input
+            id="email"
+            v-model="email"
+            type="email"
+            class="form-control mb-3"
+            placeholder="Personal Email Address"
+          >
+        </div>
+        <button class="btn btn-primary btn-block" @click="sendEmail">
+          Send Email
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
+
 
 <script setup>
   import { ref } from 'vue';
