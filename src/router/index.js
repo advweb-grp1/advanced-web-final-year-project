@@ -5,11 +5,8 @@ import LoginView from '../views/LoginView.vue';
 import DashboardView from '../views/DashboardView.vue';
 import QueryView from '../views/QueryView.vue';
 import RegisterView from '../views/RegisterView.vue';
-<<<<<<< HEAD
-import ResetUserPasswordView from "../views/ResetUserPasswordView.vue";
-=======
+import ResetUserPasswordView from '../views/ResetUserPasswordView.vue';
 import { requireSignedOut,requireSignedIn } from './routeGuard';
->>>>>>> 464807a5c1ceefbd8abe461e1f3040c9728ceffd
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
