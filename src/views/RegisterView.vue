@@ -21,66 +21,50 @@
         Please fill out this field.
       </div>
       <br>
+      <br>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label>First Name:</label>
+        <input
+          v-model="firstName"
+          type="text"
+          name="firstName"
+          class="form-control"
+          required
+          placeholder="First Name"
+        >
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label>Surname:</label>
+        <input
+          v-model="surname"
+          type="text"
+          name="surname"
+          class="form-control"
+          required
+          placeholder="Surname"
+        >
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
       <br>
-      <label>First Name:</label>
+      <label>Address Line 1:</label>
       <input
-        v-model="firstName"
+        v-model="address1"
         type="text"
-        name="firstName"
+        name="address1"
         class="form-control"
         required
-        placeholder="First Name"
-      >
-      <div class="invalid-feedback">
-        Please fill out this field.
-      </div>
-    </div>
-    <br>
-
-    <div class="form-group">
-      <label>Surname:</label>
-      <input
-        v-model="surname"
-        type="text"
-        name="surname"
-        class="form-control"
-        required
-        placeholder="Surname"
-      >
-      <div class="invalid-feedback">
-        Please fill out this field.
-      </div>
-    </div>
-    <br>
-
-    <div class="form-group">
-      <label>Address:</label>
-      <input
-        v-model="address"
-        type="text"
-        name="address"
-        class="form-control"
-        required
-        placeholder="Address"
-      >
-      <div class="invalid-feedback">
-        Please fill out this field.
-      </div>
-      <br>
-    </div>
-
-    <div class="form-group">
-      <label>Phone Number:</label>
-      <input
-        v-model="phoneNumber"
-        type="text"
-        name="phoneNumber"
-        class="form-control"
-        required
-        placeholder="Phone Number"
+        placeholder="Address Line 1"
       >
       <div class="invalid-feedback">
         Please fill out this field.
@@ -89,21 +73,98 @@
     </div>
 
     <div class="form-group">
-      <label>Institutional Affiliation:</label>
+      <label>Address Line 2:</label>
       <input
-        v-model="affiliation"
+        v-model="address2"
         type="text"
-        name="affiliation"
+        name="address2"
         class="form-control"
-        required
-        placeholder="Institutional Affiliation"
+        placeholder="Address Line 2"
       >
       <div class="invalid-feedback">
         Please fill out this field.
       </div>
+      <br>
     </div>
 
     <div class="form-group">
+      <label>Address Line 3:</label>
+      <input
+        v-model="address3"
+        type="text"
+        name="address3"
+        class="form-control"
+        placeholder="Address Line 3"
+      >
+      <div class="invalid-feedback">
+        Please fill out this field.
+      </div>
+      <br>
+    </div>
+
+    <div class="form-group">
+      <label>City:</label>
+      <input
+        v-model="city"
+        type="text"
+        name="city"
+        class="form-control"
+        required
+        placeholder="City"
+      >
+      <div class="invalid-feedback">
+        Please fill out this field.
+      </div>
+      <br>
+    </div>
+
+    <div class="form-group">
+      <label>Post Code:</label>
+      <input
+        v-model="postCode"
+        type="text"
+        name="postCode"
+        class="form-control"
+        required
+        placeholder="Post Code"
+      >
+      <div class="invalid-feedback">
+        Please fill out this field.
+      </div>
+      <br>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label>Phone Number:</label>
+        <input
+          v-model="phoneNumber"
+          type="text"
+          name="phoneNumber"
+          class="form-control"
+          required
+          placeholder="Phone Number"
+        >
+      </div>
+
+      <div class="col-md-6">
+        <label>Institutional Affiliation:</label>
+        <input
+          v-model="affiliation"
+          type="text"
+          name="affiliation"
+          class="form-control"
+          required
+          placeholder="Institutional Affiliation"
+        >
+        <div class="invalid-feedback">
+          Please fill out this field.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <br>
       <label>Password:</label>
       <input
         v-model="password"
@@ -171,7 +232,11 @@
 
   const firstName = ref('');
   const surname = ref('');
-  const address = ref('');
+  const address1 = ref('');
+  const address2 = ref('');
+  const address3 = ref('');
+  const city = ref('');
+  const postCode = ref('');
   const phoneNumber = ref('');
   const affiliation = ref('');
   const email = ref('');
@@ -207,14 +272,18 @@
       email: email.value,
       firstName: firstName.value,
       surname: surname.value,
-      address: address.value,
+      addressline1: address1.value,
+      addressline2: address2.value,
+      addressline3: address3.value,
+      city: city.value,
+      postCode: postCode.value,
       phoneNumber: phoneNumber.value,
       affiliation: affiliation.value,
       password: password.value,
       confirmPassword: confirmPassword.value
     };
     if(!regError.value){
-      if(!firstName.value || !surname.value || !address.value || !phoneNumber.value
+      if(!firstName.value || !surname.value || !address1.value|| !city.value || !postCode.value ||!phoneNumber.value
         || !affiliation.value || !email.value || !password.value || !confirmPassword.value){
         regError.value='Please fill all fields';
       }else{
