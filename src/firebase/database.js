@@ -4,6 +4,7 @@ import { getAuth, createUserWithEmailAndPassword,sendPasswordResetEmail, onAuthS
 
 import{ getFirestore,serverTimestamp, addDoc, collection } from 'firebase/firestore';
 
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -14,7 +15,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const firebaseAuth = getAuth();
+const firebaseAuth = getAuth(app);
 const firebaseStore = getFirestore();
 
 export{ app,firebaseAuth,firebaseStore,serverTimestamp,sendPasswordResetEmail , onAuthStateChanged,signOut,
