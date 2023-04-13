@@ -16,6 +16,7 @@
   "dependencies": {
     "@firebase/firestore": "^3.9.0",
     "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.4",
     "ci": "^2.2.0",
     "csvtojson": "^2.0.10",
     "dotenv": "^16.0.3",
