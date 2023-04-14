@@ -4,101 +4,60 @@
       Cardiomyopathy Dashboard
     </h1>
     <div class="row mt-4 mb-3">
-      <div class="col-md-3 mb-3">
-        <div class="card computed-integer-card">
-          <div class="card-body">
-            <h4 class="computed-integer-label">
-              Computed Integer 1
-            </h4>
-            <p class="computed-integer-value">
-              ###
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card computed-integer-card">
-          <div class="card-body">
-            <h4 class="computed-integer-label">
-              Computed Integer 2
-            </h4>
-            <p class="computed-integer-value">
-              ###
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card computed-integer-card">
-          <div class="card-body">
-            <h4 class="computed-integer-label">
-              Computed Integer 3
-            </h4>
-            <p class="computed-integer-value">
-              ###
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card computed-integer-card">
-          <div class="card-body">
-            <h4 class="computed-integer-label">
-              Computed Integer 4
-            </h4>
-            <p class="computed-integer-value">
-              ###
-            </p>
-          </div>
-        </div>
-      </div>
+      <computed-integer-card
+        v-for="(comp, index) in computedIntegers"
+        :key="index"
+        :label="comp.label"
+        :value="comp.value"
+      />
     </div>
     <div class="row">
-      <div class="col-md-6 mb-3">
-        <div class="card">
-          <div class="card-header">
-            Chart 1
-          </div>
-          <div class="card-body">
-            <div id="chart1-placeholder" class="chart-container" />
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            Chart 2
-          </div>
-          <div class="card-body">
-            <div id="chart2-placeholder" class="chart-container" />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-md-6 mb-3">
-        <div class="card">
-          <div class="card-header">
-            Chart 3
-          </div>
-          <div class="card-body">
-            <div id="chart3-placeholder" class="chart-container" />
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            Chart 4
-          </div>
-          <div class="card-body">
-            <div id="chart4-placeholder" class="chart-container" />
-          </div>
-        </div>
-      </div>
+      <chart-card
+        v-for="(chart, index) in chartsArray"
+        :key="index"
+        :title="chart.title"
+        :options="chart.options"
+        :type="chart.options.chart.type"
+        :data="chart.series"
+      />
     </div>
   </div>
 </template>
+
+<script setup>
+  import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
+  import ChartCard from '../components/ChartCard.vue';
+
+  const computedIntegers = [
+    { label:'Computed 1', value:10 },
+    { label:'Computed 2', value:10 },
+    { label:'Computed 3', value:10 },
+    { label:'Computed 4', value:10 }
+  ];
+  const chartsArray = [
+    {
+      title:'Chart 1',
+      options:{
+        chart: {
+          type: 'bar'
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 4,
+            horizontal: true
+          }
+        }
+
+      },
+      series:  [
+        {
+          data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+        }
+      ]
+    }
+  ];
+
+</script>
 
 <style scoped>
 .dashboard-container {
