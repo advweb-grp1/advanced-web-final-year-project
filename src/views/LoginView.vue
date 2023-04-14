@@ -24,7 +24,7 @@
                   id="password"
                   v-model="password"
                   type="password"
-                  class="form-control"
+                  class="form-control mb-3"
                   required
                 >
               </div>
@@ -36,6 +36,9 @@
               >
                 {{ loginButton }}
               </button>
+              <router-link to="/reset" class="btn btn-link">
+                Forgotten password?
+              </router-link>
             </form>
             <div v-if="errorMessage" class="alert alert-danger mt-3">
               {{ errorMessage }}
