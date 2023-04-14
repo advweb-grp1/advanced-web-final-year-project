@@ -20,10 +20,25 @@
 
 <script setup>
   const props = defineProps({
-    options:Object,
-    data:Object,
-    type:String,
-    title:String
+    options: {
+      type: Object,
+      required: true
+    },
+    data: {
+      type: Object,
+      required: true
+    },
+    type: {
+      type: String,
+      required: true,
+      validator: (value) => {
+        return ['bar', 'line', 'pie'].indexOf(value) !== -1;
+      }
+    },
+    title: {
+      type: String,
+      default: ''
+    }
   });
 
 

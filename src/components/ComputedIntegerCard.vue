@@ -15,8 +15,14 @@
 
 <script setup>
   const props = defineProps({
-    label: String,
-    value: String
+    label: {
+      type: String,
+      required: true
+    },
+    value: {
+      type: String,
+      required: true
+    }
   });
 
 </script>
