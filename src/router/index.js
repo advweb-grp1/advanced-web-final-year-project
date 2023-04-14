@@ -55,7 +55,8 @@ const router = createRouter({
     {
       path: '/addData',
       name: 'addData',
-      component: AddView
+      component: AddView,
+      beforeEnter: requireSignedIn
     },
     {
       path: '/reset',
