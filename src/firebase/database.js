@@ -3,4 +3,7 @@ import app from './app';
 
 const firebaseStore = getFirestore(app);
 
-export { firebaseStore, serverTimestamp };
+export {
+  firebaseStore,
+  serverTimestamp
+};
