@@ -5,7 +5,9 @@ import LoginView from '../views/LoginView.vue';
 import DashboardView from '../views/DashboardView.vue';
 import QueryView from '../views/QueryView.vue';
 import RegisterView from '../views/RegisterView.vue';
+import ResetUserPasswordView from '../views/ResetUserPasswordView';
 import AddView from '../views/AddView.vue';
+import { requireSignedOut,requireSignedIn } from './routeGuard';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -30,17 +32,20 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: LoginView,
+      beforeEnter: requireSignedOut
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: DashboardView
+      component: DashboardView,
+      beforeEnter: requireSignedIn
     },
     {
       path: '/query',
       name: 'query',
-      component: QueryView
+      component: QueryView,
+      beforeEnter: requireSignedIn
     },
     {
       path: '/register',
@@ -51,6 +56,12 @@ const router = createRouter({
       path: '/addData',
       name: 'addData',
       component: AddView
+    },
+    {
+      path: '/reset',
+      name: 'reset',
+      component: ResetUserPasswordView,
+      beforeEnter:requireSignedOut
     }
   ]
 });
