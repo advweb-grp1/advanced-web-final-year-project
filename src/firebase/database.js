@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword,sendPasswordResetEmail, onAuthStateChanged,
-  signOut } from 'firebase/auth';
+  signOut, sendEmailVerification } from 'firebase/auth';
 
 import{ getFirestore,serverTimestamp, addDoc, collection } from 'firebase/firestore';
 
@@ -19,4 +19,4 @@ const firebaseAuth = getAuth(app);
 const firebaseStore = getFirestore();
 
 export{ app,firebaseAuth,firebaseStore,serverTimestamp,sendPasswordResetEmail , onAuthStateChanged,signOut,
-  collection, createUserWithEmailAndPassword, addDoc };
+  collection, createUserWithEmailAndPassword, addDoc, sendEmailVerification };

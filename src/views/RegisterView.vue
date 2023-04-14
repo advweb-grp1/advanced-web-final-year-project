@@ -225,7 +225,7 @@
 
 <script setup>
   import { firebaseAuth, createUserWithEmailAndPassword, firebaseStore, collection,
-           addDoc } from '../firebase/database';
+           addDoc, sendEmailVerification } from '../firebase/database';
   import { useRouter } from 'vue-router';
   import { ref, watch } from 'vue';
 
@@ -252,7 +252,7 @@
   });
 
   watch(phoneNumber, () =>{
-    if(/^[+][0-9]/.test(phoneNumber.value) ){
+    if(/(^\+?[0-9]{10,15})$/.test(phoneNumber.value) ){
       regError.value = null;
     }else{
       regError.value = 'Phone number is invalid';
@@ -267,7 +267,7 @@
     }
   });
 
-  function registerUser(){
+  async function registerUser(){
     const newUser ={
       email: email.value,
       firstName: firstName.value,
@@ -287,14 +287,16 @@
         || !affiliation.value || !email.value || !password.value || !confirmPassword.value){
         regError.value='Please fill all fields';
       }else{
-        let addUser = collection(firebaseStore,'user');
-        createUserWithEmailAndPassword(firebaseAuth, newUser.email, newUser.password)
+        //let addUser = collection(firebaseStore,'user');
+        await createUserWithEmailAndPassword(firebaseAuth, newUser.email, newUser.password)
+          .then(async (cred) => {
+            await sendEmailVerification(cred.user);
+            newUser.id = cred.user.uid;
+            let addUser = collection(firebaseStore,'user',newUser.id, 'user-details' );
+            await addDoc(addUser,newUser);
+          })
           .then(() => {
             console.log('User created in Firebase Authentication');
-            addDoc(addUser,newUser);
-          })
-          .then(() =>{
-            console.log('User data added to Firestore');
             router.push('/login');
           })
           .catch((error) => {

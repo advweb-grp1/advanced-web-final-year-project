@@ -11,7 +11,7 @@ describe('registerPage',() =>{
   it('Testing to see if phone number is accepted if it isnt in the correct format', async()=>{
     const wrapper = mount(registerPage);
     const phoneInput = wrapper.find('input[name="phoneNumber"]');
-    await phoneInput.setValue('07514088240');
+    await phoneInput.setValue('mynumberisthis');
     const errorReport = wrapper.find('div[name="regError"]');
     expect(errorReport.exists()).toBe(true);
   });
