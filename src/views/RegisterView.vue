@@ -227,7 +227,7 @@
   import { firebaseAuth, createUserWithEmailAndPassword, sendEmailVerification } from '../firebase/firebaseAuth';
   import { useRouter } from 'vue-router';
   import { ref, watch } from 'vue';
-  import { firebaseStore, collection, addDoc } from '@firebase/firestore';
+  import { firebaseStore, collection, addDoc } from '../firebase/database';
 
   const firstName = ref('');
   const surname = ref('');
