@@ -3,7 +3,9 @@ import {
   sendPasswordResetEmail,
   onAuthStateChanged,
   signOut,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  createUserWithEmailAndPassword
 } from 'firebase/auth';
 import app from './app';
 
@@ -14,5 +16,7 @@ export {
   sendPasswordResetEmail,
   onAuthStateChanged,
   signOut,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  createUserWithEmailAndPassword
 };
