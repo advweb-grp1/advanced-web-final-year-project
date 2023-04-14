@@ -1,4 +1,4 @@
-// src/components/ChartComponent.spec.js
+// src/components/ChartCard.spec.js
 import { describe, it, expect,beforeEach } from 'vitest';
 import ChartCard from '../ChartCard.vue';
 import VueApexCharts from 'vue3-apexcharts';
