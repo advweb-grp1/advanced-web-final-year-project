@@ -27,34 +27,58 @@
 <script setup>
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
-
+  import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
   const computedIntegers = [
-    { label:'Computed 1', value:10 },
-    { label:'Computed 2', value:10 },
-    { label:'Computed 3', value:10 },
-    { label:'Computed 4', value:10 }
+    { label:'Total number of participants', value:'10' },
+    { label:'Average age of participants', value:'10' },
+    { label:'Percentage of participants with diabetes', value:'10' },
+    { label:'Percentage of participants who have undergone myectomy', value:'10' }
   ];
-  const chartsArray = [
-    {
-      title:'Chart 1',
-      options:{
-        chart: {
-          type: 'bar'
-        },
-        plotOptions: {
-          bar: {
-            borderRadius: 4,
-            horizontal: true
-          }
-        }
+  const ageDistribution = ColumnChartBuilder('Age distribution',
+                                             [
+                                               22, 48, 13, 5, 2
+                                             ],
+                                             'Age(Years)',
+                                             [  '18-21',  '22-25',  '26-29',  '30-32',  '33-36',  '37-40',
+                                                '41-43',  '44-47','48-51',  '52-54',  '55-58',  '59-62',  '63-65'
+                                             ]
 
-      },
-      series:  [
-        {
-          data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
-        }
-      ]
-    }
+  );
+
+  const geneMutations = PieChartBuilder('Gene Mutation Spread',
+                                        [44, 55, 13, 43, 22, 33, 55, 88,100],
+                                        ['MYH7', 'MYBPC3', 'TNNT2', 'ACTC', 'TPM1','TNNCI','TNNI3','MYL2','TT']
+  );
+
+  const apicalHCMPrevelance = PieChartBuilder('Prevalence of apical HCM',
+                                              [20, 80],
+                                              ['ApicalHCM', 'no ApicalHCM']
+  );
+  const averageLEDV = LineChartBuilder('Left systolic volume chart',
+                                       [
+                                         22, 48, 13, 5, 2
+                                       ],
+                                       'left systolic volume (LSV)'
+
+  );
+  const hasFibrosis = PieChartBuilder('Percentage of participants with fibrosis/scarring(scar)',
+                                      [44, 55],
+                                      ['Has Scars', 'No Scars']
+  );
+  const averageREDV = LineChartBuilder('Right systolic volume chart',
+                                       [
+                                         22, 48, 13, 5, 2
+                                       ],
+                                       'right systolic volume (REDV)'
+
+  );
+  const chartsArray = [
+    ageDistribution,
+    geneMutations,
+    apicalHCMPrevelance,
+    hasFibrosis,
+    averageLEDV,
+    averageREDV
   ];
 
 </script>

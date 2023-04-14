@@ -7,9 +7,9 @@
       <div class="card-body">
         <div class="chart-container">
           <apexchart
-            :type="props.type"
-            height="350"
             :options="props.options"
+            :width="props.options.chart.width"
+            :height="props.options.chart.height"
             :series="props.data"
           />
         </div>
@@ -19,7 +19,6 @@
 </template>
 
 <script setup>
-
   const props = defineProps({
     options:Object,
     data:Object,
