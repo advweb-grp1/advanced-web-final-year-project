@@ -49,7 +49,7 @@
 <script setup>
   import { RouterLink,useRouter  } from 'vue-router';
   import { ref } from 'vue';
-  import { firebaseAuth, onAuthStateChanged,signOut } from '../firebase/database.js';
+  import { firebaseAuth, onAuthStateChanged,signOut } from '../firebase/firebaseAuth';
   const router = useRouter();
   const user = ref(null);
   onAuthStateChanged(firebaseAuth, (currentUser) => {
