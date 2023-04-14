@@ -37,7 +37,7 @@
               Register
             </router-link>
           </li>
-          <li class="nav-item">
+          <li v-if="user" class="nav-item">
             <router-link class="nav-link" to="/addData">
               Add data
             </router-link>
