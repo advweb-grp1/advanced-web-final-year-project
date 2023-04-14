@@ -35,7 +35,7 @@ describe('NavBar', () => {
     expect(wrapper.find('.navbar-brand').text()).toBe('Cardiomyopathy');
 
     const links = wrapper.findAllComponents(RouterLinkStub);
-    expect(links.length).toBe(4);
+    expect(links.length).toBe(3);
 
     expect(links[1].text()).toBe('Login');
     expect(links[1].props().to).toBe('/login');
