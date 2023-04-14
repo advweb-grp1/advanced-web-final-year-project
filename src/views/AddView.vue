@@ -1,118 +1,349 @@
 <template>
-  <h1>This is add data page.</h1>
+  <h2 class="text-center">
+    Add Patient Data
+  </h2>
+
   <div>
-    <form @submit.prevent="submitForm">
-      <div>
-        <label for="ledv">left ventricular end diastolic volume: </label>
-        <input type="number" id="ledv" v-model="ledv" placeholder="ledv">
-      </div>
-      <div>
-        <label for="redv">right ventricular end diastolic volume: </label>
-        <input type="number" id="redv" v-model="redv" placeholder="redv">
-      </div>
-      <div>
-        <label for="lesv">left ventricular end systolic volume: </label>
-        <input type="number" id="lesv" v-model="lesv" placeholder="lesv">
-      </div>
-      <div>
-        <label for="resv">right ventricular end systolic volume: </label>
-        <input type="number" id="resv" v-model="resv" placeholder="resv">
-      </div>
-      <div>
-        <label for="lvef">left ventricular ejection fraction: </label>
-        <input type="number" id="lvef" v-model="lvef" placeholder="lvef">
-      </div>
-      <div>
-        <label for="rvef">right ventricular ejection fraction: </label>
-        <input type="number" id="rvef" v-model="rvef" placeholder="rvef">
-      </div>
-      <div>
-        <label for="lvmass">left ventricular mass: </label>
-        <input type="number" id="lvmass" v-model="lvmass" placeholder="lvmass">
-      </div>
-      <div>
-        <label for="rvmass">right ventricular mass:</label>
-        <input type="number" id="rvmass" v-model="rvmass" placeholder="rvmass">
-      </div>
-      <div>
-        <label for="lsv">left systolic volume: </label>
-        <input type="number" id="lsv" v-model="lsv" placeholder="lsv">
-      </div>
-      <div>
-        <label for="rsv">right systolic volume: </label>
-        <input type="number" id="rsv" v-model="rsv" placeholder="rsv">
-      </div>
-      <div>
-        <label for="scar">scarring: </label>
-        <input type="number" id="scar" v-model="scar" placeholder="scar">
-      </div>
-      <div>
-        <label for="gender">gender:</label>
-        <input type="text" id="gender" v-model="gender" placeholder="gender">
-      </div>
-      <div>
-        <label for="mri">Age at MRi: </label>
-        <input type="number" id="mrir" v-model="mri" placeholder="mri">
-      </div>
-      <div>
-        <label for="hcm">Apical HCM: </label>
-        <input type="number" id="hcm" v-model="hcm" placeholder="hcm">
-      </div>
-      <div>
-        <label for="scd">Sudden cadiac death: </label>
-        <input type="number" id="scd" v-model="scd" placeholder="scd">
-      </div>
-      <div>
-        <label for="ht">Hypertension: </label>
-        <input type="text" id="ht" v-model="ht" placeholder="ht">
-      </div>
-      <div>
-        <label for="diabetes">Diabetes: </label>
-        <input type="text" id="diabetes" v-model="diabetes" placeholder="diabetes">
-      </div>
-      <div>
-        <label for="myectomy">Myectomy: </label>
-        <input type="number" id="myectomy" v-model="myectomy" placeholder="myectomy">
-      </div>
-      <div>
-        <label for="myh7">MYH7: </label>
-        <input type="number" id="myh7" v-model="myh7" placeholder="myh7">
-      </div>
-      <div>
-        <label for="mybpc3">MYBPC3: </label>
-        <input type="number" id="mybpc3" v-model="mybpc3" placeholder="mybpc3">
-      </div>
-      <div>
-        <label for="tnnt2">TNNT2: </label>
-        <input type="number" id="tnnt2" v-model="tnnt2" placeholder="tnnt2">
-      </div>
-      <div>
-        <label for="actc">ACTC: </label>
-        <input type="number" id="actc" v-model="actc" placeholder="actc">
-      </div>
-      <div>
-        <label for="tpm1">TPM1: </label>
-        <input type="number" id="tpm1" v-model="tpm1" placeholder="tpm1">
-      </div>
-      <div>
-        <label for="tnnci">TNNCI: </label>
-        <input type="number" id="tnnci" v-model="tnnci" placeholder="">
-      </div>
-      <div>
-        <label for="tnni3">TNNI3: </label>
-        <input type="number" id="tnni3" v-model="tnni3" placeholder="tnni3">
-      </div>
-      <div>
-        <label for="myl2">MYL2: </label>
-        <input type="number" id="myl2" v-model="myl2" placeholder="myl2">
-      </div>
-      <div>
-        <label for="tt">TT: </label>
-        <input type="number" id="tt" v-model="tt" placeholder="tt">
-      </div>
-      <div>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
+    <label for="formFileLg" class="form-label">Upload Patient Data File or Add Manually</label>
+    <input id="formFileLg" class="form-control form-control-lg" type="file">
   </div>
+  <br>
+
+  <form class="container form-group" @submit.prevent="submitForm">
+    <div class="row">
+      <div id="hr-data" class="col-sm-7 d-flex align-content-around flex-wrap">
+        <label for="ledv" class="form-label">Left Ventricular End Diastolic Volume:</label>
+        <input
+          id="ledv"
+          v-model="ledv"
+          required
+          type="number"
+          placeholder="ledv"
+          class="form-control"
+        >
+
+        <label for="redv">Right Ventricular End Diastolic Volume: </label>
+        <input
+          id="redv"
+          v-model="redv"
+          required
+          type="number"
+          placeholder="redv"
+          class="form-control"
+        >
+
+        <label for="lesv">Left Ventricular End Systolic Volume: </label>
+        <input
+          id="lesv"
+          v-model="lesv"
+          required
+          type="number"
+          placeholder="lesv"
+          class="form-control"
+        >
+
+        <label for="resv">Right Ventricular End Systolic Volume: </label>
+        <input
+          id="resv"
+          v-model="resv"
+          required
+          type="number"
+          placeholder="resv"
+          class="form-control"
+        >
+
+        <label for="lvef">Left Ventricular Ejection Fraction: </label>
+        <input
+          id="lvef"
+          v-model="lvef"
+          required
+          type="number"
+          placeholder="lvef"
+          class="form-control"
+        >
+
+        <label for="rvef">Right Ventricular Ejection Fraction: </label>
+        <input
+          id="rvef"
+          v-model="rvef"
+          required
+          type="number"
+          placeholder="rvef"
+          class="form-control"
+        >
+
+        <label for="lvmass">Left Ventricular Mass: </label>
+        <input
+          id="lvmass"
+          v-model="lvmass"
+          required
+          type="number"
+          placeholder="lvmass"
+          class="form-control"
+        >
+
+        <label for="rvmass">Right Ventricular Mass:</label>
+        <input
+          id="rvmass"
+          v-model="rvmass"
+          required
+          type="number"
+          placeholder="rvmass"
+          class="form-control"
+        >
+
+        <label for="lsv">Left Systolic Volume: </label>
+        <input
+          id="lsv"
+          v-model="lsv"
+          required
+          type="number"
+          placeholder="lsv"
+          class="form-control"
+        >
+
+        <label for="rsv">Right Systolic Volume: </label>
+        <input
+          id="rsv"
+          v-model="rsv"
+          required
+          type="number"
+          placeholder="rsv"
+          class="form-control"
+        >
+
+        <label for="gender">Gender:</label>
+        <select id="gender" class="form-select" name="gender">
+          <option selected value="male">
+            Male
+          </option>
+          <option value="female">
+            Female
+          </option>
+        </select>
+
+        <label for="mri" class="form-label">Age at MRI: </label>
+        <input
+          id="mrir"
+          v-model="mri"
+          required
+          type="number"
+          placeholder="age"
+          class="form-control mb-1"
+        >
+      </div>
+
+      <div id="gene-data" class="col-sm-5 d-flex align-content-around flex-wrap">
+        <!--Old Scarring
+          <label for="scar">scarring: </label>
+          <input
+          id="scar"
+          v-model="scar"
+          type="checkbox"
+          value="scar"
+          >
+        -->
+
+        <div class="row justify-content-center">
+          <h3 class="text-center">
+            <u>Gene Mutation</u>
+          </h3>
+
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="scar">Scarring:</label>
+            <div class="input-group-text">
+              <input
+                id="scar"
+                v-model="scar"
+                class="form-check-input col-sm-2 mt-0"
+                type="checkbox"
+                value="scar"
+                aria-label="Checkbox for following text input"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="hcm">Apical HCM:</label>
+            <div class="input-group-text">
+              <input
+                id="hcm"
+                v-model="hcm"
+                class="form-check-input col-sm-2 mt-0"
+                type="checkbox"
+                value="hcm"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="scd">Sudden Cardiac Arrest</label>
+            <div class="input-group-text">
+              <input
+                id="scd"
+                v-model="scd"
+                class="form-check-input col-sm-2 mt-0"
+                type="checkbox"
+                value="scd"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="ht">Hypertension:</label>
+            <div class="input-group-text">
+              <input
+                id="ht"
+                v-model="ht"
+                class="form-check-input col-sm-2 mt-0"
+                type="checkbox"
+                value="ht"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="diabetes">Diabetes:</label>
+            <div class="input-group-text">
+              <input
+                id="diabetes"
+                v-model="diabetes"
+                class="form-check-input col-sm-2 mt-0"
+                type="checkbox"
+                value="diabetes"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="myectomy">Myectomy:</label>
+            <div class="input-group-text">
+              <input
+                id="myectomy"
+                v-model="myectomy"
+                class="form-check-input col-sm-2 mt-0"
+                type="checkbox"
+                value="myectomy"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="myh7">MYH7:</label>
+            <div class="input-group-text">
+              <input
+                id="myh7"
+                v-model="myh7"
+                class="form-check-input mt-0 col-sm-2"
+                type="checkbox"
+                value="myh7"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="mybpc3">MYBPC3:</label>
+            <div class="input-group-text">
+              <input
+                id="mybpc3"
+                v-model="mybpc3"
+                class="form-check-input mt-0 col-sm-2"
+                type="checkbox"
+                value="mybpc3"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="tnnt2">TNNT2:</label>
+            <div class="input-group-text">
+              <input
+                id="tnnt2"
+                v-model="tnnt2"
+                class="form-check-input mt-0 col-sm-2"
+                type="checkbox"
+                value="tnnt2"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="actc">ACTC:</label>
+            <div class="input-group-text">
+              <input
+                id="actc"
+                v-model="actc"
+                class="form-check-input mt-0 col-sm-2"
+                type="checkbox"
+                value="actc"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="tpm1">TPM1:</label>
+            <div class="input-group-text">
+              <input
+                id="tpm1"
+                v-model="tpm1"
+                class="form-check-input mt-0 col-sm-2"
+                type="checkbox"
+                value="tpm1"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="tnnci">TNNCI:</label>
+            <div class="input-group-text">
+              <input
+                id="tnnci"
+                v-model="tnnci"
+                class="form-check-input mt-0 col-sm-2"
+                type="checkbox"
+                value="tnnci"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="tnni3">TNNI3:</label>
+            <div class="input-group-text">
+              <input
+                id="tnni3"
+                v-model="tnni3"
+                class="form-check-input mt-0 col-sm-2"
+                type="checkbox"
+                value="tnni3"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="myl2">MYL2:</label>
+            <div class="input-group-text">
+              <input
+                id="myl2"
+                v-model="myl2"
+                class="form-check-input mt-0 col-sm-2"
+                type="checkbox"
+                value="myl2"
+              >
+            </div>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text col-sm-9" for="tt">TT:</label>
+            <div class="input-group-text">
+              <input
+                id="tt"
+                v-model="tt"
+                class="form-check-input mt-0 col-sm-2"
+                type="checkbox"
+                value="tt"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container text-center">
+      <div class="row justify-content-md-center">
+        <button class="col-md-10 btn btn-primary btn-block" type="submit">
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
 </template>
+
+<script setup>
+
+</script>
