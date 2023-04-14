@@ -1,4 +1,4 @@
-import { sendPasswordResetEmail } from '../firebase/database';
+import { sendPasswordResetEmail } from '../firebase/firebaseAuth';
 
 
 export const sendResetLink = (email) => {

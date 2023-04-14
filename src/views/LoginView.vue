@@ -53,8 +53,7 @@
 <script setup>
 
   import { ref } from 'vue';
-  import { firebaseAuth } from '@/firebase/database';
-  import { signInWithEmailAndPassword } from 'firebase/auth';
+  import { firebaseAuth, signInWithEmailAndPassword } from '../firebase/firebaseAuth';
 
   import { useRouter } from 'vue-router';
 
