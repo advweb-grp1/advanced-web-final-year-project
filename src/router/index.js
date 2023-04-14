@@ -5,7 +5,7 @@ import LoginView from '../views/LoginView.vue';
 import DashboardView from '../views/DashboardView.vue';
 import QueryView from '../views/QueryView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import ResetUserPasswordView from '../views/ResetUserPasswordView';
+import ResetUserPasswordView from '../views/ResetUserPasswordView.vue';
 import AddView from '../views/AddView.vue';
 import { requireSignedOut,requireSignedIn } from './routeGuard';
 const router = createRouter({
