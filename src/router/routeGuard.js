@@ -1,4 +1,4 @@
-import { firebaseAuth, onAuthStateChanged } from '../firebase/database';
+import { firebaseAuth, onAuthStateChanged } from '../firebase/firebaseAuth';
 
 async function checkAuthState() {
   return new Promise((resolve) => {
