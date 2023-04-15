@@ -5,7 +5,7 @@
 
   <div>
     <label for="formFileLg" class="form-label">Upload Patient Data File or Add Manually</label>
-    <input id="formFileLg" class="form-control form-control-lg" type="file">
+    <input id="formFileLg" class="form-control form-control-lg" type="file" accept=".csv">
   </div>
   <br>
 
