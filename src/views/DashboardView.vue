@@ -25,13 +25,22 @@
 </template>
 
 <script setup>
+  import {computed} from "vue";
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
+  import { getDiabetesData } from '../composables/diabetesData';
+  
+  let { total, withDiabetes } = await getDiabetesData();
+
+  const diabetesPercentage = computed(() => {
+    return Math.round((withDiabetes/total) * 100).toString()+"%";
+  })
+
   const computedIntegers = [
     { label:'Total number of participants', value:'10' },
     { label:'Average age of participants', value:'10' },
-    { label:'Percentage of participants with diabetes', value:'10' },
+    { label:'Percentage of participants with diabetes', value: diabetesPercentage.value },
     { label:'Percentage of participants who have undergone myectomy', value:'10' }
   ];
   const ageDistribution = ColumnChartBuilder('Age distribution',
@@ -54,6 +63,12 @@
                                               [20, 80],
                                               ['ApicalHCM', 'no ApicalHCM']
   );
+
+  const diabetics = PieChartBuilder('Diabetics',
+                                              [withDiabetes, total-withDiabetes],
+                                              ['Diabetic', 'Non-Diabetic']
+  );
+
   const averageLEDV = LineChartBuilder('Left systolic volume chart',
                                        [
                                          22, 48, 13, 5, 2
@@ -72,10 +87,13 @@
                                        'right systolic volume (REDV)'
 
   );
+
+
   const chartsArray = [
     ageDistribution,
     geneMutations,
     apicalHCMPrevelance,
+    diabetics,
     hasFibrosis,
     averageLEDV,
     averageREDV
