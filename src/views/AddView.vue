@@ -5,11 +5,16 @@
 
   <div>
     <label for="formFileLg" class="form-label">Upload Patient Data File or Add Manually</label>
-    <input id="formFileLg" class="form-control form-control-lg" type="file" accept=".csv">
+    <input
+      id="formFileLg"
+      class="form-control form-control-lg"
+      type="file"
+      accept=".csv"
+    >
   </div>
   <br>
 
-  <form class="container form-group" @submit.prevent="submitForm">
+  <form class="container form-group" @submit.prevent="addData">
     <div class="row">
       <div id="hr-data" class="col-sm-7 d-flex align-content-around flex-wrap">
         <label for="ledv" class="form-label">Left Ventricular End Diastolic Volume:</label>
@@ -113,7 +118,12 @@
         >
 
         <label for="gender">Gender:</label>
-        <select id="gender" v-model = "gender" class="form-select" name="gender">
+        <select
+          id="gender"
+          v-model="gender"
+          class="form-select"
+          name="gender"
+        >
           <option selected value="male">
             Male
           </option>
@@ -336,7 +346,7 @@
 
     <div class="container text-center">
       <div class="row justify-content-md-center">
-        <button class="col-md-10 btn btn-primary btn-block" @click="addData" type="submit">
+        <button class="col-md-10 btn btn-primary btn-block" type="submit" @click="addData">
           Submit
         </button>
       </div>
@@ -345,90 +355,90 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { addHcmData } from '../composables/addHcmData';
+  import { ref } from 'vue';
+  import { addHcmData } from '../composables/addHcmData';
 
-//refs for inputs
+  //refs for inputs
 
-//heart-input
-const ledv = ref('');
-const redv = ref('');
-const lesv = ref('');
-const resv = ref('');
-const lvef = ref('');
-const rvef = ref('');
-const lvmass = ref('');
-const rvmass = ref('');
-const lsv = ref('');
-const rsv = ref('');
-const gender = ref('');
-const age = ref('');
-//gene-input
-const scar = ref('');
-const hcm = ref('');
-const scd = ref('');
-const ht = ref('');
-const diabetes = ref('');
-const myectomy = ref('');
-const myh7 = ref('');
-const mybpc3 = ref('');
-const tnnt2 = ref('');
-const actc = ref('');
-const tpm1 = ref('');
-const tnnci = ref('');
-const tnni3 = ref('');
-const myl2 = ref('');
-const tt = ref('');
+  //heart-input
+  const ledv = ref('');
+  const redv = ref('');
+  const lesv = ref('');
+  const resv = ref('');
+  const lvef = ref('');
+  const rvef = ref('');
+  const lvmass = ref('');
+  const rvmass = ref('');
+  const lsv = ref('');
+  const rsv = ref('');
+  const gender = ref('');
+  const age = ref('');
+  //gene-input
+  const scar = ref('');
+  const hcm = ref('');
+  const scd = ref('');
+  const ht = ref('');
+  const diabetes = ref('');
+  const myectomy = ref('');
+  const myh7 = ref('');
+  const mybpc3 = ref('');
+  const tnnt2 = ref('');
+  const actc = ref('');
+  const tpm1 = ref('');
+  const tnnci = ref('');
+  const tnni3 = ref('');
+  const myl2 = ref('');
+  const tt = ref('');
 
-const addData = () => {
-  //generate JSON to add to Firestroe
-  //call addHcmData
-  //show success/faliure
+  const addData = async () => {
+    //generate JSON to add to Firestroe
+    //call addHcmData
+    //show success/faliure
 
-  if(addHcmData(buildHcmJson())){
-    //modal saying 'successfully added'
-    console.log("cool");
-  }else{
-    //modal saying 'failure'
-    console.log("bad");
-  }
-}
+    if(await addHcmData(buildHcmJson())){
+      //modal saying 'successfully added'
+      console.log('cool');
+    }else{
+      //modal saying 'failure'
+      console.log('bad');
+    }
+  };
 
-const buildHcmJson = () => {
-  //uses ternary operators to change UI friendly input to database types
-  //(true/false -> 1/0)
+  const buildHcmJson = () => {
+    //uses ternary operators to change UI friendly input to database types
+    //(true/false -> 1/0)
 
-  const hcmJson ={
-    ledv: ledv.value,
-    redv: redv.value,
-    lesv: lesv.value,
-    resv: resv.value,
-    lvef: lvef.value,
-    rvef: rvef.value,
-    lvmass: lvmass.value,
-    rvmass: rvmass.value,
-    lsv: lsv.value,
-    rsv: rsv.value,
-    female: (gender.value == "Female") ? 1 : 0,
-    AgeatMRI: age.value,
-    scar: (scar.value == true) ? 1 : 0,
-    ApicalHCM: (hcm.value == true) ? 1 : 0,
-    SuddenCardiacDeath: (scd.value == true) ? 1 : 0,
-    Hypertension: (ht.value == true) ? 1 : 0,
-    Diabetes: (diabetes.value == true) ? 1 : 0,
-    Myectomy: (myectomy.value == true) ? 1 : 0,
-    MYH7: (myh7.value == true) ? 1 : 0,
-    MYBPC3mutation: (mybpc3.value == true) ? 1 : 0,
-    TNNT2mutation: (tnnt2.value == true) ? 1 : 0,
-    ACTCmutation: (actc.value == true) ? 1 : 0,
-    TPM1: (tpm1.value == true) ? 1 : 0,
-    TNNCI: (tnnci.value == true) ? 1 : 0,
-    TNNI3: (tnni3.value == true) ? 1 : 0,
-    MYL2: (myl2.value == true) ? 1 : 0,
-    TT: (tt.value == true) ? 1 : 0
+    const hcmJson ={
+      ledv: ledv.value,
+      redv: redv.value,
+      lesv: lesv.value,
+      resv: resv.value,
+      lvef: lvef.value,
+      rvef: rvef.value,
+      lvmass: lvmass.value,
+      rvmass: rvmass.value,
+      lsv: lsv.value,
+      rsv: rsv.value,
+      female: (gender.value == 'Female') ? "1" : "0",
+      AgeatMRI: age.value,
+      scar: (scar.value == true) ? "1" : "0",
+      ApicalHCM: (hcm.value == true) ? "1" : "0",
+      SuddenCardiacDeath: (scd.value == true) ? "1" : "0",
+      Hypertension: (ht.value == true) ? "1" : "0",
+      Diabetes: (diabetes.value == true) ? "1" : "0",
+      Myectomy: (myectomy.value == true) ? "1" : "0",
+      MYH7: (myh7.value == true) ? "1" : "0",
+      MYBPC3mutation: (mybpc3.value == true) ? "1" : "0",
+      TNNT2mutation: (tnnt2.value == true) ? "1" : "0",
+      ACTCmutation: (actc.value == true) ? "1" : "0",
+      TPM1: (tpm1.value == true) ? "1" : "0",
+      TNNCI: (tnnci.value == true) ? "1" : "0",
+      TNNI3: (tnni3.value == true) ? "1" : "0",
+      MYL2: (myl2.value == true) ? "1" : "0",
+      TT: (tt.value == true) ? "1" : "0"
     };
 
-  return hcmJson;
-}
+    return hcmJson;
+  };
 
 </script>
