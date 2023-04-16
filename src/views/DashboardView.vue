@@ -25,17 +25,19 @@
 </template>
 
 <script setup>
-  import {computed} from "vue";
+  import { computed } from 'vue';
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
   import { getDiabetesData } from '../composables/diabetesData';
-  
-  let { total, withDiabetes } = await getDiabetesData();
+
+  let { total, withDiabetes } = (async () => {
+    await getDiabetesData();
+  })();
 
   const diabetesPercentage = computed(() => {
-    return Math.round((withDiabetes/total) * 100).toString()+"%";
-  })
+    return Math.round((withDiabetes/total) * 100).toString()+'%';
+  });
 
   const computedIntegers = [
     { label:'Total number of participants', value:'10' },
@@ -65,8 +67,8 @@
   );
 
   const diabetics = PieChartBuilder('Diabetics',
-                                              [withDiabetes, total-withDiabetes],
-                                              ['Diabetic', 'Non-Diabetic']
+                                    [withDiabetes, total-withDiabetes],
+                                    ['Diabetic', 'Non-Diabetic']
   );
 
   const averageLEDV = LineChartBuilder('Left systolic volume chart',
