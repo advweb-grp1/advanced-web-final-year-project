@@ -285,7 +285,7 @@
         regError.value='Please fill all fields';
       }else{
         try {
-          const cred = await createUserWithEmailAndPassword(firebaseAuth, newUser.email, newUser.password);
+          const cred = await createUserWithEmailAndPassword(firebaseAuth, newUser.email, password.value);
           await sendEmailVerification(cred.user);
           newUser.uid = cred.user.uid; // Save the Firebase Authentication UID as a field in the user document
           const userRef = collection(firebaseStore, collections.user);
