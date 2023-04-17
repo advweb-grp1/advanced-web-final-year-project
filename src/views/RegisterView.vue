@@ -228,7 +228,7 @@
   import { useRouter } from 'vue-router';
   import { ref, watch } from 'vue';
   import { firebaseStore, collection, addDoc } from '../firebase/database';
-
+  import { collections } from '../firebase/constants';
   const firstName = ref('');
   const surname = ref('');
   const address1 = ref('');
@@ -277,32 +277,25 @@
       city: city.value,
       postCode: postCode.value,
       phoneNumber: phoneNumber.value,
-      affiliation: affiliation.value,
-      password: password.value,
-      confirmPassword: confirmPassword.value
+      affiliation: affiliation.value
     };
     if(!regError.value){
       if(!firstName.value || !surname.value || !address1.value|| !city.value || !postCode.value ||!phoneNumber.value
         || !affiliation.value || !email.value || !password.value || !confirmPassword.value){
         regError.value='Please fill all fields';
       }else{
-        //let addUser = collection(firebaseStore,'user');
-        await createUserWithEmailAndPassword(firebaseAuth, newUser.email, newUser.password)
-          .then(async (cred) => {
-            await sendEmailVerification(cred.user);
-            newUser.id = cred.user.uid;
-            let addUser = collection(firebaseStore,'user',newUser.id, 'user-details' );
-            await addDoc(addUser,newUser);
-          })
-          .then(() => {
-            console.log('User created in Firebase Authentication');
-            router.push('/login');
-          })
-          .catch((error) => {
-            console.log(error);
-            regError.value = error;
-          });
-
+        try {
+          const cred = await createUserWithEmailAndPassword(firebaseAuth, newUser.email, newUser.password);
+          await sendEmailVerification(cred.user);
+          newUser.uid = cred.user.uid; // Save the Firebase Authentication UID as a field in the user document
+          const userRef = collection(firebaseStore, collections.user);
+          await addDoc(userRef, newUser);
+          console.log('User created in Firebase Authentication');
+          router.push('/login');
+        } catch (error) {
+          console.log(error);
+          regError.value = error;
+        }
       }
     }
   }
