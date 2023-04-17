@@ -28,9 +28,11 @@
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
-  //import { useHcmStore } from '../stores/hcm';
+  // import { useHcmStore } from '../stores/hcm';
   // const store = useHcmStore();
-  // console.log(store.docs);
+  // store.docs.forEach((d)=>{
+  //   console.log(d.data());
+  // });
 
   const computedIntegers = [
     { label:'Total number of participants', value:'10' },

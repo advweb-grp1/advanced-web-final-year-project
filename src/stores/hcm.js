@@ -1,4 +1,3 @@
-import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { firebaseStore, collection,getDocs } from '../firebase/database';
 import { collections } from '../firebase/constants';
@@ -6,20 +5,24 @@ import { collections } from '../firebase/constants';
 export const useHcmStore = defineStore({
   id: 'hcmStore',
   state: () => ({
-    docs: ref([]),
-    feteched: ref(false)
+    docs: [],
+    fetched: false
   }),
 
   actions: {
     async fetchCollection() {
-      if (this.feteched){
+      if (this.fetched){
         return;
       }
       const querySnapshot = await getDocs(collection(firebaseStore,collections.hcm));
       querySnapshot.forEach((q)=>{
+        // Check if the document is empty (no fields)
+        if (Object.keys(q).length === 0) {
+          return; // Skip this document
+        }
         this.docs.push(q);
       });
-      this.feteched = true;
+      this.fetched = true;
     }
   }
 });
