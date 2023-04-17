@@ -39,12 +39,12 @@ const uploadDataToFirestore = async (data) => {
   const batch = [];
   data.forEach((item) => {
     const newItem = { ...item, created_by_user_id: '' };
-    batch.push(addDoc(collection(firebaseStore(), 'hcm'), newItem));
+    batch.push(addDoc(collection(firebaseStore(), 'hcm_dev'), newItem));
   });
 
   try {
     await Promise.all(batch);
-    console.log('All items added to the "hcm" collection');
+    console.log('All items added to the "hcm_dev" collection');
 
     // Update hcm_data_uploaded to true
     const docRef = doc(firebaseStore(), 'setup', 't9nDhhUYoy7g5XWvqm0u');
