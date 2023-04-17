@@ -6,11 +6,19 @@ import {
     addDoc, 
     getDoc
 } from '../firebase/database';
+import { firebaseAuth } from '../firebase/firebaseAuth';
 
 export const addHcmData = async (data) => {  
     //adds timestamp to HCMjson
     data.timestamp = serverTimestamp();
-    
+
+    //adds user_id to HCMjson
+    await firebaseAuth.onAuthStateChanged((user) => {
+        if(user){
+            data.created_by_user_id = user.uid;
+        }
+    });
+
     //adds json data to firestore collection
     const initialDoc = await addDoc(collection(firebaseStore, 'hcm'), data);
     console.log('Document was created with ID:', initialDoc.id)
@@ -19,13 +27,12 @@ export const addHcmData = async (data) => {
     
     //makes sure that the document exists
     const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        return true;
-    }else {
-        console.log("No such document!");
-        return false;
-    }
-
-    //can just return docSan.exists() after testing
+    return docSnap.exists();
+    // if (docSnap.exists()) {
+    //     console.log("Document data:", docSnap.data());
+    //     return true;
+    // }else {
+    //     console.log("No such document!");
+    //     return false;
+    // }
 }
