@@ -235,12 +235,36 @@
       </div>
     </div>
   </form>
+
+<!-- Button trigger modal -->
+<button type="button" id="modalTrigger" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" hidden>
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Adding Record</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ result }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script setup>
   import { ref } from 'vue';
   import { addHcmData } from '../composables/addHcmData';
 
+  let result = ref('');
   //refs for inputs
 
   //heart-input
@@ -282,10 +306,13 @@
     if(await addHcmData(buildHcmJson())){
       //modal saying 'successfully added'
       console.log('cool');
+      result.value = "Patient Data Was Successfully Added To The Database!";
     }else{
       //modal saying 'failure'
       console.log('bad');
+      result.value = "FAILED! Data Was NOT Added To The Database!";
     }
+    document.getElementById("modalTrigger").click();
   };
 
   const buildHcmJson = () => {
