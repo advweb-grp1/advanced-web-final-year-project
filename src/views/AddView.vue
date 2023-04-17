@@ -16,8 +16,9 @@
 
   <form class="container form-group" @submit.prevent="addData">
     <div class="row">
-      <div id="hr-data" class="col-12 d-flex align-content-around flex-wrap">
+      <div id="hr-data" class="col-12 mb-1 d-flex align-content-around flex-wrap">
 
+        
         <div class="col-6">
           <label for="ledv">Left Ventricular End Diastolic Volume:</label>
           <input
@@ -165,8 +166,10 @@
           class="form-control mb-1"
           >
         </div>
+      </div>
 
         <!--newnew-->
+        <div class="col-12">
         <div class="row justify-content-center">
           <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
             <input type="checkbox" class="btn-check" id="scar-btncheck" v-model = "scar" autocomplete="off">
@@ -192,9 +195,7 @@
         </div>
       </div>
     </div>
-    <div class = "row">
-      <div id="gene-data" class="col d-flex align-content-around flex-wrap">
-        <div class="row justify-content-center">
+    <div class = "row justify-content-center">
           <div class="row">
             <h3 class="text-center">
               Gene Mutations
@@ -223,8 +224,7 @@
             <input type="checkbox" class="btn-check" id="tt-btncheck" v-model = "tt" autocomplete="off">
             <label class="btn btn-outline-primary" for="tt-btncheck">TT</label>
           </div>
-        </div>
-      </div>
+
     </div>
 
     <div class="container text-center mt-2">
