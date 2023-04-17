@@ -11,7 +11,8 @@
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "uploadHcmData": "node --trace-warnings ./src/utils/uploadHcmData.js"
+    "uploadHcmData": "node --trace-warnings ./src/utils/uploadHcmData.js",
+    "uploadHcmDataTest": "node --trace-warnings ./src/utils/uploadHcmDataTest.js"
   },
   "dependencies": {
     "@firebase/firestore": "^3.9.0",
