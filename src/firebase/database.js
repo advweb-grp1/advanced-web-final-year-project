@@ -2,7 +2,9 @@ import { getFirestore,
   serverTimestamp,
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  query,
+  where
 } from 'firebase/firestore';
 import app from './app';
 
@@ -13,5 +15,7 @@ export {
   serverTimestamp,
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  query,
+  where
 };
