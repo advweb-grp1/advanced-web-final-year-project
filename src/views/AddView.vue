@@ -16,89 +16,106 @@
 
   <form class="container form-group" @submit.prevent="addData">
     <div class="row">
-      <div id="hr-data" class="col-sm-7 d-flex align-content-around flex-wrap">
-        <label for="ledv" class="form-label">Left Ventricular End Diastolic Volume:</label>
-        <input
-          id="ledv"
-          v-model="ledv"
-          required
-          type="number"
-          placeholder="ledv"
-          class="form-control"
-        >
+      <div id="hr-data" class="col-12 d-flex align-content-around flex-wrap">
 
-        <label for="redv">Right Ventricular End Diastolic Volume: </label>
-        <input
+        <div class="col-6">
+          <label for="ledv">Left Ventricular End Diastolic Volume:</label>
+          <input
+            id="ledv"
+            v-model="ledv"
+            required
+            type="number"
+            placeholder="ledv"
+            class="form-control"
+          >
+        </div>
+        <div class="col-6">
+          <label for="redv">Right Ventricular End Diastolic Volume: </label>
+          <input
           id="redv"
           v-model="redv"
           required
           type="number"
           placeholder="redv"
           class="form-control"
-        >
-
-        <label for="lesv">Left Ventricular End Systolic Volume: </label>
-        <input
+          >
+        </div>
+        
+        <div class="col-6">
+          <label for="lesv">Left Ventricular End Systolic Volume: </label>
+          <input
           id="lesv"
           v-model="lesv"
           required
           type="number"
           placeholder="lesv"
           class="form-control"
-        >
+          >
+        </div>
 
-        <label for="resv">Right Ventricular End Systolic Volume: </label>
-        <input
+        <div class="col-6">
+          <label for="resv">Right Ventricular End Systolic Volume: </label>
+          <input
           id="resv"
           v-model="resv"
           required
           type="number"
           placeholder="resv"
           class="form-control"
-        >
+          >
+        </div>
 
-        <label for="lvef">Left Ventricular Ejection Fraction: </label>
-        <input
+        <div class="col-6">
+          <label for="lvef">Left Ventricular Ejection Fraction: </label>
+          <input
           id="lvef"
           v-model="lvef"
           required
           type="number"
           placeholder="lvef"
           class="form-control"
-        >
+          >
+        </div>
 
-        <label for="rvef">Right Ventricular Ejection Fraction: </label>
-        <input
+        <div class="col-6">
+          <label for="rvef">Right Ventricular Ejection Fraction: </label>
+          <input
           id="rvef"
           v-model="rvef"
           required
           type="number"
           placeholder="rvef"
           class="form-control"
-        >
+          >
+        </div>
 
-        <label for="lvmass">Left Ventricular Mass: </label>
-        <input
+        <div class="col-6">
+          <label for="lvmass">Left Ventricular Mass: </label>
+          <input
           id="lvmass"
           v-model="lvmass"
           required
           type="number"
           placeholder="lvmass"
           class="form-control"
-        >
+          >
+        </div>
 
-        <label for="rvmass">Right Ventricular Mass:</label>
-        <input
+        <div class="col-6">
+          <label for="rvmass">Right Ventricular Mass:</label>
+          <input
           id="rvmass"
           v-model="rvmass"
           required
           type="number"
           placeholder="rvmass"
           class="form-control"
-        >
+          >
+        </div>
 
-        <label for="lsv">Left Systolic Volume: </label>
-        <input
+        <div class="col-6">
+          <label for="lsv">Left Systolic Volume: </label>
+          <input
           id="lsv"
           v-model="lsv"
           required
@@ -106,245 +123,111 @@
           placeholder="lsv"
           class="form-control"
         >
+        </div>
 
-        <label for="rsv">Right Systolic Volume: </label>
-        <input
-          id="rsv"
-          v-model="rsv"
-          required
-          type="number"
-          placeholder="rsv"
-          class="form-control"
-        >
+        <div class="col-6">
+          <label for="rsv">Right Systolic Volume: </label>
+          <input
+            id="rsv"
+            v-model="rsv"
+            required
+            type="number"
+            placeholder="rsv"
+            class="form-control"
+          >
+        </div>
 
-        <label for="gender">Gender:</label>
-        <select
-          id="gender"
-          v-model="gender"
-          class="form-select"
-          name="gender"
-        >
-          <option selected value="male">
-            Male
-          </option>
-          <option value="female">
-            Female
-          </option>
-        </select>
+        <div class="col-6">
+          <label for="gender">Gender:</label>
+          <select
+            id="gender"
+            v-model="gender"
+            class="form-select"
+            name="gender"
+          >
+            <option selected value="male">
+              Male
+            </option>
+            <option value="female">
+              Female
+            </option>
+          </select>
+        </div>
 
-        <label for="mri" class="form-label">Age at MRI: </label>
-        <input
+        <div class="col-6">
+          <label for="mri">Age at MRI: </label>
+          <input
           id="mri"
           v-model="age"
           required
           type="number"
           placeholder="age"
           class="form-control mb-1"
-        >
-      </div>
-
-      <div id="gene-data" class="col-sm-5 d-flex align-content-around flex-wrap">
-        <!--Old Scarring
-          <label for="scar">scarring: </label>
-          <input
-          id="scar"
-          v-model="scar"
-          type="checkbox"
-          value="scar"
           >
-        -->
+        </div>
 
+        <!--newnew-->
         <div class="row justify-content-center">
-          <h3 class="text-center">
-            <u>Gene Mutation</u>
-          </h3>
+          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check" id="scar-btncheck" v-model = "scar" autocomplete="off">
+            <label class="btn btn-outline-primary" for="scar-btncheck">Scarring</label>
 
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="scar">Scarring:</label>
-            <div class="input-group-text">
-              <input
-                id="scar"
-                v-model="scar"
-                class="form-check-input col-sm-2 mt-0"
-                type="checkbox"
-                value="scar"
-                aria-label="Checkbox for following text input"
-              >
-            </div>
+            <input type="checkbox" class="btn-check" id="hcm-btncheck" v-model="hcm" autocomplete="off">
+            <label class="btn btn-outline-primary" for="hcm-btncheck">Apical HCM</label>
+
+            <input type="checkbox" class="btn-check" id="btncheck3" v-model="scd" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck3">Sudden Cardiac Arrest</label>
+
           </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="hcm">Apical HCM:</label>
-            <div class="input-group-text">
-              <input
-                id="hcm"
-                v-model="hcm"
-                class="form-check-input col-sm-2 mt-0"
-                type="checkbox"
-                value="hcm"
-              >
-            </div>
+          <div class="btn-group mt-1" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check" id="ht-btncheck" v-model="ht" autocomplete="off">
+            <label class="btn btn-outline-primary" for="ht-btncheck">Hypertension</label>
+
+            <input type="checkbox" class="btn-check" id="d-btncheck" v-model="diabetes" autocomplete="off">
+            <label class="btn btn-outline-primary" for="d-btncheck">Diabetes</label>
+
+            <input type="checkbox" class="btn-check" id="myectomy-btncheck" v-model="myectomy" autocomplete="off">
+            <label class="btn btn-outline-primary" for="myectomy-btncheck">Myectomy</label>
           </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="scd">Sudden Cardiac Arrest</label>
-            <div class="input-group-text">
-              <input
-                id="scd"
-                v-model="scd"
-                class="form-check-input col-sm-2 mt-0"
-                type="checkbox"
-                value="scd"
-              >
-            </div>
+        </div>
+      </div>
+    </div>
+    <div class = "row">
+      <div id="gene-data" class="col d-flex align-content-around flex-wrap">
+        <div class="row justify-content-center">
+          <div class="row">
+            <h3 class="text-center">
+              Gene Mutations
+            </h3>
           </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="ht">Hypertension:</label>
-            <div class="input-group-text">
-              <input
-                id="ht"
-                v-model="ht"
-                class="form-check-input col-sm-2 mt-0"
-                type="checkbox"
-                value="ht"
-              >
-            </div>
+
+          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check text-right" id="myh7-btncheck" v-model = "myh7" autocomplete="off">
+            <label class="btn btn-outline-primary" for="myh7-btncheck">MYH7</label>
+            <input type="checkbox" class="btn-check" id="mybpc3-btncheck" v-model = "mybpc3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="mybpc3-btncheck">MYBPC3</label>
+            <input type="checkbox" class="btn-check" id="tnnt2-btncheck" v-model = "tnnt2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="tnnt2-btncheck">TNNT2</label>
+            <input type="checkbox" class="btn-check" id="actc-btncheck" v-model = "actc" autocomplete="off">
+            <label class="btn btn-outline-primary" for="actc-btncheck">ACTC</label>
+            <input type="checkbox" class="btn-check" id="tpm1-btncheck" v-model = "tpm1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="tpm1-btncheck">TPM1</label>
           </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="diabetes">Diabetes:</label>
-            <div class="input-group-text">
-              <input
-                id="diabetes"
-                v-model="diabetes"
-                class="form-check-input col-sm-2 mt-0"
-                type="checkbox"
-                value="diabetes"
-              >
-            </div>
-          </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="myectomy">Myectomy:</label>
-            <div class="input-group-text">
-              <input
-                id="myectomy"
-                v-model="myectomy"
-                class="form-check-input col-sm-2 mt-0"
-                type="checkbox"
-                value="myectomy"
-              >
-            </div>
-          </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="myh7">MYH7:</label>
-            <div class="input-group-text">
-              <input
-                id="myh7"
-                v-model="myh7"
-                class="form-check-input mt-0 col-sm-2"
-                type="checkbox"
-                value="myh7"
-              >
-            </div>
-          </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="mybpc3">MYBPC3:</label>
-            <div class="input-group-text">
-              <input
-                id="mybpc3"
-                v-model="mybpc3"
-                class="form-check-input mt-0 col-sm-2"
-                type="checkbox"
-                value="mybpc3"
-              >
-            </div>
-          </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="tnnt2">TNNT2:</label>
-            <div class="input-group-text">
-              <input
-                id="tnnt2"
-                v-model="tnnt2"
-                class="form-check-input mt-0 col-sm-2"
-                type="checkbox"
-                value="tnnt2"
-              >
-            </div>
-          </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="actc">ACTC:</label>
-            <div class="input-group-text">
-              <input
-                id="actc"
-                v-model="actc"
-                class="form-check-input mt-0 col-sm-2"
-                type="checkbox"
-                value="actc"
-              >
-            </div>
-          </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="tpm1">TPM1:</label>
-            <div class="input-group-text">
-              <input
-                id="tpm1"
-                v-model="tpm1"
-                class="form-check-input mt-0 col-sm-2"
-                type="checkbox"
-                value="tpm1"
-              >
-            </div>
-          </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="tnnci">TNNCI:</label>
-            <div class="input-group-text">
-              <input
-                id="tnnci"
-                v-model="tnnci"
-                class="form-check-input mt-0 col-sm-2"
-                type="checkbox"
-                value="tnnci"
-              >
-            </div>
-          </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="tnni3">TNNI3:</label>
-            <div class="input-group-text">
-              <input
-                id="tnni3"
-                v-model="tnni3"
-                class="form-check-input mt-0 col-sm-2"
-                type="checkbox"
-                value="tnni3"
-              >
-            </div>
-          </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="myl2">MYL2:</label>
-            <div class="input-group-text">
-              <input
-                id="myl2"
-                v-model="myl2"
-                class="form-check-input mt-0 col-sm-2"
-                type="checkbox"
-                value="myl2"
-              >
-            </div>
-          </div>
-          <div class="input-group mb-2">
-            <label class="input-group-text col-sm-9" for="tt">TT:</label>
-            <div class="input-group-text">
-              <input
-                id="tt"
-                v-model="tt"
-                class="form-check-input mt-0 col-sm-2"
-                type="checkbox"
-                value="tt"
-              >
-            </div>
+          <div class="btn-group mt-1" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check" id="tnnci-btncheck" v-model = "tnnci" autocomplete="off">
+            <label class="btn btn-outline-primary" for="tnnci-btncheck">TNNCI</label>
+            <input type="checkbox" class="btn-check" id="tnni3-btncheck" v-model = "tnni3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="tnni3-btncheck">TNNI3</label>
+            <input type="checkbox" class="btn-check" id="myl2-btncheck" v-model = "myl2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="myl2-btncheck">MYL2</label>
+            <input type="checkbox" class="btn-check" id="tt-btncheck" v-model = "tt" autocomplete="off">
+            <label class="btn btn-outline-primary" for="tt-btncheck">TT</label>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="container text-center">
+    <div class="container text-center mt-2">
       <div class="row justify-content-md-center">
         <button class="col-md-10 btn btn-primary btn-block" type="submit" @click="addData">
           Submit
@@ -395,13 +278,14 @@
     //call addHcmData
     //show success/faliure
 
-    if(await addHcmData(buildHcmJson())){
-      //modal saying 'successfully added'
-      console.log('cool');
-    }else{
-      //modal saying 'failure'
-      console.log('bad');
-    }
+    console.log(buildHcmJson());
+    // if(await addHcmData(buildHcmJson())){
+    //   //modal saying 'successfully added'
+    //   console.log('cool');
+    // }else{
+    //   //modal saying 'failure'
+    //   console.log('bad');
+    // }
   };
 
   const buildHcmJson = () => {
