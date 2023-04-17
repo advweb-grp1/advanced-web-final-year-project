@@ -279,13 +279,13 @@
     //show success/faliure
 
     console.log(buildHcmJson());
-    // if(await addHcmData(buildHcmJson())){
-    //   //modal saying 'successfully added'
-    //   console.log('cool');
-    // }else{
-    //   //modal saying 'failure'
-    //   console.log('bad');
-    // }
+    if(await addHcmData(buildHcmJson())){
+      //modal saying 'successfully added'
+      console.log('cool');
+    }else{
+      //modal saying 'failure'
+      console.log('bad');
+    }
   };
 
   const buildHcmJson = () => {
