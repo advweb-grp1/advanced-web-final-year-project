@@ -1,7 +1,9 @@
 import { getFirestore,
   serverTimestamp,
   collection,
-  addDoc } from 'firebase/firestore';
+  addDoc,
+  getDocs
+} from 'firebase/firestore';
 import app from './app';
 
 const firebaseStore = getFirestore(app);
@@ -10,5 +12,6 @@ export {
   firebaseStore,
   serverTimestamp,
   collection,
-  addDoc
+  addDoc,
+  getDocs
 };

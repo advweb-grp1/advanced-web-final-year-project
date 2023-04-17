@@ -28,6 +28,10 @@
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
+  //import { useHcmStore } from '../stores/hcm';
+  // const store = useHcmStore();
+  // console.log(store.docs);
+
   const computedIntegers = [
     { label:'Total number of participants', value:'10' },
     { label:'Average age of participants', value:'10' },
