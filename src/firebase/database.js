@@ -3,7 +3,11 @@ import { getFirestore,
   collection,
   doc,
   addDoc,
-  getDoc } from 'firebase/firestore';
+  getDoc,
+  getDocs,
+  query,
+  where
+} from 'firebase/firestore';
 import app from './app';
 
 const firebaseStore = getFirestore(app);
@@ -14,5 +18,8 @@ export {
   collection,
   doc,
   addDoc,
+  getDocs,
+  query,
+  where,
   getDoc
 };

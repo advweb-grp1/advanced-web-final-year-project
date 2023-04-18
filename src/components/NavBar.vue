@@ -17,9 +17,9 @@
       </button>
       <div id="navbarNav" class="collapse navbar-collapse">
         <ul class="navbar-nav">
-          <li v-if="!user" class="nav-item">
-            <router-link class="nav-link" to="/login">
-              Login
+          <li v-for="item in navbarItems" :key="item.key" class="nav-item">
+            <router-link v-if="item.link" class="nav-link" :to="item.link">
+              {{ item.label }}
             </router-link>
           </li>
           <li v-if="user" class="nav-item">
@@ -53,22 +53,17 @@
 
 <script setup>
   import { RouterLink,useRouter  } from 'vue-router';
-  import { ref } from 'vue';
-  import { firebaseAuth, onAuthStateChanged,signOut } from '../firebase/firebaseAuth';
+  import { firebaseAuth,signOut } from '../firebase/firebaseAuth';
+  import { useUserStore } from '../stores/user';
+  import { computed } from 'vue';
+  const userStore = useUserStore();
+
   const router = useRouter();
-  const user = ref(null);
-  onAuthStateChanged(firebaseAuth, (currentUser) => {
-    if (currentUser) {
-      user.value = currentUser;
-    } else {
-      user.value == null;
-    }
-  });
 
   function logout(){
     signOut(firebaseAuth).then(
       () => {
-        user.value = null;
+        userStore.clear();
         router.push('login');
       },
       (error) => {
@@ -76,4 +71,19 @@
       }
     );
   }
-</script>
+  // Computed property that returns an array of navbar items based on the user's authentication state
+  const navbarItems = computed(() => {
+    const user = userStore.user.auth;
+    const items = [];
+
+    if (user) {
+      items.push({ key: 'dashboard', label: 'Dashboard', link: '/dashboard' });
+      items.push({ key: 'query', label: 'Query', link: '/query' });
+      items.push({ key: 'logout', label: 'Logout', action: logout });
+    } else {
+      items.push({ key: 'login', label: 'Login', link: '/login' });
+      items.push({ key: 'register', label: 'Register', link: '/register' });
+    }
+
+    return items;
+  });</script>
