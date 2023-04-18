@@ -41,7 +41,68 @@
           Mayo Clinic - Cardiomyopathy</a>
       </li>
     </ul>
+    <h5>Latests News/Journals </h5>
+    <div>
+      <div class="row">
+        <div v-for="card in cards" :key="card.id" class="col-sm-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ card.title }}
+              </h5>
+              <p class="card-text">
+                {{ card.description }}
+              </p>
+              <p class="card-text">
+                {{ card.date }}
+              </p>
+              <p class="card-text">
+                {{ card.keywords }}
+              </p>
+            </div>
+            <img
+              class="card-img-bottom"
+              :src="card.image"
+              alt="Cardiomyopathy image"
+            >
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" @click="addCard">
+        Show More
+      </button>
+    </div>
   </section>
 </template>
+<script setup>
+  import { ref, reactive } from 'vue';
+
+  const cards = reactive([
+    { id:1, title:'Title: ' + 'Cardiomyopathy news', description:'Description: ' + 'Description of cardiomyopathy news.'
+      , date: 'Date: ' + 'Date of entry', keywords: 'Tags: ' + 'Tag names' },
+    { id:2, title:'Title: ' + 'Cardiomyopathy news', description:'Description: ' + 'Description of cardiomyopathy news.'
+      , date: 'Date: ' + 'Date of entry', keywords: 'Tags: ' + 'Tag names' },
+    { id:3, title:'Title: ' + 'Cardiomyopathy news', description:'Description: ' + 'Description of cardiomyopathy news.'
+      , date: 'Date: ' + 'Date of entry', keywords: 'Tags: ' + 'Tag names' },
+    { id:4, title:'Title: ' + 'Cardiomyopathy news', description:'Description: ' + 'Description of cardiomyopathy news.'
+      , date: 'Date: ' + 'Date of entry', keywords: 'Tags: ' + 'Tag names' }
+  ]);
+
+  const nextCardId = ref(5);
+
+  function addCard() {
+    for (let i = 0; i < 4; i++) {
+      cards.push({ id: nextCardId, title: 'Title: ' + 'Cardiomyopathy news ',
+                   description: 'Description: ' + 'Description of cardiomyopathy news.',
+                   date: 'Date: ' + 'Date of entry',
+                   keywords: 'Tags: ' + 'Tag names',
+                   image: 'img source' });
+      nextCardId.value++;
+    }
+  }
+</script>
 <style>
+.card{
+  margin-bottom: 15px;
+}
 </style>
