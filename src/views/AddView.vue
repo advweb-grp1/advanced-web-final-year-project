@@ -282,6 +282,68 @@
   const MYL2 = ref('');
   const TTN = ref('');
 
+  const numberInputs = [
+    "ledv",
+    "redv",
+    "lesv",
+    "resv",
+    "lvef",
+    "rvef",
+    "lvmass",
+    "rvmass",
+    "lsv",
+    "rsv",
+    "AgeatMRI"
+  ]
+
+  const booleanInputs=[
+    "female",
+    "scar",
+    "ApicalHCM",
+    "SuddenCardiacDeath",
+    "Hypertension",
+    "Diabetes",
+    "Myectomy",
+    "MYH7",
+    "MYBPC3mutation",
+    "TNNT2mutation",
+    "ACTCmutation",
+    "TPM1",
+    "TNNCI",
+    "TNNI3",
+    "MYL2",
+    "TTN"
+  ]
+  
+
+  const parseFile = async () => {
+    let file = document.getElementById("uploadFile").files[0];
+
+    const reader = new FileReader();
+    reader.onload = async function (e) {
+      const text = await e.target.result;
+      let patientJson = await parseCsv(text);
+      
+      //Gets first patient row
+      let patientData = Object.values(patientJson)[0];
+      for (var key in patientData){
+        //sets number input fields on page
+        if(numberInputs.includes(key)){
+          eval(key).value = patientData[key];
+        }
+        //sets checkboxes and gender dropdown
+        else if(booleanInputs.includes(key)){
+          if(key == "female"){
+            female.value = (patientData[key] == "1") ? "female" : "male";
+          }else{
+            eval(key).value = (patientData[key] == "1") ? true : false
+          }
+        }
+       }
+    };
+    reader.readAsText(file);
+  }
+
   const addData = async () => {
     //generate JSON to add to Firestroe
     //call addHcmData
