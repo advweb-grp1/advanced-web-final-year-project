@@ -1,27 +1,20 @@
-import { firebaseAuth, onAuthStateChanged } from '../firebase/firebaseAuth';
+import { useUserStore } from '../stores/user';
 
-async function checkAuthState() {
-  return new Promise((resolve) => {
-    onAuthStateChanged(firebaseAuth, (user) => {
-      resolve(user);
-    });
-  });
-}
 
-export async function requireSignedOut(to, from, next) {
-  const currentUser = await checkAuthState();
+export function requireSignedOut(to, from, next) {
+  const userStore = useUserStore();
 
-  if (currentUser) {
+  if (userStore.user.auth) {
     next({ name: 'home' });
   } else {
     next();
   }
 }
 
-export async function requireSignedIn(to, from, next) {
-  const currentUser = await checkAuthState();
+export function requireSignedIn(to, from, next) {
+  const userStore = useUserStore();
 
-  if (!currentUser) {
+  if (!userStore.user.auth) {
     next({ name: 'login' });
   } else {
     next();
