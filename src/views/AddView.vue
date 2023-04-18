@@ -6,10 +6,11 @@
   <div>
     <label for="formFileLg" class="form-label">Upload Patient Data File or Add Manually</label>
     <input
-      id="formFileLg"
+      id="uploadFile"
       class="form-control form-control-lg"
       type="file"
       accept=".csv"
+      @change="parseFile()"
     >
   </div>
   <br>
@@ -139,14 +140,14 @@
         </div>
 
         <div class="col-6">
-          <label for="gender">Gender:</label>
+          <label for="female">Gender:</label>
           <select
-            id="gender"
-            v-model="gender"
+            id="female"
+            v-model="female"
             class="form-select"
-            name="gender"
+            name="female"
           >
-            <option selected value="male">
+            <option value="male">
               Male
             </option>
             <option value="female">
@@ -159,7 +160,7 @@
           <label for="mri">Age at MRI: </label>
           <input
           id="mri"
-          v-model="age"
+          v-model="AgeatMRI"
           required
           type="number"
           placeholder="age"
@@ -175,21 +176,21 @@
             <input type="checkbox" class="btn-check" id="scar-btncheck" v-model = "scar" autocomplete="off">
             <label class="btn btn-outline-primary" for="scar-btncheck">Scarring</label>
 
-            <input type="checkbox" class="btn-check" id="hcm-btncheck" v-model="hcm" autocomplete="off">
+            <input type="checkbox" class="btn-check" id="hcm-btncheck" v-model="ApicalHCM" autocomplete="off">
             <label class="btn btn-outline-primary" for="hcm-btncheck">Apical HCM</label>
 
-            <input type="checkbox" class="btn-check" id="btncheck3" v-model="scd" autocomplete="off">
+            <input type="checkbox" class="btn-check" id="btncheck3" v-model="SuddenCardiacDeath" autocomplete="off">
             <label class="btn btn-outline-primary" for="btncheck3">Sudden Cardiac Arrest</label>
 
           </div>
           <div class="btn-group mt-1" role="group" aria-label="Basic checkbox toggle button group">
-            <input type="checkbox" class="btn-check" id="ht-btncheck" v-model="ht" autocomplete="off">
+            <input type="checkbox" class="btn-check" id="ht-btncheck" v-model="Hypertension" autocomplete="off">
             <label class="btn btn-outline-primary" for="ht-btncheck">Hypertension</label>
 
-            <input type="checkbox" class="btn-check" id="d-btncheck" v-model="diabetes" autocomplete="off">
+            <input type="checkbox" class="btn-check" id="d-btncheck" v-model="Diabetes" autocomplete="off">
             <label class="btn btn-outline-primary" for="d-btncheck">Diabetes</label>
 
-            <input type="checkbox" class="btn-check" id="myectomy-btncheck" v-model="myectomy" autocomplete="off">
+            <input type="checkbox" class="btn-check" id="myectomy-btncheck" v-model="Myectomy" autocomplete="off">
             <label class="btn btn-outline-primary" for="myectomy-btncheck">Myectomy</label>
           </div>
         </div>
@@ -203,26 +204,26 @@
           </div>
 
           <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-            <input type="checkbox" class="btn-check text-right" id="myh7-btncheck" v-model = "myh7" autocomplete="off">
+            <input type="checkbox" class="btn-check text-right" id="myh7-btncheck" v-model = "MYH7" autocomplete="off">
             <label class="btn btn-outline-primary" for="myh7-btncheck">MYH7</label>
-            <input type="checkbox" class="btn-check" id="mybpc3-btncheck" v-model = "mybpc3" autocomplete="off">
+            <input type="checkbox" class="btn-check" id="mybpc3-btncheck" v-model = "MYBPC3mutation" autocomplete="off">
             <label class="btn btn-outline-primary" for="mybpc3-btncheck">MYBPC3</label>
-            <input type="checkbox" class="btn-check" id="tnnt2-btncheck" v-model = "tnnt2" autocomplete="off">
-            <label class="btn btn-outline-primary" for="tnnt2-btncheck">TNNT2</label>
-            <input type="checkbox" class="btn-check" id="actc-btncheck" v-model = "actc" autocomplete="off">
-            <label class="btn btn-outline-primary" for="actc-btncheck">ACTC</label>
-            <input type="checkbox" class="btn-check" id="tpm1-btncheck" v-model = "tpm1" autocomplete="off">
-            <label class="btn btn-outline-primary" for="tpm1-btncheck">TPM1</label>
+            <input type="checkbox" class="btn-check" id="TNNT2mutation-btncheck" v-model = "TNNT2mutation" autocomplete="off">
+            <label class="btn btn-outline-primary" for="TNNT2mutation-btncheck">TNNT2</label>
+            <input type="checkbox" class="btn-check" id="ACTCmutation-btncheck" v-model = "ACTCmutation" autocomplete="off">
+            <label class="btn btn-outline-primary" for="ACTCmutation-btncheck">ACTC</label>
+            <input type="checkbox" class="btn-check" id="TPM1-btncheck" v-model = "TPM1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="TPM1-btncheck">TPM1</label>
           </div>
           <div class="btn-group mt-1" role="group" aria-label="Basic checkbox toggle button group">
-            <input type="checkbox" class="btn-check" id="tnnci-btncheck" v-model = "tnnci" autocomplete="off">
-            <label class="btn btn-outline-primary" for="tnnci-btncheck">TNNCI</label>
-            <input type="checkbox" class="btn-check" id="tnni3-btncheck" v-model = "tnni3" autocomplete="off">
-            <label class="btn btn-outline-primary" for="tnni3-btncheck">TNNI3</label>
-            <input type="checkbox" class="btn-check" id="myl2-btncheck" v-model = "myl2" autocomplete="off">
-            <label class="btn btn-outline-primary" for="myl2-btncheck">MYL2</label>
-            <input type="checkbox" class="btn-check" id="tt-btncheck" v-model = "tt" autocomplete="off">
-            <label class="btn btn-outline-primary" for="tt-btncheck">TT</label>
+            <input type="checkbox" class="btn-check" id="TNNCI-btncheck" v-model = "TNNCI" autocomplete="off">
+            <label class="btn btn-outline-primary" for="TNNCI-btncheck">TNNCI</label>
+            <input type="checkbox" class="btn-check" id="TNNI3-btncheck" v-model = "TNNI3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="TNNI3-btncheck">TNNI3</label>
+            <input type="checkbox" class="btn-check" id="MYL2-btncheck" v-model = "MYL2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="MYL2-btncheck">MYL2</label>
+            <input type="checkbox" class="btn-check" id="TTN-btncheck" v-model = "TTN" autocomplete="off">
+            <label class="btn btn-outline-primary" for="TTN-btncheck">TTN</label>
           </div>
 
     </div>
@@ -246,6 +247,7 @@
   import { ref } from 'vue';
   import Modal from '../components/Modal.vue'
   import { addHcmData } from '../composables/addHcmData';
+  import { parseCsv } from '../utils/parsePatientData'
 
   let modalBody = ref('');
   //refs for inputs
@@ -261,24 +263,24 @@
   const rvmass = ref('');
   const lsv = ref('');
   const rsv = ref('');
-  const gender = ref('');
-  const age = ref('');
+  const female = ref('');
+  const AgeatMRI = ref('');
   //gene-input
   const scar = ref('');
-  const hcm = ref('');
-  const scd = ref('');
-  const ht = ref('');
-  const diabetes = ref('');
-  const myectomy = ref('');
-  const myh7 = ref('');
-  const mybpc3 = ref('');
-  const tnnt2 = ref('');
-  const actc = ref('');
-  const tpm1 = ref('');
-  const tnnci = ref('');
-  const tnni3 = ref('');
-  const myl2 = ref('');
-  const tt = ref('');
+  const ApicalHCM = ref('');
+  const SuddenCardiacDeath = ref('');
+  const Hypertension = ref('');
+  const Diabetes = ref('');
+  const Myectomy = ref('');
+  const MYH7 = ref('');
+  const MYBPC3mutation = ref('');
+  const TNNT2mutation = ref('');
+  const ACTCmutation = ref('');
+  const TPM1 = ref('');
+  const TNNCI = ref('');
+  const TNNI3 = ref('');
+  const MYL2 = ref('');
+  const TTN = ref('');
 
   const addData = async () => {
     //generate JSON to add to Firestroe
@@ -313,23 +315,23 @@
       rvmass: rvmass.value,
       lsv: lsv.value,
       rsv: rsv.value,
-      female: (gender.value == 'Female') ? "1" : "0",
-      AgeatMRI: age.value,
+      female: (female.value == 'Female') ? "1" : "0",
+      AgeatMRI: ageatmri.value,
       scar: (scar.value == true) ? "1" : "0",
-      ApicalHCM: (hcm.value == true) ? "1" : "0",
-      SuddenCardiacDeath: (scd.value == true) ? "1" : "0",
-      Hypertension: (ht.value == true) ? "1" : "0",
-      Diabetes: (diabetes.value == true) ? "1" : "0",
-      Myectomy: (myectomy.value == true) ? "1" : "0",
-      MYH7: (myh7.value == true) ? "1" : "0",
-      MYBPC3mutation: (mybpc3.value == true) ? "1" : "0",
-      TNNT2mutation: (tnnt2.value == true) ? "1" : "0",
-      ACTCmutation: (actc.value == true) ? "1" : "0",
-      TPM1: (tpm1.value == true) ? "1" : "0",
-      TNNCI: (tnnci.value == true) ? "1" : "0",
-      TNNI3: (tnni3.value == true) ? "1" : "0",
-      MYL2: (myl2.value == true) ? "1" : "0",
-      TT: (tt.value == true) ? "1" : "0"
+      ApicalHCM: (ApicalHCM.value == true) ? "1" : "0",
+      SuddenCardiacDeath: (SuddenCardiacDeath.value == true) ? "1" : "0",
+      Hypertension: (Hypertension.value == true) ? "1" : "0",
+      Diabetes: (Diabetes.value == true) ? "1" : "0",
+      Myectomy: (Myectomy.value == true) ? "1" : "0",
+      MYH7: (MYH7.value == true) ? "1" : "0",
+      MYBPC3mutation: (MYBPC3mutation.value == true) ? "1" : "0",
+      TNNT2mutation: (TNNT2mutation.value == true) ? "1" : "0",
+      ACTCmutation: (ACTCmutation.value == true) ? "1" : "0",
+      TPM1: (TPM1.value == true) ? "1" : "0",
+      TNNCI: (TNNCI.value == true) ? "1" : "0",
+      TNNI3: (TNNI3.value == true) ? "1" : "0",
+      MYL2: (MYL2.value == true) ? "1" : "0",
+      TTN: (TTN.value == true) ? "1" : "0"
     };
 
     return hcmJson;
