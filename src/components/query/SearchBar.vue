@@ -1,11 +1,11 @@
 <template>
   <div class="input-group mb-3">
-    <select v-model="selectedColumn" class="form-select">
+    <select v-model="searchColumn" class="form-select">
       <option disabled value="">
         Select Column
       </option>
-      <option v-for="column in columns" :key="column" :value="column">
-        {{ column }}
+      <option v-for="column in columns" :key="column" :value="column.docField">
+        {{ column.display }}
       </option>
     </select>
     <input
@@ -25,21 +25,23 @@
 
   <script setup>
   import { ref } from 'vue';
-
+  import { fields } from '../../firebase/constants';
   const searchTerm = ref('');
+  const searchColumn = ref('');
+  const searchRef = ref({});
   const showAdvanced = ref(false);
   const emit = defineEmits(['search','show-advanced']);
 
   const sendSearch = () => {
-    emit('search', searchTerm.value);
+    searchRef.value = {
+      term: searchTerm.value,
+      col: searchColumn.value
+    };
+    emit('search', searchRef.value);
   };
   const showAdvancedSearch = () => {
     emit('show-advanced', showAdvanced.value = !showAdvanced.value);
   };
 
-  const columns = [
-    'ledv', 'lesv', 'lsv', 'lvef', 'lvmass', 'redv', 'resv', 'rsv', 'rvef', 'scar',
-    // ... other columns
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v'
-  ];
+  const columns = fields;
   </script>
