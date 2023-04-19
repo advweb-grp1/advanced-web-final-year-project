@@ -21,29 +21,14 @@
             <router-link v-if="item.link" class="nav-link" :to="item.link">
               {{ item.label }}
             </router-link>
-          </li>
-          <li v-if="user" class="nav-item">
-            <router-link class="nav-link" to="/dashboard">
-              Dashboard
-            </router-link>
-          </li>
-          <li v-if="user" class="nav-item">
-            <router-link class="nav-link" to="/query">
-              Query
-            </router-link>
-          </li>
-          <li v-if="!user" class="nav-item">
-            <router-link class="nav-link" to="/register">
-              Register
-            </router-link>
-          </li>
-          <li v-if="user" class="nav-item">
-            <router-link class="nav-link" to="/addData">
-              Add data
-            </router-link>
-          </li>
-          <li v-if="user" class="nav-item">
-            <a href="#" class="nav-link" @click.prevent="logout">Logout</a>
+            <a
+              v-else
+              class="nav-link"
+              href="#"
+              @click.prevent="item.action"
+            >
+              {{ item.label }}
+            </a>
           </li>
         </ul>
       </div>
