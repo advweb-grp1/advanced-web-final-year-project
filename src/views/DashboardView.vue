@@ -28,7 +28,11 @@
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
-
+  import { useHcmStore } from '../stores/hcm';
+  const store = useHcmStore();
+  store.docs.forEach((d)=>{
+    console.log(d.data);
+  });
 
 
 
