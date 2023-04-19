@@ -29,19 +29,11 @@
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
-  //import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
-  //import ChartCard from '../components/ChartCard.vue';
-  //import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
-  //import { getDocs } from '@firebase/firestore';
-  //import { firebaseStore, collection } from '../firebase/database';
-  import { getMyectomyData } from '../composables/myectomy.js';
-
-  let { total, withMyectomy } = (async () => {
-    await getMyectomyData();
-  })();
-  const myectomyPercentage = computed(() => {
-    return Math.round((withMyectomy/total) * 100).toString()+'%';
-  });
+  // import { useHcmStore } from '../stores/hcm';
+  // const store = useHcmStore();
+  // store.docs.forEach((d)=>{
+  //   console.log(d.data());
+  // });
 
   const computedIntegers = [
     { label:'Total number of participants', value:'10' }, //to be changed

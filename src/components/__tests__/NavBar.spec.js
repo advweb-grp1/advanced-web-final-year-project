@@ -3,6 +3,7 @@ import NavBar from '../NavBar.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { RouterLinkStub, mount } from '@vue/test-utils';
 import { defineComponent } from 'vue';
+import { createPinia } from 'pinia'; // Import createPinia
 
 // Dummy component for the router to use
 const Dummy = defineComponent({ template: '<div>dummy</div>' });
@@ -19,11 +20,14 @@ const router = createRouter({
   ]
 });
 
+// Create a pinia instance
+const pinia = createPinia();
+
 describe('NavBar', () => {
   it('renders the navigation links', async () => {
     const wrapper = mount(NavBar, {
       global: {
-        plugins: [router],
+        plugins: [router, pinia], // Add pinia to the plugins array
         stubs: {
           RouterLink: RouterLinkStub
         }
