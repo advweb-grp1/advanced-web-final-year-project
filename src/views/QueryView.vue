@@ -10,15 +10,7 @@
 
       <div class="mt-3">
         <h4>Select Columns</h4>
-        <div v-for="column in columns" :key="column" class="d-inline-block me-2 mb-2">
-          <button
-            :class="{ 'btn-primary': isSelectedColumn(column), 'btn-outline-primary': !isSelectedColumn(column) }"
-            class="btn"
-            @click="toggleColumn(column)"
-          >
-            {{ column }}
-          </button>
-        </div>
+        <SelectColumns @toggle-columns="receivedColumns" />
       </div>
 
 
@@ -64,32 +56,7 @@
   import { ref, computed } from 'vue';
   import SearchBar from '../components/query/SearchBar.vue';
   import AdvancedSearch from '../components/query/AdvancedSearch.vue';
-  const isSelectedColumn = (column) => selectedColumns.value.includes(column);
-
-  const toggleColumn = (column) => {
-    if (isSelectedColumn(column)) {
-      removeColumn(column);
-    } else {
-      addColumn(column);
-    }
-  };
-
-  const addColumn = (column) => {
-    if (!selectedColumns.value.includes(column)) {
-      selectedColumns.value.push(column);
-    }
-
-    if (searchResults.value.length === 0) {
-      searchResults.value = placeholderData;
-    }
-  };
-
-  const removeColumn = (column) => {
-    const index = selectedColumns.value.indexOf(column);
-    if (index > -1) {
-      selectedColumns.value.splice(index, 1);
-    }
-  };
+  import SelectColumns from '../components/query/SelectColumns.vue';
   const placeholderData = [
     {
       ledv: 'Data 1',
@@ -120,7 +87,11 @@
     showAdvancedSearch.value = toggle;
   }
   function recievedAdvancedTerms(terms){
-    console.log(terms)
+    console.log(terms);
+  }
+  function receivedColumns(cols){
+    selectedColumns.value = cols;
+    console.log(selectedColumns.value);
   }
 
   const search = () => {
