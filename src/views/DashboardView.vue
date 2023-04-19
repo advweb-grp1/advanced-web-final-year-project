@@ -28,11 +28,63 @@
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
+  import { computed } from 'vue';
   import { useHcmStore } from '../stores/hcm';
+  let totalAge = 0;
+  let totalDocs = 0;
+  let MYH7 = 0;
+  let MYBPC3 = 0;
+  let TNNT2 = 0;
+  let ACTC = 0;
+  let TPM1 = 0;
+  let TNNCI = 0;
+  let TNNI3 = 0;
+  let MYL2 = 0;
+  let TTN = 0;
+  let fibrosis = 0;
+  let noFibrosis = 0;
   const store = useHcmStore();
   store.docs.forEach((d)=>{
-    console.log(d.data);
+    const age = parseFloat(d.data().AgeatMRI);
+    if(!isNaN(age)){
+      totalAge += age;
+      totalDocs++;
+    }
+    if(d.data().MYH7 == 1){
+      MYH7++;
+    }
+    if(d.data().MYBPC3mutation == 1){
+      MYBPC3++;
+    }
+    if(d.data().TNNT2mutation == 1){
+      TNNT2++;
+    }
+    if(d.data().ACTCmutation == 1){
+      ACTC++;
+    }
+    if(d.data().TPM1 == 1){
+      TPM1++;
+    }
+    if(d.data().TNNCI == 1){
+      TNNCI++;
+    }
+    if(d.data().TNNI3 == 1){
+      TNNI3++;
+    }
+    if(d.data().TTN == 1){
+      TTN++;
+    }
+    if(d.data().scar == 1){
+      fibrosis++;
+    }
+    if(d.data().scar == 0){
+      noFibrosis++;
+    }
   });
+  const avgAge = computed(()=>{
+    return Math.round(totalAge/totalDocs).toString();
+  });
+  console.log(avgAge.value);
 
 
 
@@ -42,7 +94,7 @@
 
   const computedIntegers = [
     { label:'Total number of participants', value:'10' },
-    { label:'Average age of participants', value: '10' },
+    { label:'Average age of participants', value: avgAge.value },
     { label:'Percentage of participants with diabetes', value:'10' },
     { label:'Percentage of participants who have undergone myectomy', value:'10' }
   ];
@@ -57,8 +109,8 @@
 
   );
   const geneMutations = PieChartBuilder('Gene Mutation Spread',
-                                        [44, 55, 13, 43, 22, 33, 55, 88,100],
-                                        ['MYH7', 'MYBPC3', 'TNNT2', 'ACTC', 'TPM1','TNNCI','TNNI3','MYL2','TT']
+                                        [MYH7, MYBPC3, TNNT2, ACTC, TPM1, TNNCI, TNNI3, MYL2,TTN],
+                                        ['MYH7', 'MYBPC3', 'TNNT2', 'ACTC', 'TPM1','TNNCI','TNNI3','MYL2','TNN']
   );
 
   const apicalHCMPrevelance = PieChartBuilder('Prevalence of apical HCM',
@@ -73,7 +125,7 @@
 
   );
   const hasFibrosis = PieChartBuilder('Percentage of participants with fibrosis/scarring(scar)',
-                                      [44, 55],
+                                      [fibrosis, noFibrosis],
                                       ['Has Scars', 'No Scars']
   );
   const averageREDV = LineChartBuilder('Right systolic volume chart',
