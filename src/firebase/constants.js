@@ -67,7 +67,7 @@ export const fields = [
   },
   {
     docField: 'female',
-    display: 'gender'
+    display: 'Gender'
   },
   {
     docField: 'ledv',

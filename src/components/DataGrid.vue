@@ -41,14 +41,70 @@
 
   <script setup>
   import { ref,computed } from 'vue';
+
   const props = defineProps({
     items: {
       type: Array,
-      required: true
+      required: true,
+      validator: (i) =>{
+        return Array.isArray(i) && i.every((item) =>{
+          // Define the structure of a valid item
+          const validItemKeys = [
+            'ACTCmutation',
+            'AgeatMRI',
+            'ApicalHCM',
+            'Diabetes',
+            'Hypertension',
+            'MYBPC3mutation',
+            'MYH7',
+            'MYL2',
+            'Myectomy',
+            'SuddenCardiacDeath',
+            'TNNCI',
+            'TNNI3',
+            'TNNT2mutation',
+            'TPM1',
+            'female',
+            'ledv',
+            'lesv',
+            'lsv',
+            'lvef',
+            'lvmass',
+            'redv',
+            'resv',
+            'rsv',
+            'rvef',
+            'scar',
+            'Hospitalization',
+            'ReasonforHospitalization',
+            'HeartAttack',
+            'HeartAttackDate',
+            'id',
+            'created_by_user_id'
+          ];
+
+          return (
+            typeof item === 'object' &&
+            Object.keys(item).every((key) => validItemKeys.includes(key))
+          );
+
+        });
+      }
     },
     columns: {
       type: Array,
-      required: true
+      required: true,
+      validator: (columns) => {
+        Array.isArray(columns) && columns.every((column) => {
+          return (
+            typeof column === 'object' &&
+            'docField' in column &&
+            'display' in column &&
+            typeof column.docField === 'string' &&
+            typeof column.display === 'string'
+          );
+        });
+      }
     },
     perPage: {
       type: Number,
@@ -58,7 +114,9 @@
       type: Boolean,
       default: false
     },
-    deleteItem: Function
+    deleteItem: {
+      type: Function
+    }
   });
   const currentPage = ref(1);
   const totalResults = computed(() => props.items.length);
