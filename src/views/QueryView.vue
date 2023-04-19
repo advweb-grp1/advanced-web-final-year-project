@@ -50,7 +50,7 @@
       </nav> -->
       <DataGrid
         :items="hcmStore.displayDocs"
-        :columns="selectedColumns.value"
+        :columns="selectedColumns"
         :perPage="5"
         :actions="false"
         :deleteItem="deleteItem"
@@ -86,7 +86,10 @@
   }
   function receivedColumns(cols){
     selectedColumns.value = cols;
+    console.log(selectedColumns.value.length);
     console.log(selectedColumns.value);
+    console.log(selectedColumns);
+
   }
 
   const search = () => {

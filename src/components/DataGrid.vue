@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in props.items" :key="item.id">
+        <tr v-for="item in paginatedResults" :key="item.id">
           <td v-for="column in props.columns" :key="column.docField">
             {{ item[column.docField] }}
           </td>
@@ -23,10 +23,24 @@
       </tbody>
     </table>
   </div>
+  <nav v-if="props.columns.length > 0" aria-label="Page navigation">
+    <ul class="pagination">
+      <li
+        v-for="page in totalPages"
+        :key="page"
+        class="page-item"
+        :class="{ active: currentPage === page }"
+      >
+        <button class="page-link" @click="goToPage(page)">
+          {{ page }}
+        </button>
+      </li>
+    </ul>
+  </nav>
 </template>
 
   <script setup>
-
+  import { ref,computed } from 'vue';
   const props = defineProps({
     items: {
       type: Array,
@@ -46,6 +60,17 @@
     },
     deleteItem: Function
   });
+  const currentPage = ref(1);
+  const totalResults = computed(() => props.items.length);
+  const totalPages = computed(() => Math.ceil(totalResults.value / props.perPage));
+  const paginatedResults = computed(() => {
+    const start = (currentPage.value - 1) * props.perPage;
+    const end = start + props.perPage;
+    return props.items.slice(start, end);
+  });
+  const goToPage = (page) => {
+    currentPage.value = page;
+  };
 
   </script>
 

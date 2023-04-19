@@ -25,7 +25,7 @@
     } else {
       addColumn(column);
     }
-    emit('toggle-columns',selectedColumns);
+    emit('toggle-columns',selectedColumns.value);
   };
   const addColumn = (column) => {
     if (!selectedColumns.value.includes(column)) {
