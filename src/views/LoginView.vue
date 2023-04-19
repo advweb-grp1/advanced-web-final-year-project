@@ -57,8 +57,10 @@
 
   import { ref } from 'vue';
   import { firebaseAuth, signInWithEmailAndPassword } from '../firebase/firebaseAuth';
-
+  import { useUserStore } from '../stores/user';
   import { useRouter } from 'vue-router';
+
+  const userStore = useUserStore();
 
   const title = 'Login';
   const emailLabel = 'Email address';
@@ -81,16 +83,25 @@
     }
 
     signInWithEmailAndPassword( firebaseAuth, email.value, password.value)
-      .then(
-        () => {
-          router.push('/');
-        },
-        () => {
-          errorMessage.value = 'Invalid login credentials';
-          attempts++;
-          checkAttempts();
+      .then((userCredential) => {
+        const user = userCredential.user;
+
+        // Check if the user's email is verified
+        if (user.emailVerified) {
+          // Email is verified, proceed to home page
+          userStore.set(user);
+          router.push('/'); // Emit the user object to the user store
+        } else {
+          // Email is not verified, show error message and sign out the user
+          errorMessage.value = 'Please verify your email before logging in.';
+          firebaseAuth.signOut();
         }
-      );
+      })
+      .catch(() => {
+        errorMessage.value = 'Invalid login credentials';
+        attempts++;
+        checkAttempts();
+      });
 
 
   }

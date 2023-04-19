@@ -29,20 +29,16 @@
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
-  import { getDiabetesData } from '../composables/diabetesData';
-
-  let { total, withDiabetes } = (async () => {
-    await getDiabetesData();
-  })();
-
-  const diabetesPercentage = computed(() => {
-    return Math.round((withDiabetes/total) * 100).toString()+'%';
-  });
+  // import { useHcmStore } from '../stores/hcm';
+  // const store = useHcmStore();
+  // store.docs.forEach((d)=>{
+  //   console.log(d.data());
+  // });
 
   const computedIntegers = [
     { label:'Total number of participants', value:'10' },
     { label:'Average age of participants', value:'10' },
-    { label:'Percentage of participants with diabetes', value: diabetesPercentage.value },
+    { label:'Percentage of participants with diabetes', value: '10' },
     { label:'Percentage of participants who have undergone myectomy', value:'10' }
   ];
   const ageDistribution = ColumnChartBuilder('Age distribution',
