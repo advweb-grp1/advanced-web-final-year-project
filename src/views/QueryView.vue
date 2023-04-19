@@ -14,7 +14,7 @@
       </div>
 
 
-      <div v-if="paginatedResults.length > 0" class="mt-3 results-table">
+      <!-- <div v-if="paginatedResults.length > 0" class="mt-3 results-table">
         <h4>Search Results</h4>
         <table class="table table-striped">
           <thead>
@@ -47,31 +47,26 @@
             </button>
           </li>
         </ul>
-      </nav>
+      </nav> -->
+      <DataGrid
+        :items="hcmStore.displayDocs"
+        :columns="selectedColumns.value"
+        :perPage="5"
+        :actions="false"
+        :deleteItem="deleteItem"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-  import { ref, computed } from 'vue';
+  import { ref } from 'vue';
   import SearchBar from '../components/query/SearchBar.vue';
   import AdvancedSearch from '../components/query/AdvancedSearch.vue';
   import SelectColumns from '../components/query/SelectColumns.vue';
-  const placeholderData = [
-    {
-      ledv: 'Data 1',
-      lesv: 'Data 2',
-      lsv: 'Data 3',
-      lvef: 'Data 4',
-      lvmass: 'Data 5',
-      redv: 'Data 6',
-      resv: 'Data 7',
-      rsv: 'Data 8',
-      rvef: 'Data 9',
-      scar: 'Data 10'
-    // ... (other data)
-    }
-  ];
+  import { useHcmStore } from '../stores/hcm';
+  import DataGrid from '../components/DataGrid.vue';
+  const hcmStore = useHcmStore();
   const searchTerm = ref('');
   const searchResults = ref([]);
   const showAdvancedSearch = ref(false);
@@ -112,23 +107,6 @@
       }
     ];
   };
-  const advancedSearch = () => {
-  // Perform advanced search logic here
-  };
-
-  const perPage = ref(5);
-  const currentPage = ref(1);
-  const totalResults = computed(() => searchResults.value.length);
-  const totalPages = computed(() => Math.ceil(totalResults.value / perPage.value));
-  const paginatedResults = computed(() => {
-    const start = (currentPage.value - 1) * perPage.value;
-    const end = start + perPage.value;
-    return searchResults.value.slice(start, end);
-  });
-
-  const goToPage = (page) => {
-    currentPage.value = page;
-  };
 
 </script>
 
@@ -138,7 +116,4 @@
   margin-right: 15px;
 }
 
-.results-table {
-  overflow-x: auto;
-}
 </style>

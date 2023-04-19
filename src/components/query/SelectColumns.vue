@@ -5,20 +5,19 @@
       class="btn"
       @click="toggleColumn(column)"
     >
-      {{ column }}
+      {{ column.display }}
     </button>
   </div>
 </template>
 <script setup>
   import { ref } from 'vue';
+  import { fields } from '../../firebase/constants';
   const selectedColumns = ref([]);
   const emit = defineEmits(['toggle-columns']);
 
-  const columns = [
-    'ledv', 'lesv', 'lsv', 'lvef', 'lvmass', 'redv', 'resv', 'rsv', 'rvef', 'scar',
-    // ... other columns
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v'
-  ];
+  // const columns = fields.map((field)=>field.display);
+  const columns = fields;
+
   const isSelectedColumn = (column) => selectedColumns.value.includes(column);
   const toggleColumn = (column) => {
     if (isSelectedColumn(column)) {
