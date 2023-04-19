@@ -35,7 +35,7 @@
   let withDiabetes = 0;
   hcmStore.docs.forEach((d)=>{
     //console.log(d.data());
-    if(d.data().Diabetes == "1"){
+    if(d.data().Diabetes == '1'){
       withDiabetes++;
     }
   });
