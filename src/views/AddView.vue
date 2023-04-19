@@ -4,7 +4,9 @@
   </h2>
 
   <div>
-    <h2 for="formFileLg" class="form-label">Upload Patient Data File</h2>
+    <h2 for="formFileLg" class="form-label">
+      Upload Patient Data File
+    </h2>
     <input
       id="uploadFile"
       class="form-control form-control-lg"
@@ -15,12 +17,14 @@
   </div>
 
   <div class="row justify-content-md-center mt-1">
-    <button class="col-md-10 btn btn-primary btn-block" type="submit">
+    <button class="col-md-10 btn btn-primary btn-block" type="submit" @click="addUploadedFileToFirestore()">
       Add Uploaded File
     </button>
   </div>
 
-  <h2 class="form-label mt-2">Add Manually</h2>
+  <h2 class="form-label mt-2">
+    Add Manually
+  </h2>
   <form @submit.prevent="addData">
     <div class="row">
       <div id="hr-data" class="col-12 mb-1 d-flex align-content-around flex-wrap">
@@ -177,36 +181,36 @@
       <div class="col-12">
         <div class="row justify-content-center">
           <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-              <div class="col-4">
-                <input
-                  id="scar-btncheck"
-                  v-model="scar"
-                  type="checkbox"
-                  class="btn-check col-12"
-                  autocomplete="off"
-                  >
-                  <label class="btn btn-outline-primary col-12" for="scar-btncheck">Scarring</label>
-              </div>
-              <div class="col-4">
-                <input
+            <div class="col-4">
+              <input
+                id="scar-btncheck"
+                v-model="scar"
+                type="checkbox"
+                class="btn-check col-12"
+                autocomplete="off"
+              >
+              <label class="btn btn-outline-primary col-12" for="scar-btncheck">Scarring</label>
+            </div>
+            <div class="col-4">
+              <input
                 id="hcm-btncheck"
                 v-model="ApicalHCM"
                 type="checkbox"
                 class="btn-check col-12"
                 autocomplete="off"
-                >
-                <label class="btn btn-outline-primary col-12" for="hcm-btncheck">Apical HCM</label>
-              </div>
-              <div class="col-4">
-                <input
+              >
+              <label class="btn btn-outline-primary col-12" for="hcm-btncheck">Apical HCM</label>
+            </div>
+            <div class="col-4">
+              <input
                 id="btncheck3"
                 v-model="SuddenCardiacDeath"
                 type="checkbox"
                 class="btn-check col-12"
                 autocomplete="off"
-                >
-                <label class="btn btn-outline-primary col-12" for="btncheck3">Sudden Cardiac Arrest</label>
-              </div>
+              >
+              <label class="btn btn-outline-primary col-12" for="btncheck3">Sudden Cardiac Arrest</label>
+            </div>
           </div>
           <div class="btn-group mt-1" role="group" aria-label="Basic checkbox toggle button group">
             <div class="col-4">
@@ -353,7 +357,8 @@
   import { addHcmData } from '../composables/addHcmData';
   import { parseCsv } from '../utils/parsePatientData';
 
-  let modalBody = ref('');
+  const modalBody = ref('');
+  let uploadedPatientData = [];
   //refs for inputs
 
   //heart-input
@@ -386,66 +391,63 @@
   const MYL2 = ref('');
   const TTN = ref('');
 
-  const numberInputs = [
-    'ledv',
-    'redv',
-    'lesv',
-    'resv',
-    'lvef',
-    'rvef',
-    'lvmass',
-    'rvmass',
-    'lsv',
-    'rsv',
-    'AgeatMRI'
-  ];
+  const addUploadedFileToFirestore = async () => {
+    if(uploadedPatientData.length == 0){
+      modalBody.value = 'Sorry! We Couldn\'t Find Any Valid Patient Data In The Uploaded File. '+
+      'Please Make Sure You Upload A File Ending In \'.CSV\'';
+      document.getElementById('modalTrigger').click();
+    }else{
+      await addHcmData(uploadedPatientData)
+        .then((success) => {
+          modalBody.value = (success) ?
+            'Patient Data From Uploaded File Successfully Added To Database' :
+            'FAILED! Data Was NOT Added To The Database!';
 
-  const booleanInputs=[
-    'female',
-    'scar',
-    'ApicalHCM',
-    'SuddenCardiacDeath',
-    'Hypertension',
-    'Diabetes',
-    'Myectomy',
-    'MYH7',
-    'MYBPC3mutation',
-    'TNNT2mutation',
-    'ACTCmutation',
-    'TPM1',
-    'TNNCI',
-    'TNNI3',
-    'MYL2',
-    'TTN'
-  ];
-
+          document.getElementById('modalTrigger').click();
+        });
+    }
+  };
 
   const parseFile = async () => {
     let file = document.getElementById('uploadFile').files[0];
 
-    const reader = new FileReader();
-    reader.onload = async function (e) {
-      const text = await e.target.result;
-      let patientJson = await parseCsv(text);
+    if(file.name.split('.').pop().includes('csv')){
+      const reader = new FileReader();
+      reader.onload = async function (e) {
+        const text = await e.target.result;
+        let patientJson = await parseCsv(text);
 
-      //Gets first patient row
-      let patientData = Object.values(patientJson)[0];
-      for (var key in patientData){
-        //sets number input fields on page
-        if(numberInputs.includes(key)){
-          eval(key).value = patientData[key];
-        }
-        //sets checkboxes and gender dropdown
-        else if(booleanInputs.includes(key)){
-          if(key == 'female'){
-            female.value = (patientData[key] == '1') ? 'female' : 'male';
-          }else{
-            eval(key).value = (patientData[key] == '1') ? true : false;
-          }
-        }
-      }
-    };
-    reader.readAsText(file);
+        //converts parsed Csv into array of objects
+        let patientData = Object.values(patientJson);
+        uploadedPatientData = patientData;
+      };
+      reader.readAsText(file);
+
+    }else{
+      modalBody.value = 'Sorry! Only Files Ending In \'.CSV\' Are Allowed!';
+      document.getElementById('modalTrigger').click();
+    }
+  };
+
+  const validInputs = () => {
+    if(
+      !ledv.value ||
+      !redv.value ||
+      !lesv.value ||
+      !resv.value ||
+      !lvef.value ||
+      !rvef.value ||
+      !lvmass.value ||
+      !rvmass.value ||
+      !lsv.value ||
+      !rsv.value ||
+      !female.value ||
+      !AgeatMRI.value
+    ){
+      console.log(!redv.value);
+      return false;
+    }
+    return true;
   };
 
   const addData = async () => {
@@ -453,24 +455,26 @@
     //call addHcmData
     //show success/faliure
 
-    console.log(buildHcmJson());
+    if(!validInputs()){
+      modalBody.value = 'All Patient/Heart Information Need To Be Entered! (Data cannot be \'0\')';
+      document.getElementById('modalTrigger').click();
+      return;
+    }
     if(await addHcmData(buildHcmJson())){
-      //modal saying 'successfully added'
-      console.log('cool');
       modalBody.value = 'Patient Data Was Successfully Added To The Database!';
     }else{
-      //modal saying 'failure'
-      console.log('bad');
       modalBody.value = 'FAILED! Data Was NOT Added To The Database!';
     }
+
     document.getElementById('modalTrigger').click();
   };
 
   const buildHcmJson = () => {
     //uses ternary operators to change UI friendly input to database types
     //(true/false -> 1/0)
+    let patient = [];
 
-    const hcmJson ={
+    patient.push({
       ledv: ledv.value,
       redv: redv.value,
       lesv: lesv.value,
@@ -498,9 +502,9 @@
       TNNI3: (TNNI3.value == true) ? '1' : '0',
       MYL2: (MYL2.value == true) ? '1' : '0',
       TTN: (TTN.value == true) ? '1' : '0'
-    };
+    });
 
-    return hcmJson;
+    return patient;
   };
 
 </script>
