@@ -25,19 +25,29 @@
 </template>
 
 <script setup>
+  import { computed } from 'vue';
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
-  // import { useHcmStore } from '../stores/hcm';
-  // const store = useHcmStore();
-  // store.docs.forEach((d)=>{
-  //   console.log(d.data());
-  // });
+  import { useHcmStore } from '../stores/hcm';
+  const hcmStore = useHcmStore();
+  const totalPatients = hcmStore.docs.length;
+  let withDiabetes = 0;
+  hcmStore.docs.forEach((d)=>{
+    //console.log(d.data());
+    if(d.data().Diabetes == "1"){
+      withDiabetes++;
+    }
+  });
+
+  const diabetesPercentage = computed(() => {
+    return Math.round((withDiabetes/totalPatients) * 100).toString()+'%';
+  });
 
   const computedIntegers = [
     { label:'Total number of participants', value:'10' },
     { label:'Average age of participants', value:'10' },
-    { label:'Percentage of participants with diabetes', value:'10' },
+    { label:'Percentage of participants with diabetes', value: diabetesPercentage.value },
     { label:'Percentage of participants who have undergone myectomy', value:'10' }
   ];
   const ageDistribution = ColumnChartBuilder('Age distribution',
@@ -60,6 +70,12 @@
                                               [20, 80],
                                               ['ApicalHCM', 'no ApicalHCM']
   );
+
+  const diabetics = PieChartBuilder('Diabetics',
+                                    [withDiabetes, totalPatients-withDiabetes],
+                                    ['Diabetic', 'Non-Diabetic']
+  );
+
   const averageLEDV = LineChartBuilder('Left systolic volume chart',
                                        [
                                          22, 48, 13, 5, 2
@@ -78,10 +94,13 @@
                                        'right systolic volume (REDV)'
 
   );
+
+
   const chartsArray = [
     ageDistribution,
     geneMutations,
     apicalHCMPrevelance,
+    diabetics,
     hasFibrosis,
     averageLEDV,
     averageREDV
