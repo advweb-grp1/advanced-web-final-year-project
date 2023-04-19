@@ -64,6 +64,7 @@
     if (user) {
       items.push({ key: 'dashboard', label: 'Dashboard', link: '/dashboard' });
       items.push({ key: 'query', label: 'Query', link: '/query' });
+      items.push({ key: 'addData', label: 'Add Data', link: '/addData' });
       items.push({ key: 'logout', label: 'Logout', action: logout });
     } else {
       items.push({ key: 'login', label: 'Login', link: '/login' });
