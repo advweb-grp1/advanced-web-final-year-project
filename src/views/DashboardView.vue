@@ -25,14 +25,29 @@
 </template>
 
 <script setup>
+  import { computed } from 'vue';
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
+  //import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
+  //import ChartCard from '../components/ChartCard.vue';
+  //import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
+  //import { getDocs } from '@firebase/firestore';
+  //import { firebaseStore, collection } from '../firebase/database';
+  import { getMyectomyData } from '../composables/myectomy.js';
+
+  let { total, withMyectomy } = (async () => {
+    await getMyectomyData();
+  })();
+  const myectomyPercentage = computed(() => {
+    return Math.round((withMyectomy/total) * 100).toString()+'%';
+  });
+
   const computedIntegers = [
-    { label:'Total number of participants', value:'10' },
+    { label:'Total number of participants', value:'10' }, //to be changed
     { label:'Average age of participants', value:'10' },
     { label:'Percentage of participants with diabetes', value:'10' },
-    { label:'Percentage of participants who have undergone myectomy', value:'10' }
+    { label:'Percentage of participants who have undergone myectomy', value: myectomyPercentage.value }
   ];
   const ageDistribution = ColumnChartBuilder('Age distribution',
                                              [
@@ -42,6 +57,12 @@
                                              [  '18-21',  '22-25',  '26-29',  '30-32',  '33-36',  '37-40',
                                                 '41-43',  '44-47','48-51',  '52-54',  '55-58',  '59-62',  '63-65'
                                              ]
+
+  );
+
+  const myectomy = PieChartBuilder('Patients that have undergone myectomy',
+                                   [withMyectomy, total-withMyectomy],
+                                   ['Undergone myectomy', 'Has not undergone myectomy']
 
   );
 
@@ -74,6 +95,7 @@
   );
   const chartsArray = [
     ageDistribution,
+    myectomy,
     geneMutations,
     apicalHCMPrevelance,
     hasFibrosis,
