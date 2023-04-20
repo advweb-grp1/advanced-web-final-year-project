@@ -30,41 +30,45 @@
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
   import { useHcmStore } from '../stores/hcm';
-  //import { getMyectomyData } from '../composables/myectomy';
+
   const hcmStore = useHcmStore();
   const patients = hcmStore.docs.length;
   let withMyectomy = 0;
   hcmStore.docs.forEach((d)=>{
-    //console.log(d.data());
+    console.log(d.data().Myectomy);
     if(d.data().Myectomy == '1'){
       withMyectomy++;
     }
   });
+
   const myectomyPercentage = computed(() => {
     return Math.round((withMyectomy/patients) * 100).toString() + '%';
   });
+
 
   const computedIntegers = [
     { label:'Total number of participants', value:'10' },
     { label:'Average age of participants', value:'10' },
     { label:'Percentage of participants with diabetes', value:'10' },
     { label:'Percentage of participants who have undergone myectomy', value: myectomyPercentage.value }
+
   ];
+
   const ageDistribution = ColumnChartBuilder('Age distribution',
                                              [
                                                22, 48, 13, 5, 2
                                              ],
-                                             'Age(Years)',
-                                             [  '18-21',  '22-25',  '26-29',  '30-32',  '33-36',  '37-40',
-                                                '41-43',  '44-47','48-51',  '52-54',  '55-58',  '59-62',  '63-65'
-                                             ]
 
+                                             'Age(Years)',
+                                             [ '18-21', '22-25', '26-29', '30-32', '33-36', '37-40',
+                                               '41-43','44-47','48-51', '52-54', '55-58', '59-62', '63-65'
+
+                                             ]
   );
 
   const myectomy = PieChartBuilder('Patients that have undergone myectomy',
                                    [withMyectomy, patients-withMyectomy],
                                    ['Undergone myectomy', 'Has not undergone myectomy']
-
   );
 
   const geneMutations = PieChartBuilder('Gene Mutation Spread',
@@ -72,28 +76,32 @@
                                         ['MYH7', 'MYBPC3', 'TNNT2', 'ACTC', 'TPM1','TNNCI','TNNI3','MYL2','TT']
   );
 
+
   const apicalHCMPrevelance = PieChartBuilder('Prevalence of apical HCM',
                                               [20, 80],
                                               ['ApicalHCM', 'no ApicalHCM']
   );
+
   const averageLEDV = LineChartBuilder('Left systolic volume chart',
                                        [
                                          22, 48, 13, 5, 2
                                        ],
                                        'left systolic volume (LSV)'
-
   );
+
   const hasFibrosis = PieChartBuilder('Percentage of participants with fibrosis/scarring(scar)',
                                       [44, 55],
+
                                       ['Has Scars', 'No Scars']
   );
+
   const averageREDV = LineChartBuilder('Right systolic volume chart',
                                        [
                                          22, 48, 13, 5, 2
                                        ],
                                        'right systolic volume (REDV)'
-
   );
+
   const chartsArray = [
     ageDistribution,
     myectomy,
@@ -102,6 +110,7 @@
     hasFibrosis,
     averageLEDV,
     averageREDV
+
   ];
 
 </script>
