@@ -29,12 +29,17 @@
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
-  //import { useHcmStore } from '../stores/hcm';
-  import { getMyectomyData } from '../composables/myectomy';
-
-  let { patients, withMyectomy } = (async () => {
-    await getMyectomyData();
-  })();
+  import { useHcmStore } from '../stores/hcm';
+  //import { getMyectomyData } from '../composables/myectomy';
+  const hcmStore = useHcmStore();
+  const patients = hcmStore.docs.length;
+  let withMyectomy = 0;
+  hcmStore.docs.forEach((d)=>{
+    //console.log(d.data());
+    if(d.data().Myectomy == '1'){
+      withMyectomy++;
+    }
+  });
   const myectomyPercentage = computed(() => {
     return Math.round((withMyectomy/patients) * 100).toString() + '%';
   });
