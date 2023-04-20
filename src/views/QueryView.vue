@@ -56,8 +56,41 @@
   function recievedShowAdvancedSearch(toggle){
     showAdvancedSearch.value = toggle;
   }
-  function recievedAdvancedTerms(terms){
-    console.log(terms);
+  function recievedAdvancedTerms(s){
+    if (s.term.trim() === '' || s.col.trim() === '') {
+      // If the search term is empty, show all data
+      filteredData.value = [...data.value];
+    } else {
+      // Filter the data based on the search term and column
+      filteredData.value = data.value.filter((item) =>{
+        // Check that the item has the property column selected
+        if (!Object.prototype.hasOwnProperty.call(item, s.col)) {
+          return false;
+        }
+
+        // Get the value of the item's column
+        const value = item[s.col];
+
+        // Check if the value is null or undefined
+        if (value === null || value === undefined) {
+          return false;
+        }
+
+        // Check if the value matches the search term using the selected condition
+        switch (s.condition) {
+        case '<':
+          return value < s.term;
+        case '>':
+          return value > s.term;
+        case '=':
+          return value.toString().toLowerCase() === s.term.toLowerCase();
+        case '!=':
+          return value.toString().toLowerCase() !== s.term.toLowerCase();
+        default:
+          return false;
+        }
+      });
+    }
   }
   function receivedColumns(cols){
     selectedColumns.value = cols;

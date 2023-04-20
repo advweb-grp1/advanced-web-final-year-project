@@ -1,12 +1,14 @@
 <template>
   <div class="row">
     <div class="col-md-4">
-      <input
-        v-model="advSearchValue1"
-        type="text"
-        class="form-control"
-        placeholder="Value 1"
-      >
+      <select v-model="searchColumn" class="form-select">
+        <option disabled value="">
+          Select Column
+        </option>
+        <option v-for="column in columns" :key="column" :value="column.docField">
+          {{ column.display }}
+        </option>
+      </select>
     </div>
     <div class="col-md-4">
       <select v-model="selectedCondition" class="form-select">
@@ -20,10 +22,10 @@
     </div>
     <div class="col-md-4">
       <input
-        v-model="advSearchValue2"
+        v-model="advSearchValue"
         type="text"
         class="form-control"
-        placeholder="Value 2"
+        placeholder="Search Value"
       >
     </div>
   </div>
@@ -38,17 +40,21 @@
 
 <script setup>
   import{ ref } from 'vue';
-  const advSearchValue1 = ref('');
-  const advSearchValue2 = ref('');
+  import { fields } from '../../firebase/constants';
+
+  const advSearchValue = ref('');
   const selectedCondition = ref('');
   const conditions = ['<', '>', '=', '!='];
+  const columns = fields;
+  const searchColumn = ref('');
+
   const emit = defineEmits(['advanced-terms']);
 
   const sendAdvancedSearch = () => {
     const terms = {
-      val1:advSearchValue1.value,
-      val2:advSearchValue2.value,
-      selectedCondition:selectedCondition.value
+      col:searchColumn.value,
+      term:advSearchValue.value,
+      condition:selectedCondition.value
     };
     emit('advanced-terms', terms);
   };
