@@ -113,7 +113,7 @@
 }
 
 p{
-  max-height: 300px; /* or any other value you want */
+  max-height: 300px;
   overflow: auto;
   text-overflow: ellipsis;
 }
