@@ -29,14 +29,18 @@
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
-  // import { useHcmStore } from '../stores/hcm';
-  // const store = useHcmStore();
-  // store.docs.forEach((d)=>{
-  //   console.log(d.data());
-  // });
+  //import { useHcmStore } from '../stores/hcm';
+  import { getMyectomyData } from '../composables/myectomy';
+
+  let { patients, withMyectomy } = (async () => {
+    await getMyectomyData();
+  })();
+  const myectomyPercentage = computed(() => {
+    return Math.round((withMyectomy/patients) * 100).toString() + '%';
+  });
 
   const computedIntegers = [
-    { label:'Total number of participants', value:'10' }, //to be changed
+    { label:'Total number of participants', value:'10' },
     { label:'Average age of participants', value:'10' },
     { label:'Percentage of participants with diabetes', value:'10' },
     { label:'Percentage of participants who have undergone myectomy', value: myectomyPercentage.value }
@@ -53,7 +57,7 @@
   );
 
   const myectomy = PieChartBuilder('Patients that have undergone myectomy',
-                                   [withMyectomy, total-withMyectomy],
+                                   [withMyectomy, patients-withMyectomy],
                                    ['Undergone myectomy', 'Has not undergone myectomy']
 
   );

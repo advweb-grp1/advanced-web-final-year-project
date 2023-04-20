@@ -5,7 +5,7 @@ export const getMyectomyData = async () => {
   const total = querySnapshot.size;
   let withMyectomy = 0;
   querySnapshot.forEach((doc) => {
-    if(doc.get('Hypertension') == '1'){
+    if(doc.get('Myectomy') == '1'){ // counts the number of patients with myectomy
       withMyectomy++;
     }
   });
