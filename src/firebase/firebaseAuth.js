@@ -5,7 +5,8 @@ import {
   signOut,
   signInWithEmailAndPassword,
   sendEmailVerification,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  updateProfile
 } from 'firebase/auth';
 import app from './app';
 
@@ -18,5 +19,7 @@ export {
   signOut,
   signInWithEmailAndPassword,
   sendEmailVerification,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  updateProfile,
+  getAuth
 };

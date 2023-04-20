@@ -4,7 +4,8 @@ import { getFirestore,
   addDoc,
   getDocs,
   query,
-  where
+  where,
+  updateDoc
 } from 'firebase/firestore';
 import app from './app';
 
@@ -17,5 +18,6 @@ export {
   addDoc,
   getDocs,
   query,
-  where
+  where,
+  updateDoc
 };

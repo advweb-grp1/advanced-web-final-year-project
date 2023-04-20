@@ -6,6 +6,7 @@ import DashboardView from '../views/DashboardView.vue';
 import QueryView from '../views/QueryView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import ResetUserPasswordView from '../views/ResetUserPasswordView.vue';
+import EditUserView from '../views/EditUserView.vue';
 import { requireSignedOut,requireSignedIn } from './routeGuard';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,11 @@ const router = createRouter({
       name: 'reset',
       component: ResetUserPasswordView,
       beforeEnter:requireSignedOut
+    },
+    {
+      path: '/edit',
+      name: 'edit',
+      component: EditUserView
     }
   ]
 });
