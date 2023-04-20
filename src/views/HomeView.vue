@@ -64,7 +64,7 @@
         </div>
       </div>
       <button class="btn btn-primary" @click="addCard">
-        Show More
+        Show News
       </button>
     </div>
   </section>
