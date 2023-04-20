@@ -56,15 +56,10 @@
               <p class="card-text">
                 {{ card.date }}
               </p>
-              <p class="card-text">
-                {{ card.keywords }}
-              </p>
+              <a class="card-text" :href="card.link">
+                {{ card.link }}
+              </a>
             </div>
-            <img
-              class="card-img-bottom"
-              :src="card.image"
-              alt="Cardiomyopathy image"
-            >
           </div>
         </div>
       </div>
@@ -76,33 +71,50 @@
 </template>
 <script setup>
   import { ref, reactive } from 'vue';
+  const apiKey = '3gAN3KvnuUCtSQHeYwk4q2GZQNzz04-DB4m5qBSoe5s';
+  const searchQuery = 'cardiomyopathy';
+  const language = 'en';
 
-  const cards = reactive([
-    { id:1, title:'Title: ' + 'Cardiomyopathy news', description:'Description: ' + 'Description of cardiomyopathy news.'
-      , date: 'Date: ' + 'Date of entry', keywords: 'Tags: ' + 'Tag names' },
-    { id:2, title:'Title: ' + 'Cardiomyopathy news', description:'Description: ' + 'Description of cardiomyopathy news.'
-      , date: 'Date: ' + 'Date of entry', keywords: 'Tags: ' + 'Tag names' },
-    { id:3, title:'Title: ' + 'Cardiomyopathy news', description:'Description: ' + 'Description of cardiomyopathy news.'
-      , date: 'Date: ' + 'Date of entry', keywords: 'Tags: ' + 'Tag names' },
-    { id:4, title:'Title: ' + 'Cardiomyopathy news', description:'Description: ' + 'Description of cardiomyopathy news.'
-      , date: 'Date: ' + 'Date of entry', keywords: 'Tags: ' + 'Tag names' }
-  ]);
-
-  const nextCardId = ref(5);
+  const cards = reactive([]);
+  const nextCardId = ref(1);
 
   function addCard() {
-    for (let i = 0; i < 4; i++) {
-      cards.push({ id: nextCardId, title: 'Title: ' + 'Cardiomyopathy news ',
-                   description: 'Description: ' + 'Description of cardiomyopathy news.',
-                   date: 'Date: ' + 'Date of entry',
-                   keywords: 'Tags: ' + 'Tag names',
-                   image: 'img source' });
-      nextCardId.value++;
-    }
+    fetch('https://api.newscatcherapi.com/v2/search?q='+searchQuery+'&lang='+language+'&sort_by=rank', {
+      headers: {
+        'x-api-key': apiKey
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        for (let i = 0; i < 4; i++) {
+          const article = data.articles[nextCardId.value];
+          cards.push({
+            id: nextCardId.value,
+            title: 'Title:'+ article.title +'',
+            description: 'Description:'+ article.summary +'',
+            date: 'Date:' + article.published_date +'',
+            link: article.link
+          });
+          nextCardId.value++;
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
+
+
+
 </script>
 <style>
 .card{
   margin-bottom: 15px;
+}
+
+p{
+  max-height: 300px; /* or any other value you want */
+  overflow: auto;
+  text-overflow: ellipsis;
 }
 </style>
