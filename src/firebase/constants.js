@@ -1,10 +1,14 @@
 
-export const collections = {
-  hcm: import.meta.env.VITE_DEV ? 'hcm_dev' : 'hcm',
-  user: import.meta.env.VITE_DEV ? 'users_dev' : 'user'
-};
+const collections = {};
+if (import.meta.env.VITE_DEV == 'false'){
+  collections.hcm = 'hcm';
+  collections.user = 'user';
+}else{
+  collections.hcm = 'hcm_dev';
+  collections.user = 'users_dev';
+}
 
-export const fields = [
+const fields = [
   {
     docField:'ACTCmutation',
     display:'ACT'
@@ -134,3 +138,8 @@ export const fields = [
     display: 'Diabetes'
   }
 ];
+
+export{
+  collections,
+  fields
+};
