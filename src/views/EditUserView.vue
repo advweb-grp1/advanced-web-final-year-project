@@ -182,10 +182,31 @@
   const affiliation = ref('');
   //const router = useRouter();
   const regError = ref('');
+  const auth = getAuth();
 
+  async function getUserInfo(){
+
+    const data = query(collection(firebaseStore,'users_dev'),where('uid','==',auth.currentUser.uid));
+    const userData = await getDocs(data);
+    userData.forEach(async (userDoc)=>{
+      try{
+        firstName.value = userDoc.data().firstName;
+        surname.value = userDoc.data().surname;
+        address1.value = userDoc.data().addressline1;
+        address2.value = userDoc.data().addressline2;
+        address3.value = userDoc.data().addressline3;
+        city.value = userDoc.data().city;
+        postCode.value = userDoc.data().postCode;
+        phoneNumber.value = userDoc.data().phoneNumber;
+        affiliation.value = userDoc.data().affiliation;
+      }catch(error){
+        console.log(error);
+      }
+    });
+  }
+  getUserInfo();
 
   async function updateUser(){
-    const auth = getAuth();
     const getUserId = query(collection(firebaseStore,'users_dev'), where('uid','==',auth.currentUser.uid));
     const getData = await getDocs(getUserId);
     console.log(getData);
