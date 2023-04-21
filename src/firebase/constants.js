@@ -62,8 +62,8 @@ export const fields = [
     display: 'TPM1'
   },
   {
-    docField: 'TT',
-    display: 'TT'
+    docField: 'TTN',
+    display: 'TTN'
   },
   {
     docField: 'female',
