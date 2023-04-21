@@ -18,7 +18,7 @@
 
   <div class="row justify-content-md-center mt-1">
     <button class="col-md-10 btn btn-primary btn-block" type="submit" @click="addUploadedFileToFirestore()">
-      Add Uploaded File
+      Add File
     </button>
   </div>
 
@@ -29,7 +29,7 @@
     <div class="row">
       <div id="hr-data" class="col-12 mb-1 d-flex align-content-around flex-wrap">
         <div class="col-6">
-          <label for="ledv">Left Ventricular End Diastolic Volume:</label>
+          <label v-b-tooltip.hover title="REQUIRED INPUT" for="ledv">Left Ventricular End Diastolic Volume *</label>
           <input
             id="ledv"
             v-model="ledv"
@@ -40,7 +40,7 @@
           >
         </div>
         <div class="col-6">
-          <label for="redv">Right Ventricular End Diastolic Volume: </label>
+          <label v-b-tooltip.hover for="redv" title="REQUIRED INPUT">Right Ventricular End Diastolic Volume *</label>
           <input
             id="redv"
             v-model="redv"
@@ -52,7 +52,7 @@
         </div>
 
         <div class="col-6">
-          <label for="lesv">Left Ventricular End Systolic Volume: </label>
+          <label v-b-tooltip.hover for="lesv" title="REQUIRED INPUT">Left Ventricular End Systolic Volume *</label>
           <input
             id="lesv"
             v-model="lesv"
@@ -64,7 +64,7 @@
         </div>
 
         <div class="col-6">
-          <label for="resv">Right Ventricular End Systolic Volume: </label>
+          <label v-b-tooltip.hover for="resv" title="REQUIRED INPUT">Right Ventricular End Systolic Volume *</label>
           <input
             id="resv"
             v-model="resv"
@@ -76,7 +76,7 @@
         </div>
 
         <div class="col-6">
-          <label for="lvef">Left Ventricular Ejection Fraction: </label>
+          <label v-b-tooltip.hover for="lvef" title="REQUIRED INPUT">Left Ventricular Ejection Fraction *</label>
           <input
             id="lvef"
             v-model="lvef"
@@ -88,7 +88,7 @@
         </div>
 
         <div class="col-6">
-          <label for="rvef">Right Ventricular Ejection Fraction: </label>
+          <label v-b-tooltip.hover for="rvef" title="REQUIRED INPUT">Right Ventricular Ejection Fraction *</label>
           <input
             id="rvef"
             v-model="rvef"
@@ -100,7 +100,7 @@
         </div>
 
         <div class="col-6">
-          <label for="lvmass">Left Ventricular Mass: </label>
+          <label v-b-tooltip.hover for="lvmass" title="REQUIRED INPUT">Left Ventricular Mass *</label>
           <input
             id="lvmass"
             v-model="lvmass"
@@ -112,7 +112,7 @@
         </div>
 
         <div class="col-6">
-          <label for="rvmass">Right Ventricular Mass:</label>
+          <label v-b-tooltip.hover for="rvmass" title="REQUIRED INPUT">Right Ventricular Mass *</label>
           <input
             id="rvmass"
             v-model="rvmass"
@@ -124,7 +124,7 @@
         </div>
 
         <div class="col-6">
-          <label for="lsv">Left Systolic Volume: </label>
+          <label v-b-tooltip.hover for="lsv" title="REQUIRED INPUT">Left Systolic Volume *</label>
           <input
             id="lsv"
             v-model="lsv"
@@ -136,7 +136,7 @@
         </div>
 
         <div class="col-6">
-          <label for="rsv">Right Systolic Volume: </label>
+          <label v-b-tooltip.hover for="rsv" title="REQUIRED INPUT">Right Systolic Volume *</label>
           <input
             id="rsv"
             v-model="rsv"
@@ -148,13 +148,21 @@
         </div>
 
         <div class="col-6">
-          <label for="female">Gender:</label>
+          <label v-b-tooltip.hover for="female" title="REQUIRED INPUT">Gender *</label>
           <select
             id="female"
             v-model="female"
             class="form-select"
             name="female"
           >
+            <option
+              value=""
+              selected
+              disabled
+              hidden
+            >
+              Select Gender
+            </option>
             <option value="male">
               Male
             </option>
@@ -165,19 +173,92 @@
         </div>
 
         <div class="col-6">
-          <label for="mri">Age at MRI: </label>
+          <label v-b-tooltip.hover for="mri" title="REQUIRED INPUT">Age at MRI *</label>
           <input
             id="mri"
             v-model="AgeatMRI"
             required
             type="number"
-            placeholder="age"
+            placeholder="Age"
             class="form-control mb-1"
           >
         </div>
+
+        <div class="col-6">
+          <label v-b-tooltip.hover for="hosp" title="REQUIRED INPUT">Hospitalization *</label>
+          <select
+            id="hosp"
+            v-model="hosp"
+            class="form-select"
+            name="hosp"
+          >
+            <option
+              value=""
+              selected
+              disabled
+              hidden
+            >
+              Hospitalized?
+            </option>
+            <option value="1">
+              Yes
+            </option>
+            <option value="0">
+              No
+            </option>
+          </select>
+        </div>
+
+        <div class="col-6">
+          <label for="hospreason">Reason For Hospitalization</label>
+          <input
+            id="hospreason"
+            v-model="hospreason"
+            type="text"
+            placeholder="Reason For Hospitalization"
+            class="form-control"
+            :disabled="hosp == '0'"
+          >
+        </div>
+        <div class="col-6">
+          <label v-b-tooltip.hover for="attack" title="REQUIRED INPUT">Heart Attack *</label>
+          <select
+            id="attack"
+            v-model="attack"
+            class="form-select"
+            name="attack"
+          >
+            <option
+              value=""
+              selected
+              disabled
+              hidden
+            >
+              Heart Attack?
+            </option>
+            <option value="1">
+              Yes
+            </option>
+            <option value="0">
+              No
+            </option>
+          </select>
+        </div>
+
+        <div class="col-6">
+          <label for="attackdate">Heart Attack Date</label><br>
+          <div class="container mt-1">
+            <input
+              id="attackdate"
+              v-model="attackdate"
+              type="date"
+              :disabled="attack=='0'"
+            >
+          </div>
+        </div>
       </div>
 
-      <!--newnew-->
+
       <div class="col-12">
         <div class="row justify-content-center">
           <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
@@ -335,7 +416,7 @@
     <div class="container text-center mt-2">
       <div class="row justify-content-md-center">
         <button class="col-md-10 btn btn-primary btn-block" type="submit" @click="addData">
-          Submit Inputted Data
+          Submit Data
         </button>
       </div>
     </div>
@@ -374,6 +455,10 @@
   const rsv = ref('');
   const female = ref('');
   const AgeatMRI = ref('');
+  const hosp = ref('');
+  const hospreason = ref('');
+  const attack = ref('');
+  const attackdate = ref('');
   //gene-input
   const scar = ref('');
   const ApicalHCM = ref('');
@@ -391,10 +476,17 @@
   const MYL2 = ref('');
   const TTN = ref('');
 
+  function JSDateToExcelDate(inDate) {
+    inDate = new Date(inDate);
+    var returnDateTime = 25569.0 +
+      ((inDate.getTime() - (inDate.getTimezoneOffset() * 60 * 1000)) / (1000 * 60 * 60 * 24));
+    return returnDateTime;
+  }
+
   const addUploadedFileToFirestore = async () => {
     if(uploadedPatientData.length == 0){
       modalBody.value = 'Sorry! We Couldn\'t Find Any Valid Patient Data In The Uploaded File. '+
-      'Please Make Sure You Upload A File Ending In \'.CSV\'';
+        'Please Make Sure You Upload A File Ending In \'.CSV\'';
       document.getElementById('modalTrigger').click();
     }else{
       await addHcmData(uploadedPatientData)
@@ -442,7 +534,9 @@
       !lsv.value ||
       !rsv.value ||
       !female.value ||
-      !AgeatMRI.value
+      !AgeatMRI.value ||
+      !hosp.value||
+      !attack.value
     ){
       console.log(!redv.value);
       return false;
@@ -487,6 +581,10 @@
       rsv: rsv.value,
       female: (female.value == 'Female') ? '1' : '0',
       AgeatMRI: AgeatMRI.value,
+      Hospitalization: hosp.value,
+      ReasonforHospitalization: (hosp.value == '1') ? hospreason.value : '',
+      HeartAttack: attack.value,
+      HeartAttackDate: (attack.value == '1') ? JSDateToExcelDate(attackdate.value) : '',
       scar: (scar.value == true) ? '1' : '0',
       ApicalHCM: (ApicalHCM.value == true) ? '1' : '0',
       SuddenCardiacDeath: (SuddenCardiacDeath.value == true) ? '1' : '0',
