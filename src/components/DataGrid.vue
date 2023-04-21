@@ -14,7 +14,7 @@
           <td v-for="column in props.columns" :key="column.docField">
             {{ item[column.docField] }}
           </td>
-          <td v-if="actions">
+          <td v-if="actions && item.created_by_user_id == userStore.user.info.uid">
             <button>
               Delete
             </button>
@@ -41,7 +41,8 @@
 
   <script setup>
   import { ref,computed } from 'vue';
-
+  import { useUserStore } from '../stores/user';
+  const userStore = useUserStore();
   const props = defineProps({
     items: {
       type: Array,
