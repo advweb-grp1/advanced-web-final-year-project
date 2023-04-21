@@ -55,7 +55,7 @@
         Object.prototype.hasOwnProperty.call(item, s.col) &&
         item[s.col] !== null &&
         item[s.col] !== undefined &&
-        item[s.col].toString().toLowerCase().includes(s.term.toLowerCase())
+        item[s.col].toString().toLowerCase() == s.term.toLowerCase()
       );
     }
   }

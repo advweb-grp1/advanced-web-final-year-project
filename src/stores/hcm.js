@@ -25,7 +25,22 @@ export const useHcmStore = defineStore({
         const filteredData = {};
         for (const field of fields) {
           if (Object.prototype.hasOwnProperty.call(q.data(), field.docField)) {
-            filteredData[field.docField] = q.data()[field.docField];
+            if (field.docField == 'female'){
+              if (q.data()[field.docField] == 1){
+                filteredData[field.docField] = 'Female';
+              }else{
+                filteredData[field.docField] = 'Male';
+              }
+            }else{
+              //convert 0 and 1 to no and yes for displaying to user
+              if(q.data()[field.docField] == 0){
+                filteredData[field.docField] = 'No';
+              }else if (q.data()[field.docField] == 1){
+                filteredData[field.docField] = 'Yes';
+              }else{
+                filteredData[field.docField] = q.data()[field.docField];
+              }
+            }
           }
         }
         filteredData['id'] = q.id;
