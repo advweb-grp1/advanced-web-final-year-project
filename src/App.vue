@@ -1,11 +1,9 @@
 <template>
   <NavBar />
-  <Suspense>
     <!-- Main Content -->
     <main class="container">
       <router-view />
     </main>
-  </Suspense>
 </template>
 
 <script setup>
