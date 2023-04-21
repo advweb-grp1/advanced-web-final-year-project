@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
       <select v-model="searchColumn" class="form-select">
         <option disabled value="">
           Select Column
@@ -10,7 +10,7 @@
         </option>
       </select>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <select v-model="selectedCondition" class="form-select">
         <option disabled value="">
           Select Condition
@@ -20,7 +20,7 @@
         </option>
       </select>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <input
         v-model="advSearchValue"
         type="text"
@@ -28,9 +28,7 @@
         placeholder="Search Value"
       >
     </div>
-  </div>
-  <div class="row mt-2">
-    <div class="col-md-12">
+    <div class="col-md-3">
       <button class="btn btn-primary" @click="sendAdvancedSearch">
         Advanced Search
       </button>

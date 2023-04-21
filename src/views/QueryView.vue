@@ -7,16 +7,18 @@
         <h4>Advanced Search</h4>
         <AdvancedSearch @advanced-terms="recievedAdvancedTerms" />
       </div>
-
+      <div class="col-12 mt-3">
+        <button class="col-12 btn btn-primary" @click="reset">
+          Reset Search Data
+        </button>
+      </div>
       <div class="mt-3">
         <h4>Select Columns</h4>
         <SelectColumns @toggle-columns="receivedColumns" />
       </div>
-
       <DataGrid
         :items="filteredData"
         :columns="selectedColumns"
-        :perPage="5"
         :actions="false"
         :deleteItem="deleteItem"
       />
@@ -94,6 +96,9 @@
   }
   function receivedColumns(cols){
     selectedColumns.value = cols;
+  }
+  function reset(){
+    filteredData.value = [...data.value];
   }
 
 </script>

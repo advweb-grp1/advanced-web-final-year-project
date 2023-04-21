@@ -12,7 +12,7 @@
       v-model="searchTerm"
       type="text"
       class="form-control"
-      placeholder="Search term"
+      placeholder="Search"
     >
     <button class="btn btn-primary" @click="sendSearch">
       Search

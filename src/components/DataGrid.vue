@@ -108,7 +108,7 @@
     },
     perPage: {
       type: Number,
-      default: 10
+      default: 30
     },
     actions: {
       type: Boolean,
