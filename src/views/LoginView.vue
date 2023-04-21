@@ -59,9 +59,9 @@
   import { firebaseAuth, signInWithEmailAndPassword } from '../firebase/firebaseAuth';
   import { useUserStore } from '../stores/user';
   import { useRouter } from 'vue-router';
+  import { useHcmStore } from '../stores/hcm';
 
   const userStore = useUserStore();
-
   const title = 'Login';
   const emailLabel = 'Email address';
   const passwordLabel = 'Password';
@@ -89,6 +89,11 @@
         // Check if the user's email is verified
         if (user.emailVerified) {
           // Email is verified, proceed to home page
+          const store = useHcmStore();
+          (async () => {
+            await store.fetchCollection();
+            console.log('loaded hcm data');
+          })();
           userStore.set(user);
           router.push('/'); // Emit the user object to the user store
         } else {
