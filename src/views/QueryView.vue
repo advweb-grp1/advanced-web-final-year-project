@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container mt-3">
+    <div v-if="data.length !=0" class="container mt-3">
       <h3>Search Data</h3>
       <SearchBar @search="recievedSearchTerm" @show-advanced="recievedShowAdvancedSearch" />
       <div v-if="showAdvancedSearch" class="mt-3">
@@ -22,6 +22,11 @@
         :actions="false"
         :deleteItem="deleteItem"
       />
+    </div>
+    <div v-else class="container mt-3">
+      <div class="alert alert-danger" role="alert">
+        Error: HCM firestore is empty.
+      </div>
     </div>
   </div>
 </template>
