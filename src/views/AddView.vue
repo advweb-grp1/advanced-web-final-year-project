@@ -216,6 +216,7 @@
             v-model="hospreason"
             type="text"
             placeholder="Reason For Hospitalization"
+            name="hospreason"
             class="form-control"
             :disabled="hosp == '0'"
           >
@@ -415,7 +416,13 @@
 
     <div class="container text-center mt-2">
       <div class="row justify-content-md-center">
-        <button class="col-md-10 btn btn-primary btn-block" type="submit" @click="addData">
+        <button
+          id="submit-data"
+          class="col-md-10 btn btn-primary btn-block"
+          type="submit"
+          name="submit-data"
+          @click="addData"
+        >
           Submit Data
         </button>
       </div>
