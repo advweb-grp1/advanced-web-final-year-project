@@ -84,7 +84,6 @@
   const avgAge = computed(()=>{
     return Math.round(totalAge/totalDocs).toString();
   });
-  console.log(avgAge.value);
 
 
 
@@ -94,7 +93,7 @@
 
   const computedIntegers = [
     { label:'Total number of participants', value:'10' },
-    { label:'Average age of participants', value: avgAge.value },
+    { label:'Average age of participants at MRI', value: avgAge.value },
     { label:'Percentage of participants with diabetes', value:'10' },
     { label:'Percentage of participants who have undergone myectomy', value:'10' }
   ];
@@ -143,8 +142,6 @@
     averageLEDV,
     averageREDV
   ];
-
-
 
 </script>
 
