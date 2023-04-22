@@ -68,7 +68,7 @@
 </template>
 <script setup>
   import { ref, reactive } from 'vue';
-  const apiKey = import.meta.env.VITE_NEWSAPI_KEY;
+  const apiKey = import.meta.env.VITE_NEWS_API_KEY;
   const searchQuery = 'cardiomyopathy';
   const language = 'en';
 
