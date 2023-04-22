@@ -35,11 +35,37 @@
   const patients = hcmStore.docs.length;
   let withMyectomy = 0;
   hcmStore.docs.forEach((d)=>{
-    console.log(d.data().Myectomy);
+    //console.log(d.data().Myectomy);
     if(d.data().Myectomy == '1'){
       withMyectomy++;
     }
   });
+
+  let age10to30 = 0;
+  let age31to40 = 0;
+  let age41to50 = 0;
+  let age51to60 = 0;
+  let above60 = 0;
+
+  hcmStore.docs.forEach((d) => {
+    const age = parseFloat(d.data().AgeatMRI);
+    if (10 <= age <= 30) {
+      age10to30++;
+    }
+    else if (31 <= age <= 40) {
+      age31to40++;
+    }
+    else if (41 <= age <= 50) {
+      age41to50++;
+    }
+    else if (51 <= age <= 60) {
+      age51to60++;
+    }
+    else if (age > 60) {
+      above60++;
+    }
+  });
+
 
   const myectomyPercentage = computed(() => {
     return Math.round((withMyectomy/patients) * 100).toString() + '%';
@@ -47,7 +73,7 @@
 
 
   const computedIntegers = [
-    { label:'Total number of participants', value:'10' },
+    { label:'Total number of participants', value: patients.toString() },
     { label:'Average age of participants', value:'10' },
     { label:'Percentage of participants with diabetes', value:'10' },
     { label:'Percentage of participants who have undergone myectomy', value: myectomyPercentage.value }
@@ -56,13 +82,16 @@
 
   const ageDistribution = ColumnChartBuilder('Age distribution',
                                              [
-                                               22, 48, 13, 5, 2
+                                               // eslint-disable-next-line max-len
+                                               //age18to21, age22to25, age26to29, age30to32, age33to36, age37to40, age41to43,
+                                               // eslint-disable-next-line max-len
+                                               //age44to47, age48to51, age52to54, age55to58, age59to62, age63to65, morethan65
+                                               //22, 48, 13, 5, 2
+                                               age10to30, age31to40, age41to50, age51to60, above60
                                              ],
 
                                              'Age(Years)',
-                                             [ '18-21', '22-25', '26-29', '30-32', '33-36', '37-40',
-                                               '41-43','44-47','48-51', '52-54', '55-58', '59-62', '63-65'
-
+                                             [ '10-30', '31-40', '41-50', '51-60', '60+'
                                              ]
   );
 
