@@ -1,5 +1,5 @@
 <template>
-  <h1>Register</h1>
+  <h1>Edit User</h1>
   <br>
   <form @submit.prevent="updateUser">
     <div class="row">
@@ -165,11 +165,10 @@
 </template>
 
 <script setup>
-  import{ ref } from 'vue';
-  //import { useRouter } from 'vue-router';
-  import { firebaseStore, collection, query, where, getDocs, updateDoc } from '../firebase/database';
+  import{ ref, watch } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { firebaseStore, collection, query, where, getDocs, updateDoc, doc } from '../firebase/database';
   import { getAuth } from '../firebase/firebaseAuth';
-  import { doc } from '@firebase/firestore';
 
   const firstName = ref('');
   const surname = ref('');
@@ -180,7 +179,7 @@
   const postCode = ref('');
   const phoneNumber = ref('');
   const affiliation = ref('');
-  //const router = useRouter();
+  const router = useRouter();
   const regError = ref('');
   const auth = getAuth();
 
@@ -206,31 +205,45 @@
   }
   getUserInfo();
 
+  watch(phoneNumber, () =>{
+    if(/(^\+?[0-9]{10,15})$/.test(phoneNumber.value) ){
+      regError.value = null;
+    }else{
+      regError.value = 'Phone number is invalid';
+    }
+  });
+
   async function updateUser(){
-    const getUserId = query(collection(firebaseStore,'users_dev'), where('uid','==',auth.currentUser.uid));
-    const getData = await getDocs(getUserId);
-    console.log(getData);
-    getData.forEach(async (docData)=>{
-      try{
-        await updateDoc(doc(firebaseStore, 'users_dev', docData.id),{
-          firstName: firstName.value,
-          surname: surname.value,
-          addressline1: address1.value,
-          addressline2: address2.value,
-          addressline3: address3.value,
-          city: city.value,
-          postCode: postCode.value,
-          phoneNumber: phoneNumber.value,
-          affiliation: affiliation.value
+    if(!regError.value){
+      if(!firstName.value || !surname.value || !address1.value|| !city.value || !postCode.value ||!phoneNumber.value
+        || !affiliation.value){
+        regError.value='Please fill all fields';
+      }else{
+        const getUserId = query(collection(firebaseStore,'users_dev'), where('uid','==',auth.currentUser.uid));
+        const getData = await getDocs(getUserId);
+        console.log(getData);
+        getData.forEach(async (docData)=>{
+          try{
+            await updateDoc(doc(firebaseStore, 'users_dev', docData.id),{
+              firstName: firstName.value,
+              surname: surname.value,
+              addressline1: address1.value,
+              addressline2: address2.value,
+              addressline3: address3.value,
+              city: city.value,
+              postCode: postCode.value,
+              phoneNumber: phoneNumber.value,
+              affiliation: affiliation.value
+            });
+            router.push('/profile');
+          }
+          catch(error){
+            console.log(docData.id);
+            console.log(error);
+          }
         });
-        console.log('Successfully updated user');
-        console.log(docData.id);
       }
-      catch(error){
-        console.log(docData.id);
-        console.log(error);
-      }
-    });
+    }
   }
 
 </script>
