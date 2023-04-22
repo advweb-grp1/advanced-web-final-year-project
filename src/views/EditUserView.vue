@@ -150,7 +150,7 @@
         style="margin: auto"
         @click="updateUser"
       >
-        Register
+        Update
       </button>
     </div>
     <div
@@ -168,8 +168,8 @@
   import{ ref, watch } from 'vue';
   import { useRouter } from 'vue-router';
   import { firebaseStore, collection, query, where, getDocs, updateDoc, doc } from '../firebase/database';
-  import { getAuth } from '../firebase/firebaseAuth';
   import { useUserStore } from '../stores/user';
+  import { collections } from '../firebase/constants';
   const firstName = ref('');
   const surname = ref('');
   const address1 = ref('');
@@ -181,7 +181,6 @@
   const affiliation = ref('');
   const router = useRouter();
   const regError = ref('');
-  const auth = getAuth();
 
 
   const userStore = useUserStore();
@@ -210,12 +209,12 @@
         || !affiliation.value){
         regError.value='Please fill all fields';
       }else{
-        const getUserId = query(collection(firebaseStore,'users_dev'), where('uid','==',auth.currentUser.uid));
-        const getData = await getDocs(getUserId);
-        console.log(getData);
-        getData.forEach(async (docData)=>{
+        const getDocId = query(collection(firebaseStore, collections.user), where('uid','==',user.info.uid));
+        const getData = await getDocs(getDocId);
+        if(!getData.empty){
           try{
-            await updateDoc(doc(firebaseStore, 'user', docData.id),{
+            const docData = getData.docs[0];
+            await updateDoc(doc(firebaseStore, collections.user, docData.id),{
               firstName: firstName.value,
               surname: surname.value,
               addressline1: address1.value,
@@ -227,12 +226,10 @@
               affiliation: affiliation.value
             });
             router.push('/profile');
-          }
-          catch(error){
-            console.log(docData.id);
+          }catch (error){
             console.log(error);
           }
-        });
+        }
       }
     }
   }
