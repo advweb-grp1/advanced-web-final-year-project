@@ -13,7 +13,7 @@ env:
   VITE_STORAGE_BUCKET: ${{ secrets.VITE_STORAGE_BUCKET }}
   VITE_MESSAGE_SENDER_ID: ${{ secrets.VITE_MESSAGE_SENDER_ID }}
   VITE_APP_ID: ${{ secrets.VITE_APP_ID }}
-  DEV: ${{secrets.DEV_MERGE}}
+  VITE_DEV: ${{secrets.DEV_MERGE}}
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest

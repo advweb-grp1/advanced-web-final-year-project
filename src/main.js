@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import VueApexCharts from 'vue3-apexcharts';
-import { useHcmStore } from './stores/hcm';
 import App from './App.vue';
 import router from './router';
 
@@ -15,10 +14,6 @@ app.use(VueApexCharts);
 app.use(createPinia());
 
 app.use(router);
-// Fetch data and populate the store
-const store = useHcmStore();
-(async () => {
-  await store.fetchCollection();
-})();
+
 app.mount('#app');
 
