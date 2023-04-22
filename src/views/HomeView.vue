@@ -45,7 +45,7 @@
     <div>
       <div class="row">
         <div v-for="card in cards" :key="card.id" class="col-sm-3">
-          <div class="card">
+          <div class="card" @click="golink(card.link)">
             <div class="card-body">
               <h5 class="card-title">
                 {{ card.title }}
@@ -56,9 +56,6 @@
               <p class="card-text">
                 {{ card.date }}
               </p>
-              <a class="card-text" :href="card.link">
-                {{ card.link }}
-              </a>
             </div>
           </div>
         </div>
@@ -71,7 +68,7 @@
 </template>
 <script setup>
   import { ref, reactive } from 'vue';
-  const apiKey = '3gAN3KvnuUCtSQHeYwk4q2GZQNzz04-DB4m5qBSoe5s';
+  const apiKey = import.meta.env.VITE_NEWSAPI_KEY;
   const searchQuery = 'cardiomyopathy';
   const language = 'en';
 
@@ -103,9 +100,10 @@
         console.error(error);
       });
   }
-
-
-
+  addCard();
+  function golink(link){
+    window.location.href = link;
+  }
 </script>
 <style>
 .card{
