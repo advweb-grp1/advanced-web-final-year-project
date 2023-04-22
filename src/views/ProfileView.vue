@@ -55,8 +55,8 @@
 
 <script setup>
   import { ref } from 'vue';
-  import { firebaseStore, collection, query, where, getDocs } from '../firebase/database';
-  import { getAuth } from '../firebase/firebaseAuth';
+  import { useUserStore } from '../stores/user';
+  const userStore = useUserStore();
 
   const email = ref('');
   const firstName = ref('');
@@ -68,29 +68,17 @@
   const postCode = ref('');
   const phoneNumber = ref('');
   const affiliation = ref('');
-  const auth = getAuth();
-
-  async function getUserData(){
-    const data = query(collection(firebaseStore,'users_dev'),where('uid','==',auth.currentUser.uid));
-    const userData = await getDocs(data);
-    userData.forEach(async (userDoc)=>{
-      try{
-        email.value = userDoc.data().email;
-        firstName.value = userDoc.data().firstName;
-        surname.value = userDoc.data().surname;
-        address1.value = userDoc.data().addressline1;
-        address2.value = userDoc.data().addressline2;
-        address3.value = userDoc.data().addressline3;
-        city.value = userDoc.data().city;
-        postCode.value = userDoc.data().postCode;
-        phoneNumber.value = userDoc.data().phoneNumber;
-        affiliation.value = userDoc.data().affiliation;
-      }catch(error){
-        console.log(error);
-      }
-    });
-  }
-  getUserData();
+  const user = userStore.user;
+  email.value = user.info.email;
+  firstName.value = user.info.firstName;
+  surname.value = user.info.surname;
+  address1.value = user.info.addressline1;
+  address2.value = user.info.addressline2;
+  address3.value = user.info.addressline3;
+  city.value = user.info.city;
+  postCode.value = user.info.postCode;
+  phoneNumber.value = user.info.phoneNumber;
+  affiliation.value = user.info.affiliation;
 </script>
 <style>
 .card{

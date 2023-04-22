@@ -56,8 +56,7 @@ const router = createRouter({
     {
       path: '/reset',
       name: 'reset',
-      component: ResetUserPasswordView,
-      beforeEnter:requireSignedOut
+      component: ResetUserPasswordView
     },
     {
       path: '/edit',

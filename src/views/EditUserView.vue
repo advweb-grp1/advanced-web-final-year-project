@@ -169,7 +169,7 @@
   import { useRouter } from 'vue-router';
   import { firebaseStore, collection, query, where, getDocs, updateDoc, doc } from '../firebase/database';
   import { getAuth } from '../firebase/firebaseAuth';
-
+  import { useUserStore } from '../stores/user';
   const firstName = ref('');
   const surname = ref('');
   const address1 = ref('');
@@ -183,27 +183,18 @@
   const regError = ref('');
   const auth = getAuth();
 
-  async function getUserInfo(){
 
-    const data = query(collection(firebaseStore,'users_dev'),where('uid','==',auth.currentUser.uid));
-    const userData = await getDocs(data);
-    userData.forEach(async (userDoc)=>{
-      try{
-        firstName.value = userDoc.data().firstName;
-        surname.value = userDoc.data().surname;
-        address1.value = userDoc.data().addressline1;
-        address2.value = userDoc.data().addressline2;
-        address3.value = userDoc.data().addressline3;
-        city.value = userDoc.data().city;
-        postCode.value = userDoc.data().postCode;
-        phoneNumber.value = userDoc.data().phoneNumber;
-        affiliation.value = userDoc.data().affiliation;
-      }catch(error){
-        console.log(error);
-      }
-    });
-  }
-  getUserInfo();
+  const userStore = useUserStore();
+  const user = userStore.user;
+  firstName.value = user.info.firstName;
+  surname.value = user.info.surname;
+  address1.value = user.info.addressline1;
+  address2.value = user.info.addressline2;
+  address3.value = user.info.addressline3;
+  city.value = user.info.city;
+  postCode.value = user.info.postCode;
+  phoneNumber.value = user.info.phoneNumber;
+  affiliation.value = user.info.affiliation;
 
   watch(phoneNumber, () =>{
     if(/(^\+?[0-9]{10,15})$/.test(phoneNumber.value) ){
@@ -224,7 +215,7 @@
         console.log(getData);
         getData.forEach(async (docData)=>{
           try{
-            await updateDoc(doc(firebaseStore, 'users_dev', docData.id),{
+            await updateDoc(doc(firebaseStore, 'user', docData.id),{
               firstName: firstName.value,
               surname: surname.value,
               addressline1: address1.value,
