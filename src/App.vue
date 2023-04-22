@@ -1,9 +1,9 @@
 <template>
   <NavBar />
-  <!-- Main Content -->
-  <main class="container">
-    <router-view />
-  </main>
+    <!-- Main Content -->
+    <main class="container">
+      <router-view />
+    </main>
 </template>
 
 <script setup>

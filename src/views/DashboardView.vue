@@ -25,11 +25,16 @@
 </template>
 
 <script setup>
+  import { computed } from 'vue';
   import ComputedIntegerCard from '../components/ComputedIntegerCard.vue';
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
-  import { computed } from 'vue';
   import { useHcmStore } from '../stores/hcm';
+  const hcmStore = useHcmStore();
+  const totalPatients = hcmStore.docs.length;
+  let withDiabetes = 0;
+
+
   let totalAge = 0;
   let totalDocs = 0;
   let MYH7 = 0;
@@ -80,21 +85,21 @@
     if(d.data().scar == 0){
       noFibrosis++;
     }
+    if(d.data().Diabetes == '1'){
+      withDiabetes++;
+    }
   });
   const avgAge = computed(()=>{
     return Math.round(totalAge/totalDocs).toString();
   });
-
-
-
-
-
-
+  const diabetesPercentage = computed(() => {
+    return Math.round((withDiabetes/totalPatients) * 100).toString()+'%';
+  });
 
   const computedIntegers = [
     { label:'Total number of participants', value:'10' },
+    { label:'Percentage of participants with diabetes', value: diabetesPercentage.value },
     { label:'Average age of participants at MRI', value: avgAge.value },
-    { label:'Percentage of participants with diabetes', value:'10' },
     { label:'Percentage of participants who have undergone myectomy', value:'10' }
   ];
   const ageDistribution = ColumnChartBuilder('Age distribution',
@@ -112,10 +117,11 @@
                                         ['MYH7', 'MYBPC3', 'TNNT2', 'ACTC', 'TPM1','TNNCI','TNNI3','MYL2','TNN']
   );
 
-  const apicalHCMPrevelance = PieChartBuilder('Prevalence of apical HCM',
-                                              [20, 80],
-                                              ['ApicalHCM', 'no ApicalHCM']
+  const diabetics = PieChartBuilder('Diabetics',
+                                    [withDiabetes, totalPatients-withDiabetes],
+                                    ['Diabetic', 'Non-Diabetic']
   );
+
   const averageLEDV = LineChartBuilder('Left systolic volume chart',
                                        [
                                          22, 48, 13, 5, 2
@@ -134,10 +140,12 @@
                                        'right systolic volume (REDV)'
 
   );
+
+
   const chartsArray = [
     ageDistribution,
     geneMutations,
-    apicalHCMPrevelance,
+    diabetics,
     hasFibrosis,
     averageLEDV,
     averageREDV
