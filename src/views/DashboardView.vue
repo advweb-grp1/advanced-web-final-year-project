@@ -117,11 +117,6 @@
                                         ['MYH7', 'MYBPC3', 'TNNT2', 'ACTC', 'TPM1','TNNCI','TNNI3','MYL2','TNN']
   );
 
-  const apicalHCMPrevelance = PieChartBuilder('Prevalence of apical HCM',
-                                              [20, 80],
-                                              ['ApicalHCM', 'no ApicalHCM']
-  );
-
   const diabetics = PieChartBuilder('Diabetics',
                                     [withDiabetes, totalPatients-withDiabetes],
                                     ['Diabetic', 'Non-Diabetic']
@@ -150,7 +145,6 @@
   const chartsArray = [
     ageDistribution,
     geneMutations,
-    apicalHCMPrevelance,
     diabetics,
     hasFibrosis,
     averageLEDV,
