@@ -17,7 +17,7 @@ env:
   VITE_STORAGE_BUCKET: ${{ secrets.VITE_STORAGE_BUCKET }}
   VITE_MESSAGE_SENDER_ID: ${{ secrets.VITE_MESSAGE_SENDER_ID }}
   VITE_APP_ID: ${{ secrets.VITE_APP_ID }}
-  DEV: ${{secrets.DEV_Pull_REQ}}
+  VITE_DEV: ${{secrets.DEV_Pull_REQ}}
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
