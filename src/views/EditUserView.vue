@@ -167,7 +167,7 @@
 <script setup>
   import{ ref, watch } from 'vue';
   import { useRouter } from 'vue-router';
-  import { firebaseStore, collection, query, where, getDocs, updateDoc, doc } from '../firebase/database';
+  import { firebaseStore, updateDoc, doc } from '../firebase/database';
   import { useUserStore } from '../stores/user';
   import { collections } from '../firebase/constants';
   const firstName = ref('');
@@ -204,34 +204,40 @@
   });
 
   async function updateUser(){
+    console.log(user.info);
     if(!regError.value){
       if(!firstName.value || !surname.value || !address1.value|| !city.value || !postCode.value ||!phoneNumber.value
         || !affiliation.value){
         regError.value='Please fill all fields';
       }else{
-        const getDocId = query(collection(firebaseStore, collections.user), where('uid','==',user.info.uid));
-        const getData = await getDocs(getDocId);
-        if(!getData.empty){
-          try{
-            const docData = getData.docs[0];
-            await updateDoc(doc(firebaseStore, collections.user, docData.id),{
-              firstName: firstName.value,
-              surname: surname.value,
-              addressline1: address1.value,
-              addressline2: address2.value,
-              addressline3: address3.value,
-              city: city.value,
-              postCode: postCode.value,
-              phoneNumber: phoneNumber.value,
-              affiliation: affiliation.value
-            });
-            router.push('/profile');
-          }catch (error){
-            console.log(error);
-          }
+        try{
+          await updateDoc(doc(firebaseStore, collections.user, user.docs),{
+            firstName: firstName.value,
+            surname: surname.value,
+            addressline1: address1.value,
+            addressline2: address2.value,
+            addressline3: address3.value,
+            city: city.value,
+            postCode: postCode.value,
+            phoneNumber: phoneNumber.value,
+            affiliation: affiliation.value
+          });
+          user.info.firstName = firstName.value;
+          user.info.surname = surname.value;
+          user.info.addressline1 = address1.value;
+          user.info.addressline2 = address2.value;
+          user.info.addressline3 = address3.value;
+          user.info.city = city.value;
+          user.info.postCode = postCode.value;
+          user.info.phoneNumber = phoneNumber.value;
+          user.info.affiliation = affiliation.value;
+          router.push('/profile');
+        }catch (error){
+          console.log(error);
         }
       }
     }
   }
+
 
 </script>
