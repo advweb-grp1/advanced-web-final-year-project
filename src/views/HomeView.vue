@@ -41,21 +41,22 @@
           Mayo Clinic - Cardiomyopathy</a>
       </li>
     </ul>
-    <h5>Latests News/Journals </h5>
     <div>
+      <h5>Latest News/Journals</h5>
       <div class="row">
         <div v-for="card in cards" :key="card.id" class="col-sm-3">
-          <div class="card" @click="golink(card.link)">
+          <div class="card">
+            <h5 class="card-header">
+              {{ card.title }}
+            </h5>
             <div class="card-body">
-              <h5 class="card-title">
-                {{ card.title }}
-              </h5>
               <p class="card-text">
                 {{ card.description }}
               </p>
               <p class="card-text">
                 {{ card.date }}
               </p>
+              <a :href="card.link" class="btn btn-primary w-100" target="_blank">Go to News Article</a>
             </div>
           </div>
         </div>
@@ -88,9 +89,9 @@
           const article = data.articles[nextCardId.value];
           cards.push({
             id: nextCardId.value,
-            title: 'Title:'+ article.title +'',
-            description: 'Description:'+ article.summary +'',
-            date: 'Date:' + article.published_date +'',
+            title: article.title,
+            description: article.summary,
+            date: article.published_date,
             link: article.link
           });
           nextCardId.value++;
@@ -101,18 +102,45 @@
       });
   }
   addCard();
-  function golink(link){
-    window.location.href = link;
-  }
 </script>
 <style>
-.card{
+.card {
   margin-bottom: 15px;
+  max-height: 500px;
+  position: relative;
 }
 
-p{
-  max-height: 300px;
-  overflow: auto;
+.card-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.card-body {
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.card-header {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 100px;
+}
+
+.card-body p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+p {
+  max-height: 100px;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 </style>
