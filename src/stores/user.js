@@ -31,7 +31,6 @@ export const useUserStore = defineStore({
     set(user){
       this.setUserInfo(user.uid);
       this.user.auth = user;
-      this.user.doc = user;
     }
   }
 });

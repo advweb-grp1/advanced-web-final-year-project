@@ -16,11 +16,11 @@
         <label for="addressline1">Address Line 1: &nbsp;</label>
         <span>{{ user.info.addressline1 }}</span>
       </div>
-      <div class="card-body">
+      <div v-if="user.info.addressline2" class="card-body">
         <label for="addressline2">Address Line 2: &nbsp;</label>
         <span>{{ user.info.addressline2 }}</span>
       </div>
-      <div class="card-body">
+      <div v-if="user.info.addressline3" class="card-body">
         <label for="addressline3">Address Line 3:&nbsp;</label>
         <span>{{ user.info.addressline3 }}</span>
       </div>
