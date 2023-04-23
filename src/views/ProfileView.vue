@@ -7,11 +7,9 @@
         <span>{{ user.info.email }}</span>
       </div>
       <div class="card-body">
-        <label for="firstName">First Name: &nbsp;</label>
+        <label for="firstName">First Name:&nbsp;</label>
         <span>{{ user.info.firstName }}</span>
-      </div>
-      <div class="card-body">
-        <label for="surname">Surname: &nbsp;</label>
+        <label for="surname"> &nbsp; &nbsp; Surname: &nbsp;</label>
         <span>{{ user.info.surname }}</span>
       </div>
       <div class="card-body">
@@ -29,26 +27,22 @@
       <div class="card-body">
         <label for="city">City: &nbsp;</label>
         <span>{{ user.info.city }}</span>
-      </div>
-      <div class="card-body">
-        <label for="postCode">Post Code: &nbsp;</label>
+        <label for="postCode">&nbsp; &nbsp;Post Code: &nbsp;</label>
         <span> {{ user.info.postCode }}</span>
       </div>
       <div class="card-body">
         <label for="phoneNumber">Phone Number: &nbsp;</label>
         <span>{{ user.info.phoneNumber }}</span>
-      </div>
-      <div class="card-body">
-        <label for="affiliation">Institutional Affiliation: &nbsp;</label>
+        <label for="affiliation"> &nbsp;  &nbsp; Institutional Affiliation: &nbsp;</label>
         <span>{{ user.info.affiliation }}</span>
       </div>
     </div>
-    <router-link to="/edit" class="btn btn-link">
-      Edit data
+    <router-link to="/edit" class="btn btn-primary">
+      Edit profile
     </router-link>
 
     <router-link to="/reset" class="btn btn-link">
-      Forgotten password?
+      Reset Password
     </router-link>
   </div>
 </template>

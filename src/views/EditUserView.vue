@@ -150,7 +150,7 @@
         style="margin: auto"
         @click="updateUser"
       >
-        Update
+        Edit
       </button>
     </div>
     <div
@@ -211,7 +211,7 @@
         regError.value='Please fill all fields';
       }else{
         try{
-          await updateDoc(doc(firebaseStore, collections.user, user.docs),{
+          await updateDoc(doc(firebaseStore, collections.user, user.doc.id),{
             firstName: firstName.value,
             surname: surname.value,
             addressline1: address1.value,
