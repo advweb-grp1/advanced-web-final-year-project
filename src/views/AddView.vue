@@ -248,14 +248,13 @@
 
         <div class="col-6">
           <label for="attackdate">Heart Attack Date</label><br>
-          <div class="container mt-1">
-            <input
-              id="attackdate"
-              v-model="attackdate"
-              type="date"
-              :disabled="attack=='0'"
-            >
-          </div>
+          <input
+            id="attackdate"
+            v-model="attackdate"
+            type="date"
+            :disabled="attack=='0'"
+            class="form-control"
+          >
         </div>
       </div>
 
