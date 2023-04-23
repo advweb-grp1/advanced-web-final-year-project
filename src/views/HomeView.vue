@@ -56,7 +56,7 @@
               <p class="card-text">
                 {{ card.date }}
               </p>
-              <a :href="card.link" class="btn btn-primary w-100" target="_blank">Go to News Article</a>
+              <a :href="card.link" class="btn btn-primary w-100" target="_blank">Open Article</a>
             </div>
           </div>
         </div>
