@@ -30,52 +30,86 @@
   import ChartCard from '../components/ChartCard.vue';
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
   import { useHcmStore } from '../stores/hcm';
-
   const hcmStore = useHcmStore();
-  const patients = hcmStore.docs.length;
-  let withMyectomy = 0;
-  hcmStore.docs.forEach((d)=>{
-    //console.log(d.data().Myectomy);
-    if(d.data().Myectomy == '1'){
-      withMyectomy++;
-    }
-  });
-
+  const totalPatients = hcmStore.docs.length;
+  let withDiabetes = 0;
+  let totalAge = 0;
+  let totalDocs = 0;
+  let MYH7 = 0;
+  let MYBPC3 = 0;
+  let TNNT2 = 0;
+  let ACTC = 0;
+  let TPM1 = 0;
+  let TNNCI = 0;
+  let TNNI3 = 0;
+  let MYL2 = 0;
+  let TTN = 0;
+  let fibrosis = 0;
+  let noFibrosis = 0;
   let age10to30 = 0;
   let age31to40 = 0;
   let age41to50 = 0;
   let age51to60 = 0;
   let above60 = 0;
+  let withMyectomy = 0;
 
-  hcmStore.docs.forEach((d) => {
+  const store = useHcmStore();
+  store.docs.forEach((d)=>{
     const age = parseFloat(d.data().AgeatMRI);
-    if (10 <= age <= 30) {
-      age10to30++;
+    if(!isNaN(age)){
+      totalAge += age;
+      totalDocs++;
     }
-    else if (31 <= age <= 40) {
-      age31to40++;
+    if(d.data().MYH7 == 1){
+      MYH7++;
     }
-    else if (41 <= age <= 50) {
-      age41to50++;
+    if(d.data().MYBPC3mutation == 1){
+      MYBPC3++;
     }
-    else if (51 <= age <= 60) {
-      age51to60++;
+    if(d.data().TNNT2mutation == 1){
+      TNNT2++;
     }
-    else if (age > 60) {
-      above60++;
+    if(d.data().ACTCmutation == 1){
+      ACTC++;
+    }
+    if(d.data().TPM1 == 1){
+      TPM1++;
+    }
+    if(d.data().TNNCI == 1){
+      TNNCI++;
+    }
+    if(d.data().TNNI3 == 1){
+      TNNI3++;
+    }
+    if(d.data().TTN == 1){
+      TTN++;
+    }
+    if(d.data().scar == 1){
+      fibrosis++;
+    }
+    if(d.data().scar == 0){
+      noFibrosis++;
+    }
+    if(d.data().Diabetes == '1'){
+      withDiabetes++;
+    }
+    if(d.data().Myectomy == '1'){
+      withMyectomy++;
     }
   });
-
-
+  const avgAge = computed(()=>{
+    return Math.round(totalAge/totalDocs).toString();
+  });
+  const diabetesPercentage = computed(() => {
+    return Math.round((withDiabetes/totalPatients) * 100).toString()+'%';
+  });
   const myectomyPercentage = computed(() => {
     return Math.round((withMyectomy/patients) * 100).toString() + '%';
   });
-
-
   const computedIntegers = [
-    { label:'Total number of participants', value: patients.toString() },
-    { label:'Average age of participants', value:'10' },
-    { label:'Percentage of participants with diabetes', value:'10' },
+    { label:'Total number of participants', value: store.docs.length },
+    { label:'Percentage of participants with diabetes', value: diabetesPercentage.value },
+    { label:'Average age of participants at MRI', value: avgAge.value },
     { label:'Percentage of participants who have undergone myectomy', value: myectomyPercentage.value }
 
   ];
@@ -96,19 +130,16 @@
   );
 
   const myectomy = PieChartBuilder('Patients that have undergone myectomy',
-                                   [withMyectomy, patients-withMyectomy],
+                                   [withMyectomy, hcmStore.docs.length-withMyectomy],
                                    ['Undergone myectomy', 'Has not undergone myectomy']
   );
-
   const geneMutations = PieChartBuilder('Gene Mutation Spread',
-                                        [44, 55, 13, 43, 22, 33, 55, 88,100],
-                                        ['MYH7', 'MYBPC3', 'TNNT2', 'ACTC', 'TPM1','TNNCI','TNNI3','MYL2','TT']
+                                        [MYH7, MYBPC3, TNNT2, ACTC, TPM1, TNNCI, TNNI3, MYL2,TTN],
+                                        ['MYH7', 'MYBPC3', 'TNNT2', 'ACTC', 'TPM1','TNNCI','TNNI3','MYL2','TNN']
   );
-
-
-  const apicalHCMPrevelance = PieChartBuilder('Prevalence of apical HCM',
-                                              [20, 80],
-                                              ['ApicalHCM', 'no ApicalHCM']
+  const diabetics = PieChartBuilder('Diabetics',
+                                    [withDiabetes, totalPatients-withDiabetes],
+                                    ['Diabetic', 'Non-Diabetic']
   );
 
   const averageLEDV = LineChartBuilder('Left systolic volume chart',
@@ -119,8 +150,7 @@
   );
 
   const hasFibrosis = PieChartBuilder('Percentage of participants with fibrosis/scarring(scar)',
-                                      [44, 55],
-
+                                      [fibrosis, noFibrosis],
                                       ['Has Scars', 'No Scars']
   );
 
@@ -135,12 +165,13 @@
     ageDistribution,
     myectomy,
     geneMutations,
-    apicalHCMPrevelance,
+    diabetics,
     hasFibrosis,
     averageLEDV,
     averageREDV
 
   ];
+
 
 </script>
 
