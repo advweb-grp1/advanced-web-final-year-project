@@ -554,7 +554,7 @@
     //generate JSON to add to Firestroe
     //call addHcmData
     //show success/faliure
-    
+
 
     if(!validInputs()){
       modalBody.value = 'All Patient/Heart Information Need To Be Entered! (Data cannot be \'0\')';
@@ -572,39 +572,39 @@
   };
 
   const clearInputs = () => {
-    ledv.value = "";
-    redv.value = "";
-    lesv.value = "";
-    resv.value = "";
-    lvef.value = "";
-    rvef.value = "";
-    lvmass.value = "";
-    rvmass.value = "";
-    lsv.value = "";
-    rsv.value = "";
-    female.value = "";
-    AgeatMRI.value = "";
-    hosp.value = "";
-    hospreason.value = "";
-    attack.value = "";
-    attackdate.value = "";
+    ledv.value = '';
+    redv.value = '';
+    lesv.value = '';
+    resv.value = '';
+    lvef.value = '';
+    rvef.value = '';
+    lvmass.value = '';
+    rvmass.value = '';
+    lsv.value = '';
+    rsv.value = '';
+    female.value = '';
+    AgeatMRI.value = '';
+    hosp.value = '';
+    hospreason.value = '';
+    attack.value = '';
+    attackdate.value = '';
 
-    scar.value = "";
-    ApicalHCM.value = "";
-    SuddenCardiacDeath.value = "";
-    Hypertension.value = "";
-    Diabetes.value = "";
-    Myectomy.value = "";
-    MYH7.value = "";
-    MYBPC3mutation.value = "";
-    TNNT2mutation.value = "";
-    ACTCmutation.value = "";
-    TPM1.value = "";
-    TNNCI.value = "";
-    TNNI3.value = "";
-    MYL2.value = "";
-    TTN.value = "";
-  }
+    scar.value = '';
+    ApicalHCM.value = '';
+    SuddenCardiacDeath.value = '';
+    Hypertension.value = '';
+    Diabetes.value = '';
+    Myectomy.value = '';
+    MYH7.value = '';
+    MYBPC3mutation.value = '';
+    TNNT2mutation.value = '';
+    ACTCmutation.value = '';
+    TPM1.value = '';
+    TNNCI.value = '';
+    TNNI3.value = '';
+    MYL2.value = '';
+    TTN.value = '';
+  };
 
   const buildHcmJson = () => {
     //uses ternary operators to change UI friendly input to database types

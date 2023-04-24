@@ -45,6 +45,8 @@
   let TTN = 0;
   let fibrosis = 0;
   let noFibrosis = 0;
+  const lsvArray  = [];
+  const rsvArray = [];
   let age10to30 = 0;
   let age31to40 = 0;
   let age41to50 = 0;
@@ -87,6 +89,14 @@
     }
     if(d.data().scar == 0){
       noFibrosis++;
+    }
+    const lsv = parseFloat(d.data().lsv);
+    if(!isNaN(lsv)){
+      lsvArray.push(d.data().lsv);
+    }
+    const rsv = parseFloat(d.data().rsv);
+    if(!isNaN(rsv)){
+      rsvArray.push(d.data().rsv);
     }
     if(d.data().Diabetes == '1'){
       withDiabetes++;
@@ -152,9 +162,9 @@
   );
 
   const averageLEDV = LineChartBuilder('Left systolic volume chart',
-                                       [
-                                         22, 48, 13, 5, 2
-                                       ],
+
+                                       lsvArray
+                                       ,
                                        'left systolic volume (LSV)'
   );
 
@@ -164,10 +174,11 @@
   );
 
   const averageREDV = LineChartBuilder('Right systolic volume chart',
-                                       [
-                                         22, 48, 13, 5, 2
-                                       ],
-                                       'right systolic volume (REDV)'
+
+                                       rsvArray
+                                       ,
+                                       'right systolic volume (RSV)'
+
   );
 
   const chartsArray = [
