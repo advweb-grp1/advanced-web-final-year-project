@@ -90,8 +90,14 @@
     if(d.data().scar == 0){
       noFibrosis++;
     }
-    lsvArray.push(d.data().lsv);
-    rsvArray.push(d.data().rsv);
+    const lsv = parseFloat(d.data().lsv);
+    if(!isNaN(lsv)){
+      lsvArray.push(d.data().lsv);
+    }
+    const rsv = parseFloat(d.data().rsv);
+    if(!isNaN(rsv)){
+      rsvArray.push(d.data().rsv);
+    }
     if(d.data().Diabetes == '1'){
       withDiabetes++;
     }
