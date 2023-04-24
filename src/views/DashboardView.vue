@@ -43,6 +43,8 @@
   let TTN = 0;
   let fibrosis = 0;
   let noFibrosis = 0;
+  const lsvArray  = [];
+  const rsvArray = [];
   const store = useHcmStore();
   store.docs.forEach((d)=>{
     const age = parseFloat(d.data().AgeatMRI);
@@ -80,14 +82,12 @@
     if(d.data().scar == 0){
       noFibrosis++;
     }
+    lsvArray.push(d.data().lsv);
+    rsvArray.push(d.data().rsv);
   });
   const avgAge = computed(()=>{
     return Math.round(totalAge/totalDocs).toString();
   });
-
-
-
-
 
 
 
@@ -117,9 +117,9 @@
                                               ['ApicalHCM', 'no ApicalHCM']
   );
   const averageLEDV = LineChartBuilder('Left systolic volume chart',
-                                       [
-                                         22, 48, 13, 5, 2
-                                       ],
+
+                                       lsvArray
+                                       ,
                                        'left systolic volume (LSV)'
 
   );
@@ -128,10 +128,10 @@
                                       ['Has Scars', 'No Scars']
   );
   const averageREDV = LineChartBuilder('Right systolic volume chart',
-                                       [
-                                         22, 48, 13, 5, 2
-                                       ],
-                                       'right systolic volume (REDV)'
+
+                                       rsvArray
+                                       ,
+                                       'right systolic volume (RSV)'
 
   );
   const chartsArray = [
