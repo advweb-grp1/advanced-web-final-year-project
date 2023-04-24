@@ -1,7 +1,9 @@
 import { getFirestore,
   serverTimestamp,
   collection,
+  doc,
   addDoc,
+  getDoc,
   getDocs,
   query,
   where,
@@ -16,10 +18,12 @@ export {
   firebaseStore,
   serverTimestamp,
   collection,
+  doc,
   addDoc,
   getDocs,
   query,
   where,
   updateDoc,
-  doc
+  doc,
+  getDoc
 };
