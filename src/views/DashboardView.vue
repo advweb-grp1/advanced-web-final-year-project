@@ -34,7 +34,6 @@
   const totalPatients = hcmStore.docs.length;
   let withDiabetes = 0;
   let totalAge = 0;
-  let totalDocs = 0;
   let MYH7 = 0;
   let MYBPC3 = 0;
   let TNNT2 = 0;
@@ -58,7 +57,6 @@
     const age = parseFloat(d.data().AgeatMRI);
     if(!isNaN(age)){
       totalAge += age;
-      totalDocs++;
     }
     if(d.data().MYH7 == 1){
       MYH7++;
@@ -96,18 +94,33 @@
     if(d.data().Myectomy == '1'){
       withMyectomy++;
     }
+    if (age >= 10 && age <= 30) {
+      age10to30++;
+    }
+    else if (age >= 31 && age <= 40) {
+      age31to40++;
+    }
+    else if (age >= 41 && age <= 50) {
+      age41to50++;
+    }
+    else if (age >= 51 && age <= 60) {
+      age51to60++;
+    }
+    else if (age > 60) {
+      above60++;
+    }
   });
   const avgAge = computed(()=>{
-    return Math.round(totalAge/totalDocs).toString();
+    return Math.round(totalAge/totalPatients).toString();
   });
   const diabetesPercentage = computed(() => {
     return Math.round((withDiabetes/totalPatients) * 100).toString()+'%';
   });
   const myectomyPercentage = computed(() => {
-    return Math.round((withMyectomy/patients) * 100).toString() + '%';
+    return Math.round((withMyectomy/totalPatients) * 100).toString() + '%';
   });
   const computedIntegers = [
-    { label:'Total number of participants', value: store.docs.length },
+    { label:'Total number of participants', value: totalPatients },
     { label:'Percentage of participants with diabetes', value: diabetesPercentage.value },
     { label:'Average age of participants at MRI', value: avgAge.value },
     { label:'Percentage of participants who have undergone myectomy', value: myectomyPercentage.value }
@@ -129,10 +142,6 @@
                                              ]
   );
 
-  const myectomy = PieChartBuilder('Patients that have undergone myectomy',
-                                   [withMyectomy, hcmStore.docs.length-withMyectomy],
-                                   ['Undergone myectomy', 'Has not undergone myectomy']
-  );
   const geneMutations = PieChartBuilder('Gene Mutation Spread',
                                         [MYH7, MYBPC3, TNNT2, ACTC, TPM1, TNNCI, TNNI3, MYL2,TTN],
                                         ['MYH7', 'MYBPC3', 'TNNT2', 'ACTC', 'TPM1','TNNCI','TNNI3','MYL2','TNN']
@@ -163,7 +172,6 @@
 
   const chartsArray = [
     ageDistribution,
-    myectomy,
     geneMutations,
     diabetics,
     hasFibrosis,
