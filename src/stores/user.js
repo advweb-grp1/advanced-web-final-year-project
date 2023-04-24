@@ -7,7 +7,8 @@ export const useUserStore = defineStore({
   state: () => ({
     user: {
       auth:null,
-      info:null
+      info:null,
+      doc:null
     }
   }),
 
@@ -18,6 +19,7 @@ export const useUserStore = defineStore({
       const querySnapshot = await getDocs(q);
       if (querySnapshot.size === 1) {
         this.user.info = querySnapshot.docs[0].data();
+        this.user.doc = querySnapshot.docs[0];
       } else {
         console.error(`Expected 1 document, but got ${querySnapshot.size} documents`);
       }

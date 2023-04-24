@@ -6,6 +6,8 @@ import DashboardView from '../views/DashboardView.vue';
 import QueryView from '../views/QueryView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import ResetUserPasswordView from '../views/ResetUserPasswordView.vue';
+import EditUserView from '../views/EditUserView.vue';
+import ProfileView from '../views/ProfileView.vue';
 import AddView from '../views/AddView.vue';
 import { requireSignedOut,requireSignedIn } from './routeGuard';
 const router = createRouter({
@@ -61,8 +63,19 @@ const router = createRouter({
     {
       path: '/reset',
       name: 'reset',
-      component: ResetUserPasswordView,
-      beforeEnter:requireSignedOut
+      component: ResetUserPasswordView
+    },
+    {
+      path: '/edit',
+      name: 'edit',
+      component: EditUserView,
+      beforeEnter: requireSignedIn
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView,
+      beforeEnter: requireSignedIn
     }
   ]
 });
