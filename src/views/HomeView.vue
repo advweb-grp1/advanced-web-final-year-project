@@ -103,7 +103,7 @@
   }
   addCard();
 </script>
-<style>
+<style scoped>
 .card {
   margin-bottom: 15px;
   max-height: 500px;
