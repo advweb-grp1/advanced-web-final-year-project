@@ -33,8 +33,6 @@
   const hcmStore = useHcmStore();
   const totalPatients = hcmStore.docs.length;
   let withDiabetes = 0;
-
-
   let totalAge = 0;
   let totalDocs = 0;
   let MYH7 = 0;
@@ -95,7 +93,6 @@
   const diabetesPercentage = computed(() => {
     return Math.round((withDiabetes/totalPatients) * 100).toString()+'%';
   });
-
   const computedIntegers = [
     { label:'Total number of participants', value:'10' },
     { label:'Percentage of participants with diabetes', value: diabetesPercentage.value },
@@ -110,24 +107,20 @@
                                              [  '18-21',  '22-25',  '26-29',  '30-32',  '33-36',  '37-40',
                                                 '41-43',  '44-47','48-51',  '52-54',  '55-58',  '59-62',  '63-65'
                                              ]
-
   );
   const geneMutations = PieChartBuilder('Gene Mutation Spread',
                                         [MYH7, MYBPC3, TNNT2, ACTC, TPM1, TNNCI, TNNI3, MYL2,TTN],
                                         ['MYH7', 'MYBPC3', 'TNNT2', 'ACTC', 'TPM1','TNNCI','TNNI3','MYL2','TNN']
   );
-
   const diabetics = PieChartBuilder('Diabetics',
                                     [withDiabetes, totalPatients-withDiabetes],
                                     ['Diabetic', 'Non-Diabetic']
   );
-
   const averageLEDV = LineChartBuilder('Left systolic volume chart',
                                        [
                                          22, 48, 13, 5, 2
                                        ],
                                        'left systolic volume (LSV)'
-
   );
   const hasFibrosis = PieChartBuilder('Percentage of participants with fibrosis/scarring(scar)',
                                       [fibrosis, noFibrosis],
@@ -138,10 +131,7 @@
                                          22, 48, 13, 5, 2
                                        ],
                                        'right systolic volume (REDV)'
-
   );
-
-
   const chartsArray = [
     ageDistribution,
     geneMutations,
@@ -150,6 +140,7 @@
     averageLEDV,
     averageREDV
   ];
+
 
 </script>
 
