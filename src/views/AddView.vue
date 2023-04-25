@@ -544,7 +544,6 @@
       !hosp.value||
       !attack.value
     ){
-      console.log(!redv.value);
       return false;
     }
     return true;

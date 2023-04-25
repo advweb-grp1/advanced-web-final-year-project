@@ -6,7 +6,9 @@
           <th v-for="column in props.columns" :key="column.docField">
             {{ column.display }}
           </th>
-          <th v-if="actions" />
+          <th v-if="actions">
+            Actions
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -14,10 +16,12 @@
           <td v-for="column in props.columns" :key="column.docField">
             {{ item[column.docField] }}
           </td>
-          <td v-if="actions && item.created_by_user_id == userStore.user.info.uid">
-            <button>
-              Delete
-            </button>
+          <td v-if="actions">
+            <div v-if="item.created_by_user_id == userStore.user.info.uid">
+              <button class="btn btn-danger" @click="props.deleteItem(item)">
+                Delete
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>

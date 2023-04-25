@@ -33,7 +33,7 @@
 
   const sendEmail = () => {
     if(sendResetLink(email)){
-      alert('MODEL: pls check email :)');
+      alert('Please your check email');
 
       //redirect after 3 seconds
       setTimeout(() => router.push({ path: 'login' }), 3000);

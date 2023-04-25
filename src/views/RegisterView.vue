@@ -290,10 +290,8 @@
           newUser.uid = cred.user.uid; // Save the Firebase Authentication UID as a field in the user document
           const userRef = collection(firebaseStore, collections.user);
           await addDoc(userRef, newUser);
-          console.log('User created in Firebase Authentication');
           router.push('/login');
         } catch (error) {
-          console.log(error);
           regError.value = error;
         }
       }
