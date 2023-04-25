@@ -7,7 +7,8 @@ import { getFirestore,
   getDocs,
   query,
   where,
-  updateDoc
+  updateDoc,
+  deleteDoc
 } from 'firebase/firestore';
 import app from './app';
 
@@ -23,5 +24,6 @@ export {
   query,
   where,
   updateDoc,
-  getDoc
+  getDoc,
+  deleteDoc
 };
