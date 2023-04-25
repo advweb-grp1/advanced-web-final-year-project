@@ -15,6 +15,24 @@
       </div>
     </div>
   </div>
+  <Modal @confirmation="recievedConfirmation">
+    <template #title>
+      Delete
+    </template>
+    <template #body>
+      {{ modalBody }}
+    </template>
+    <template #actions>
+      <button
+        type="button"
+        class="btn btn-danger"
+        data-bs-dismiss="modal"
+        @click="confirm"
+      >
+        Confirm
+      </button>
+    </template>
+  </Modal>
 </template>
 <script setup>
   import { useHcmStore } from '../stores/hcm';
@@ -22,17 +40,27 @@
   import { fields,collections } from '../firebase/constants';
   import DataGrid from '../components/DataGrid.vue';
   import { firebaseStore, doc,deleteDoc } from '../firebase/database';
+  import Modal  from '../components/ModalComponent.vue';
   const hcmStore = useHcmStore();
   const data = ref(hcmStore.displayDocs);
   const columns = fields;
-  const deleteItem = async (item) =>{
+  const modalBody = 'Confirm that you would like to delete this item?';
+  const item = ref();
+  const deleteItem = async (i) =>{
+    document.getElementById('modalTrigger').click();
+    item.value=i;
+  };
+  const  confirm = async() =>{
     try {
-      const docRef = await doc(firebaseStore, collections.hcm, item.id);
+
+      const docRef = await doc(firebaseStore, collections.hcm, item.value.id);
       await deleteDoc(docRef);
-      data.value.splice(data.value.indexOf(item),1);
+      data.value.splice(data.value.indexOf(item.value),1);
+      let docIndex = hcmStore.docs.findIndex(doc => item.value.id === doc.id);
+      hcmStore.docs.splice(docIndex,1);
+      item.value = {};
     } catch (error) {
       console.error('Error deleting document: ', error);
     }
   };
-
 </script>
