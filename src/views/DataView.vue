@@ -26,8 +26,6 @@
   const data = ref(hcmStore.displayDocs);
   const columns = fields;
   const deleteItem = async (item) =>{
-    console.log(collections.hcm);
-    console.log(item.id);
     try {
       const docRef = await doc(firebaseStore, collections.hcm, item.id);
       await deleteDoc(docRef);

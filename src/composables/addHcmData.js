@@ -25,7 +25,6 @@ export const addHcmData = async (patients) => {
 
     //add Data to collection
     const initialDoc = await addDoc(collection(firebaseStore, collections.hcm), patient);
-    console.log('Document was created with ID:', initialDoc.id);
 
     //add DocumentData type to HcmStore
     const docRef = await doc(firebaseStore, collections.hcm, initialDoc.id);
