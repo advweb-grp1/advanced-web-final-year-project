@@ -60,6 +60,7 @@
   import { useUserStore } from '../stores/user';
   import { useRouter } from 'vue-router';
   import { useHcmStore } from '../stores/hcm';
+  import { useGeneStore } from '../stores/gene';
 
   const userStore = useUserStore();
   const title = 'Login';
@@ -93,6 +94,12 @@
           (async () => {
             await store.fetchCollection();
             console.log('loaded hcm data');
+          })();
+
+          const geneStore = useGeneStore();
+          (async () => {
+            await geneStore.fetchMutations();
+            console.log('loaded gene data');
           })();
           userStore.set(user);
           router.push('/'); // Emit the user object to the user store
