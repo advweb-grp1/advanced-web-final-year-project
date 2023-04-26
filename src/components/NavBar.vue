@@ -67,6 +67,7 @@
       items.push({ key: 'query', label: 'Query', link: '/query' });
       items.push({ key: 'add', label: 'Add Data', link: '/addData' });
       items.push({ key: 'mutations', label: 'Mutations', link: '/mutations' });
+      items.push({ key: 'data', label: 'Data', link: '/data' });
       items.push({ key: 'logout', label: 'Logout', action: logout });
     } else {
       items.push({ key: 'login', label: 'Login', link: '/login' });

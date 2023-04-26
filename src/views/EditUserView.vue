@@ -204,7 +204,6 @@
   });
 
   async function updateUser(){
-    console.log(user.info);
     if(!regError.value){
       if(!firstName.value || !surname.value || !address1.value|| !city.value || !postCode.value ||!phoneNumber.value
         || !affiliation.value){

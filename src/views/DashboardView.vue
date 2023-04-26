@@ -139,11 +139,6 @@
 
   const ageDistribution = ColumnChartBuilder('Age distribution',
                                              [
-                                               // eslint-disable-next-line max-len
-                                               //age18to21, age22to25, age26to29, age30to32, age33to36, age37to40, age41to43,
-                                               // eslint-disable-next-line max-len
-                                               //age44to47, age48to51, age52to54, age55to58, age59to62, age63to65, morethan65
-                                               //22, 48, 13, 5, 2
                                                age10to30, age31to40, age41to50, age51to60, above60
                                              ],
 

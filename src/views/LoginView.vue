@@ -92,7 +92,6 @@
           const store = useHcmStore();
           (async () => {
             await store.fetchCollection();
-            console.log('loaded hcm data');
           })();
           userStore.set(user);
           router.push('/'); // Emit the user object to the user store
