@@ -83,8 +83,7 @@ const router = createRouter({
     {
       path: '/mutations',
       name: 'mutations',
-      component: MutationsView,
-      beforeEnter: requireSignedIn
+      component: MutationsView
     },
     {
       path: '/data',

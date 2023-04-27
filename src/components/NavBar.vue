@@ -72,6 +72,7 @@
     } else {
       items.push({ key: 'login', label: 'Login', link: '/login' });
       items.push({ key: 'register', label: 'Register', link: '/register' });
+      items.push({ key: 'mutations', label: 'Mutations', link: '/mutations' });
     }
 
     return items;
