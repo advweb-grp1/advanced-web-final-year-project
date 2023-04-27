@@ -39,13 +39,16 @@ describe('NavBar', () => {
     expect(wrapper.find('.navbar-brand').text()).toBe('Cardiomyopathy');
 
     const links = wrapper.findAllComponents(RouterLinkStub);
-    expect(links.length).toBe(3);
+    expect(links.length).toBe(4);
 
     expect(links[1].text()).toBe('Login');
     expect(links[1].props().to).toBe('/login');
 
     expect(links[2].text()).toBe('Register');
     expect(links[2].props().to).toBe('/register');
+
+    expect(links[3].text()).toBe('Mutations');
+    expect(links[3].props().to).toBe('/mutations');
 
   });
 });
