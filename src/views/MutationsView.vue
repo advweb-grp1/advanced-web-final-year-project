@@ -144,20 +144,20 @@
 
   const getGeneFromCall = async () => {
     if(geneId.value != ''){
-      await fetch('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id='+
-        geneId.value+
-        '&retmode=xml')
-        .then(response => response.text())
-        .then(data => {
-          let xmlDoc = parser.parseFromString(data, 'text/xml');
-          let desc = xmlDoc.getElementsByTagName('Gene-ref_desc')[0].childNodes[0].nodeValue;
-          let summary = xmlDoc.getElementsByTagName('Entrezgene_summary')[0].childNodes[0].nodeValue;
-          let name = xmlDoc.getElementsByTagName('Gene-ref_locus')[0].childNodes[0].nodeValue;
-          searchedGene.value = { desc, summary, name };
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      try{
+        const response = await fetch('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&id='+
+          geneId.value+
+          '&retmode=xml');
+        const data = await response.text();
+        let xmlDoc = parser.parseFromString(data, 'text/xml');
+        let desc = xmlDoc.getElementsByTagName('Gene-ref_desc')[0].childNodes[0].nodeValue;
+        let summary = xmlDoc.getElementsByTagName('Entrezgene_summary')[0].childNodes[0].nodeValue;
+        let name = xmlDoc.getElementsByTagName('Gene-ref_locus')[0].childNodes[0].nodeValue;
+        searchedGene.value = { desc, summary, name };
+      }
+      catch(error) {
+        console.log(error);
+      }
     }
   };
     //Can be utilized if the Store method is implemented properly
