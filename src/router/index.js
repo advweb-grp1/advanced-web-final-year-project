@@ -10,6 +10,7 @@ import EditUserView from '../views/EditUserView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import AddView from '../views/AddView.vue';
 import DataView from '../views/DataView.vue';
+import HelpView from '../views/HelpView.vue';
 import { requireSignedOut,requireSignedIn } from './routeGuard';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -82,6 +83,12 @@ const router = createRouter({
       path: '/data',
       name: 'data',
       component: DataView,
+      beforeEnter: requireSignedIn
+    },
+    {
+      path: '/help',
+      name: 'help',
+      component: HelpView,
       beforeEnter: requireSignedIn
     }
   ]
