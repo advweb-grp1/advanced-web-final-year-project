@@ -31,7 +31,7 @@
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
   import { useHcmStore } from '../stores/hcm';
   const hcmStore = useHcmStore();
-  const totalPatients = hcmStore.docs.length;
+  const totalParticipants = hcmStore.docs.length;
   let withDiabetes = 0;
   let totalAge = 0;
   let MYH7 = 0;
@@ -121,16 +121,16 @@
     }
   });
   const avgAge = computed(()=>{
-    return Math.round(totalAge/totalPatients).toString();
+    return Math.round(totalAge/totalParticipants).toString();
   });
   const diabetesPercentage = computed(() => {
-    return Math.round((withDiabetes/totalPatients) * 100).toString()+'%';
+    return Math.round((withDiabetes/totalParticipants) * 100).toString()+'%';
   });
   const myectomyPercentage = computed(() => {
-    return Math.round((withMyectomy/totalPatients) * 100).toString() + '%';
+    return Math.round((withMyectomy/totalParticipants) * 100).toString() + '%';
   });
   const computedIntegers = [
-    { label:'Total number of participants', value: totalPatients },
+    { label:'Total number of participants', value: totalParticipants },
     { label:'Percentage of participants with diabetes', value: diabetesPercentage.value },
     { label:'Average age of participants at MRI', value: avgAge.value },
     { label:'Percentage of participants who have undergone myectomy', value: myectomyPercentage.value }
@@ -152,7 +152,7 @@
                                         ['MYH7', 'MYBPC3', 'TNNT2', 'ACTC', 'TPM1','TNNCI','TNNI3','MYL2','TNN']
   );
   const diabetics = PieChartBuilder('Diabetics',
-                                    [withDiabetes, totalPatients-withDiabetes],
+                                    [withDiabetes, totalParticipants-withDiabetes],
                                     ['Diabetic', 'Non-Diabetic']
   );
 

@@ -1,11 +1,11 @@
 <template>
   <h2 class="text-center">
-    Add Patient Data
+    Add Paricipant Data
   </h2>
 
   <div>
     <h2 for="formFileLg" class="form-label">
-      Upload Patient Data File
+      Upload Paricipant Data File
     </h2>
     <input
       id="uploadFile"
@@ -442,10 +442,10 @@
   import { ref } from 'vue';
   import Modal from '../components/ModalComponent.vue';
   import { addHcmData } from '../composables/addHcmData';
-  import { parseCsv } from '../utils/parsePatientData';
+  import { parseCsv } from '../utils/parseParticipantData';
 
   const modalBody = ref('');
-  let uploadedPatientData = [];
+  let uploadedParticipantData = [];
   //refs for inputs
 
   //heart-input
@@ -490,15 +490,15 @@
   }
 
   const addUploadedFileToFirestore = async () => {
-    if(uploadedPatientData.length == 0){
-      modalBody.value = 'Sorry! We Couldn\'t Find Any Valid Patient Data In The Uploaded File. '+
+    if(uploadedParticipantData.length == 0){
+      modalBody.value = 'Sorry! We Couldn\'t Find Any Valid Participant Data In The Uploaded File. '+
         'Please Make Sure You Upload A File Ending In \'.CSV\'';
       document.getElementById('modalTrigger').click();
     }else{
-      await addHcmData(uploadedPatientData)
+      await addHcmData(uploadedParticipantData)
         .then((success) => {
           modalBody.value = (success) ?
-            'Patient Data From Uploaded File Successfully Added To Database' :
+            'Participant Data From Uploaded File Successfully Added To Database' :
             'FAILED! Data Was NOT Added To The Database!';
 
           document.getElementById('modalTrigger').click();
@@ -513,11 +513,11 @@
       const reader = new FileReader();
       reader.onload = async function (e) {
         const text = await e.target.result;
-        let patientJson = await parseCsv(text);
+        let ParticipantJson = await parseCsv(text);
 
         //converts parsed Csv into array of objects
-        let patientData = Object.values(patientJson);
-        uploadedPatientData = patientData;
+        let ParticipantData = Object.values(ParticipantJson);
+        uploadedParticipantData = ParticipantData;
       };
       reader.readAsText(file);
 
@@ -556,12 +556,12 @@
 
 
     if(!validInputs()){
-      modalBody.value = 'All Patient/Heart Information Need To Be Entered! (Data cannot be \'0\')';
+      modalBody.value = 'All Participant/Heart Information Need To Be Entered! (Data cannot be \'0\')';
       document.getElementById('modalTrigger').click();
       return;
     }
     if(await addHcmData(buildHcmJson())){
-      modalBody.value = 'Patient Data Was Successfully Added To The Database!';
+      modalBody.value = 'Participant Data Was Successfully Added To The Database!';
       clearInputs();
     }else{
       modalBody.value = 'FAILED! Data Was NOT Added To The Database!';
@@ -608,9 +608,9 @@
   const buildHcmJson = () => {
     //uses ternary operators to change UI friendly input to database types
     //(true/false -> 1/0)
-    let patient = [];
+    let Participant = [];
 
-    patient.push({
+    Participant.push({
       ledv: ledv.value,
       redv: redv.value,
       lesv: lesv.value,
@@ -644,7 +644,7 @@
       TTN: (TTN.value == true) ? '1' : '0'
     });
 
-    return patient;
+    return Participant;
   };
 
 </script>
