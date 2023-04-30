@@ -12,14 +12,33 @@
       />
     </div>
     <div class="row">
-      <chart-card
-        v-for="(chart, index) in chartsArray"
-        :key="index"
-        :title="chart.title"
-        :options="chart.options"
-        :type="chart.options.chart.type"
-        :data="chart.series"
-      />
+      <div v-for="(chart, index) in chartsArray " :key="index" class="col-md-6 mb-3">
+        <chart-card
+          :key="index"
+          :title="chart.title"
+          :options="chart.options"
+          :type="chart.options.chart.type"
+          :data="chart.series"
+        />
+      </div>
+      <div class="col-md-12 mb-3">
+        <chart-card
+          :key="5"
+          :title="averageLEDV.title"
+          :options="averageLEDV.options"
+          :type="averageLEDV.options.chart.type"
+          :data="averageLEDV.series"
+        />
+      </div>
+      <div class="col-md-12 mb-3">
+        <chart-card
+          :key="6"
+          :title="averageREDV.title"
+          :options="averageREDV.options"
+          :type="averageREDV.options.chart.type"
+          :data="averageREDV.series"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -92,7 +111,7 @@
     }
     const lsv = parseFloat(d.data().lsv);
     if(!isNaN(lsv)){
-      lsvArray.push(d.data().lsv);
+      lsvArray.push(lsv.toFixed(2));
     }
     const rsv = parseFloat(d.data().rsv);
     if(!isNaN(rsv)){
@@ -180,10 +199,7 @@
     ageDistribution,
     geneMutations,
     diabetics,
-    hasFibrosis,
-    averageLEDV,
-    averageREDV
-
+    hasFibrosis
   ];
 
 
