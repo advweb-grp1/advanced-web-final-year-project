@@ -1,6 +1,7 @@
 <template>
   <section>
     <img src="../assets/cardiomyopathy.jpg" alt="cardiomyopathy" class="cmp"/>
+    <p class="text">Photo: Cardiomyopathy by Cleveland Clinic via Google Images</p>
     <h2>What is Cardiomyopathy?</h2>
     <p>
       Cardiomyopathy is a disease of the heart muscle that makes it harder for the heart
@@ -144,5 +145,9 @@ p {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+
+.text {
+  text-align: center;
 }
 </style>
