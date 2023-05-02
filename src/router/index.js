@@ -11,8 +11,8 @@ import ProfileView from '../views/ProfileView.vue';
 import AddView from '../views/AddView.vue';
 import MutationsView from '../views/MutationsView.vue';
 import DataView from '../views/DataView.vue';
-
 import { requireSignedOut,requireSignedIn } from './routeGuard';
+import HelpView from '../views/HelpView.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -89,6 +89,12 @@ const router = createRouter({
       path: '/data',
       name: 'data',
       component: DataView,
+      beforeEnter: requireSignedIn
+    },
+    {
+      path: '/help',
+      name: 'help',
+      component: HelpView,
       beforeEnter: requireSignedIn
     }
   ]
