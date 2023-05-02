@@ -1,18 +1,16 @@
 <template>
-  <div class="col-md-6 mb-3">
-    <div class="card">
-      <div class="card-header">
-        {{ props.title }}
-      </div>
-      <div class="card-body">
-        <div class="chart-container">
-          <apexchart
-            :options="props.options"
-            :width="props.options.chart.width"
-            :height="props.options.chart.height"
-            :series="props.data"
-          />
-        </div>
+  <div class="card">
+    <div class="card-header">
+      {{ props.title }}
+    </div>
+    <div class="card-body">
+      <div class="chart-container">
+        <apexchart
+          :options="props.options"
+          :width="props.options.chart.width"
+          :height="props.options.chart.height"
+          :series="props.data"
+        />
       </div>
     </div>
   </div>

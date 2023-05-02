@@ -11,20 +11,20 @@ import { useUserStore } from '../stores/user';
 import { useHcmStore } from '../stores/hcm';
 import { collections,fields } from '../firebase/constants';
 
-export const addHcmData = async (patients) => {
+export const addHcmData = async (Participants) => {
   const userStore = useUserStore();
   const hcmStore = useHcmStore();
 
-  //all patients
-  await patients.forEach(async patient => {
+  //all Participants
+  await Participants.forEach(async Participant => {
     //adds timestamp
-    patient.timestamp = serverTimestamp();
+    Participant.timestamp = serverTimestamp();
 
-    //adds user_id to patient document
-    patient.created_by_user_id = userStore.user.info.uid;
+    //adds user_id to Participant document
+    Participant.created_by_user_id = userStore.user.info.uid;
 
     //add Data to collection
-    const initialDoc = await addDoc(collection(firebaseStore, collections.hcm), patient);
+    const initialDoc = await addDoc(collection(firebaseStore, collections.hcm), Participant);
 
     //add DocumentData type to HcmStore
     const docRef = await doc(firebaseStore, collections.hcm, initialDoc.id);
@@ -53,6 +53,7 @@ export const addHcmData = async (patients) => {
     }
     filteredData['id'] = docSnap.id;
     filteredData['created_by_user_id'] = docSnap.data()['created_by_user_id'];
-    this.displayDocs.push(filteredData);  });
+    hcmStore.displayDocs.push(filteredData);
+  });
   return true;
 };

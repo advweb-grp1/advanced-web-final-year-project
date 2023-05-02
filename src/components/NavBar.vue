@@ -18,7 +18,12 @@
       <div id="navbarNav" class="collapse navbar-collapse">
         <ul class="navbar-nav">
           <li v-for="item in navbarItems" :key="item.key" class="nav-item">
-            <router-link v-if="item.link" class="nav-link" :to="item.link">
+            <router-link
+              v-if="item.link"
+              class="nav-link"
+              :to="item.link"
+              exact-active-class="active"
+            >
               {{ item.label }}
             </router-link>
             <a
@@ -78,3 +83,11 @@
 
     return items;
   });</script>
+
+<style scoped>
+.nav-link.active {
+  background-color: #07787c;
+  color: #fff;
+  border-radius: 0.25rem;
+}
+</style>

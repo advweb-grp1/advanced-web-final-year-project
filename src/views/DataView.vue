@@ -46,6 +46,7 @@
   const columns = fields;
   const modalBody = 'Confirm that you would like to delete this item?';
   const item = ref();
+  console.log(data.value.length);
   const deleteItem = async (i) =>{
     document.getElementById('modalTrigger').click();
     item.value=i;

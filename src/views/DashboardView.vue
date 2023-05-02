@@ -12,14 +12,33 @@
       />
     </div>
     <div class="row">
-      <chart-card
-        v-for="(chart, index) in chartsArray"
-        :key="index"
-        :title="chart.title"
-        :options="chart.options"
-        :type="chart.options.chart.type"
-        :data="chart.series"
-      />
+      <div v-for="(chart, index) in chartsArray " :key="index" class="col-md-6 mb-3">
+        <chart-card
+          :key="index"
+          :title="chart.title"
+          :options="chart.options"
+          :type="chart.options.chart.type"
+          :data="chart.series"
+        />
+      </div>
+      <div class="col-md-12 mb-3">
+        <chart-card
+          :key="5"
+          :title="averageLEDV.title"
+          :options="averageLEDV.options"
+          :type="averageLEDV.options.chart.type"
+          :data="averageLEDV.series"
+        />
+      </div>
+      <div class="col-md-12 mb-3">
+        <chart-card
+          :key="6"
+          :title="averageREDV.title"
+          :options="averageREDV.options"
+          :type="averageREDV.options.chart.type"
+          :data="averageREDV.series"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -31,7 +50,7 @@
   import { PieChartBuilder, ColumnChartBuilder,LineChartBuilder } from '../utils/chart';
   import { useHcmStore } from '../stores/hcm';
   const hcmStore = useHcmStore();
-  const totalPatients = hcmStore.docs.length;
+  const totalParticipants = hcmStore.docs.length;
   let withDiabetes = 0;
   let totalAge = 0;
   let MYH7 = 0;
@@ -92,7 +111,7 @@
     }
     const lsv = parseFloat(d.data().lsv);
     if(!isNaN(lsv)){
-      lsvArray.push(d.data().lsv);
+      lsvArray.push(lsv.toFixed(2));
     }
     const rsv = parseFloat(d.data().rsv);
     if(!isNaN(rsv)){
@@ -121,16 +140,16 @@
     }
   });
   const avgAge = computed(()=>{
-    return Math.round(totalAge/totalPatients).toString();
+    return Math.round(totalAge/totalParticipants).toString();
   });
   const diabetesPercentage = computed(() => {
-    return Math.round((withDiabetes/totalPatients) * 100).toString()+'%';
+    return Math.round((withDiabetes/totalParticipants) * 100).toString()+'%';
   });
   const myectomyPercentage = computed(() => {
-    return Math.round((withMyectomy/totalPatients) * 100).toString() + '%';
+    return Math.round((withMyectomy/totalParticipants) * 100).toString() + '%';
   });
   const computedIntegers = [
-    { label:'Total number of participants', value: totalPatients },
+    { label:'Total number of participants', value: totalParticipants },
     { label:'Percentage of participants with diabetes', value: diabetesPercentage.value },
     { label:'Average age of participants at MRI', value: avgAge.value },
     { label:'Percentage of participants who have undergone myectomy', value: myectomyPercentage.value }
@@ -152,7 +171,7 @@
                                         ['MYH7', 'MYBPC3', 'TNNT2', 'ACTC', 'TPM1','TNNCI','TNNI3','MYL2','TNN']
   );
   const diabetics = PieChartBuilder('Diabetics',
-                                    [withDiabetes, totalPatients-withDiabetes],
+                                    [withDiabetes, totalParticipants-withDiabetes],
                                     ['Diabetic', 'Non-Diabetic']
   );
 
@@ -180,10 +199,7 @@
     ageDistribution,
     geneMutations,
     diabetics,
-    hasFibrosis,
-    averageLEDV,
-    averageREDV
-
+    hasFibrosis
   ];
 
 
