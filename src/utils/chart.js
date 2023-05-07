@@ -87,7 +87,7 @@ Returns a configuration object for a line chart
 @param {string} label - The name of the data series
 @returns {object} - A configuration object for a line chart
 */
-export function LineChartBuilder(title,data,label){
+export function LineChartBuilder(title,data,label,interval = 20){
   return {
     title:title,
     options:{
@@ -105,10 +105,13 @@ export function LineChartBuilder(title,data,label){
       },
       xaxis: {
         type: 'category',
-        overwriteCategories: ['1', (data.length)/4, (data.length)/2, (data.length*3)/4, data.length],
         labels: {
           show: true,
-          rotate: 0
+          rotate: 0,
+          formatter: function(value){
+            //specific interval = 20
+            return (value % interval == 0) ? value : '';
+          }
         },
         title: {
           text: 'Participants'
