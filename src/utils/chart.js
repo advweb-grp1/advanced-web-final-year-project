@@ -104,12 +104,11 @@ export function LineChartBuilder(title,data,label){
         enabled: false
       },
       xaxis: {
-        categories: '',
+        type: 'category',
+        overwriteCategories: ['1', (data.length)/4, (data.length)/2, (data.length*3)/4, data.length],
         labels: {
-          show: false,
-          formatter: function(value){
-            return "Particpant " + value;
-          }
+          show: true,
+          rotate: 0
         }
       }
     },
