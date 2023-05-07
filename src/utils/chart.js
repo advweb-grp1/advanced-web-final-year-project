@@ -106,7 +106,10 @@ export function LineChartBuilder(title,data,label){
       xaxis: {
         categories: '',
         labels: {
-          show: false
+          show: false,
+          formatter: function(value){
+            return "Particpant " + value;
+          }
         }
       }
     },
