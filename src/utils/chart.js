@@ -109,6 +109,9 @@ export function LineChartBuilder(title,data,label){
         labels: {
           show: true,
           rotate: 0
+        },
+        title: {
+          text: 'Participants'
         }
       }
     },
