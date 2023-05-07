@@ -109,8 +109,7 @@ export function LineChartBuilder(title,data,label,interval = 20){
           show: true,
           rotate: 0,
           formatter: function(value){
-            //specific interval = 20
-            return (value % interval == 0) ? value : '';
+            return (value % interval == 0 || value == 1) ? value : '';
           }
         },
         title: {
