@@ -112,6 +112,11 @@ export function LineChartBuilder(title,data,label){
         },
         title: {
           text: 'Participants'
+        },
+        tooltip: {
+          formatter: function(value) {
+            return `Partcpant ${value}`;
+          }
         }
       }
     },
