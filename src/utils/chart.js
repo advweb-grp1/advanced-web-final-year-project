@@ -97,13 +97,17 @@ export function LineChartBuilder(title,data,label){
         width:'100%'
       },
       stroke: {
-        curve: 'straight'
+        curve: 'straight',
+        width: 2
       },
       dataLabels: {
         enabled: false
       },
       xaxis: {
-        categories: ''
+        categories: '',
+        labels: {
+          show: false
+        }
       }
     },
     series:  [
